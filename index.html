@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexernoss | Jasa Desain Profesional</title>
+    <link rel="icon" href="https://qu.ax/mQXXo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #1a1a1a;
+            --accent: #fd79a8;
+            --success: #00b894;
+            --bg-color: #1a1a1a;
+            --text-color: #f5f6fa;
+            --card-bg: #2d2d2d;
+            --header-bg: rgba(26, 26, 26, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+            background: var(--secondary);
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 6px 20px rgba(253, 121, 168, 0.4);
+            background: #ff8fab;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 20px 0;
+            background-color: var(--header-bg);
+        }
+        
+        header.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 75px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+            margin-left: 30px;
+        }
+        
+        .auth-buttons .btn {
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3) 0%, rgba(253, 121, 168, 0.3) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            position: relative;
+            height: 500px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            opacity: 0.1;
+            filter: blur(20px);
+            z-index: -1;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+        }
+        
+        .main-image {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
+            border-radius: 20px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+        
+        .floating-image {
+            position: absolute;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .image-1 {
+            width: 120px;
+            height: 120px;
+            top: 0;
+            left: 0;
+            background: url('https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
+            z-index: 2;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .image-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 0;
+            right: 0;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
+            z-index: 2;
+            animation: float 7s ease-in-out infinite 1s;
+        }
+        
+        .image-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: -30px;
+            background: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80') center/cover;
+            z-index: 3;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+        
+        /* Keunggulan Section */
+        .features {
+            background-color: var(--card-bg);
+            position: relative;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            text-align: center;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(253, 121, 168, 0.1) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: #252525;
+            position: relative;
+        }
+        
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--card-bg);
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            height: 250px;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(108, 92, 231, 0.8), rgba(253, 121, 168, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease 0.1s;
+        }
+        
+        .portfolio-overlay a {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease 0.2s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay h3,
+        .portfolio-item:hover .portfolio-overlay p,
+        .portfolio-item:hover .portfolio-overlay a {
+            transform: translateY(0);
+        }
+        
+        .portfolio-overlay a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHBhdGggZD0iTTAgMCBMIDEwMCAxMDAgTSAxMDAgMCBMIDAgMTAwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+            opacity: 0.2;
+        }
+        
+        .testimonials .section-title::after {
+            background: white;
+        }
+        
+        .testimonial-slider {
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 0 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .testimonial-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-content::before,
+        .testimonial-content::after {
+            content: '"';
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.3);
+            position: absolute;
+        }
+        
+        .testimonial-content::before {
+            top: -20px;
+            left: -10px;
+        }
+        
+        .testimonial-content::after {
+            bottom: -40px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .slick-dots {
+            bottom: -50px;
+        }
+        
+        .slick-dots li button:before {
+            color: white;
+            opacity: 0.5;
+            font-size: 10px;
+        }
+        
+        .slick-dots li.slick-active button:before {
+            opacity: 1;
+            color: white;
+        }
+        
+        /* Layanan Section */
+        .pricing {
+            background-color: var(--card-bg);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+        
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: translateY(-10px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(108, 92, 231, 0.2);
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features li i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        /* Cara Order Section */
+        .order-steps {
+            background-color: #252525;
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .step-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .step-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #252525;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p, .contact-text a {
+            color: var(--text-color);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-text a:hover {
+            color: var(--primary);
+            opacity: 1;
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #333;
+            color: var(--text-color);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Comment Section Styles */
+        .comment-section {
+            margin-top: 50px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comment-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .comment-section p.subtitle {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .comments-list {
+            margin-bottom: 40px;
+        }
+        
+        .comment {
+            background: rgba(108, 92, 231, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .comment-author {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: 10px;
+        }
+        
+        .comment-content {
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-left: 55px;
+        }
+        
+        .comment-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .comment-edit, .comment-delete {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .comment-edit:hover {
+            color: var(--primary);
+        }
+        
+        .comment-delete:hover {
+            color: var(--accent);
+        }
+        
+        .comment-form {
+            background: rgba(108, 92, 231, 0.05);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
+        .comment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.comment-form .form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background-color: #333;
+    color: var(--text-color);
+}
+
+.comment-form .form-control:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+}
+        
+        .comment-form h4 {
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+        
+        .comment-as {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+        }
+        
+        .comment-as strong {
+            color: var(--primary);
+        }
+        
+        
+        .comment-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-submit:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .recaptcha-notice {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 15px;
+        }
+        
+        .recaptcha-notice a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+        
+        .notification.success {
+            border-left-color: var(--success);
+        }
+        
+        .notification.error {
+            border-left-color: var(--accent);
+        }
+        
+        .notification i {
+            font-size: 1.5rem;
+        }
+        
+        .notification.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-col p {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: var(--card-bg);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 80px 20px 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mobile-menu .nav-links li {
+            margin: 0;
+        }
+        
+        .mobile-menu .nav-links a {
+            font-size: 1.1rem;
+        }
+        
+        .mobile-menu .auth-buttons {
+            margin: 30px 0 0;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 50px;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                width: 80%;
+                height: 400px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .floating-image {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-slide {
+                padding: 20px;
+            }
+            
+            .comment-section {
+                padding: 20px;
+            }
+            
+            .comment-content {
+                padding-left: 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .mobile-menu {
+                width: 80%;
+                right: -80%;
+            }
+            
+            .mobile-menu.active {
+                right: 0;
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+        
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+        
+        .delay-5 {
+            transition-delay: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo"><img src="https://qu.ax/UaGdl.png" alt="Vexernoss Logo"> </a>
+                <ul class="nav-links">
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#features">Keunggulan</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#testimonials">Testimoni</a></li>
+                    <li><a href="#pricing">Layanan</a></li>
+                    <li><a href="#order">Cara Order</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                    <div class="auth-buttons">
+                        <a href="#" class="btn" id="loginBtn">Masuk</a>
+                        <a href="#" class="btn btn-accent">Daftar</a>
+                    </div>
+                </ul>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
+        <ul class="nav-links">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#features">Keunggulan</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#pricing">Layanan</a></li>
+            <li><a href="#testimonials">Testimoni</a></li>
+            <li><a href="#order">Cara Order</a></li>
+            <li><a href="#contact">Kontak</a></li>
+            <div class="auth-buttons">
+                <a href="#" class="btn" id="mobileLoginBtn">Masuk</a>
+                <a href="#" class="btn btn-accent">Daftar</a>
+            </div>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-grid-538-large.mp4" type="video/mp4">
+        </video>
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Tingkatkan Brand Anda Dengan <span>Desain Menakjubkan</span></h1>
+                    <p>Kami menciptakan desain visual yang memukau untuk meningkatkan brand Anda dan menarik perhatian audiens. Tim kami memberikan hasil terbaik yang disesuaikan dengan kebutuhan unik Anda.</p>
+                    <div class="hero-btns">
+                        <a href="#contact" class="btn">Mulai Sekarang</a>
+                        <a href="#portfolio" class="btn btn-accent">Lihat Karya</a>
+                    </div>
+                </div>
+                <div class="hero-image fade-in delay-1">
+                    <div class="image-container">
+                        <div class="main-image" id="mainImage"></div>
+                        <div class="floating-image image-1"></div>
+                        <div class="floating-image image-2"></div>
+                        <div class="floating-image image-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Keunggulan <span>Kami</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Mengapa memilih jasa desain kami untuk kebutuhan branding dan promosi Anda.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Profesional</h3>
+                    <p>Tim desainer berpengalaman dengan portofolio yang luas di berbagai industri dan jenis desain.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3>Hemat Biaya</h3>
+                    <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3>Garansi Puas</h3>
+                    <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil desain yang kami buat.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Proses Cepat</h3>
+                    <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Dukungan 24/7</h3>
+                    <p>Tim support siap membantu Anda kapan saja melalui WhatsApp dan email.</p>
+                </div>
+                
+                <div class="feature-card fade-in delay-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Source File</h3>
+                    <p>Anda mendapatkan semua file sumber (PSD, AI, dll) setelah proyek selesai.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Portfolio <span>Kami</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px;">Koleksi proyek terbaru kami yang telah membantu berbagai bisnis mencapai tujuan desain mereka.</p>
+            
+            <div class="portfolio-filter fade-in delay-2">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="video">Editing Video</button>
+                <button class="filter-btn" data-filter="graphic">Desain Grafis</button>
+                <button class="filter-btn" data-filter="motion">Motion Graphic</button>
+                <button class="filter-btn" data-filter="ui">UI/UX</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in delay-3" data-category="video">
+                    <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Video Editing Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Seri Travel Vlog</h3>
+                        <p>Editing video untuk travel influencer</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in delay-4" data-category="graphic">
+                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1168&q=80" alt="Graphic Design Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Branding Kafe</h3>
+                        <p>Paket branding lengkap</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in delay-5" data-category="motion">
+                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80" alt="Motion Graphics Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Animasi Promo App</h3>
+                        <p>Video penjelas animasi</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in delay-3" data-category="ui">
+                    <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="UI/UX Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>UI Aplikasi Fitness</h3>
+                        <p>Antarmuka aplikasi mobile</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in delay-4" data-category="video">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Video Editing Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Video Demo Produk</h3>
+                        <p>Showcase produk e-commerce</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in delay-5" data-category="graphic">
+                    <img src="https://images.unsplash.com/photo-1583947581924-a6d5c0c140c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Graphic Design Project" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Seri Poster Event</h3>
+                        <p>Materi promosi untuk festival</p>
+                        <a href="#"><i class="fas fa-expand"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">Testimoni <span>Klien</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px; color: rgba(255, 255, 255, 0.8);">Apa kata klien yang telah menggunakan jasa desain kami.</p>
+            
+            <div class="testimonial-slider fade-in delay-2">
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        Sangat puas dengan hasil editing video dari Vexernoss. Mereka memahami kebutuhan saya sebagai content creator dan memberikan hasil yang melebihi ekspektasi. Proses revisinya juga cepat dan responsif.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-img">
+                        <div class="author-info">
+                            <h4>Sarah Wijaya</h4>
+                            <p>Content Creator</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        Desain logo dan branding untuk kafe saya sangat memukau. Vexernoss mampu menangkap konsep yang saya inginkan dan menerjemahkannya menjadi desain yang profesional dan menarik. Kafe saya sekarang memiliki identitas visual yang kuat.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-img">
+                        <div class="author-info">
+                            <h4>Michael Santoso</h4>
+                            <p>Pemilik Kafe</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        Sebagai startup dengan budget terbatas, saya ragu untuk menggunakan jasa desain profesional. Tapi Vexernoss memberikan nilai yang luar biasa. Desain aplikasi kami membantu menarik investor pertama dan pengguna awal.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez" class="author-img">
+                        <div class="author-info">
+                            <h4>Emily Putri</h4>
+                            <p>Founder Startup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Layanan Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title fade-in">Paket <span>Layanan</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Pilihan paket layanan kami untuk berbagai kebutuhan desain Anda.</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in delay-2">
+                    <h3>Basic</h3>
+                    <div class="price">Rp150.000 <span>/proyek</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Editing video (1-6 menit)</li>
+                        <li><i class="fas fa-check"></i> Koreksi warna dasar</li>
+                        <li><i class="fas fa-check"></i> Transisi sederhana</li>
+                        <li><i class="fas fa-check"></i> 1 revisi</li>
+                        <li><i class="fas fa-check"></i> Pengiriman 2 hari</li>
+                        <li><i class="fas fa-check"></i> Format media sosial</li>
+                    </ul>
+                    <a href="#contact" class="btn">Pesan Sekarang</a>
+                </div>
+                
+                <div class="pricing-card popular fade-in delay-3">
+                    <div class="popular-badge">Paling Laris</div>
+                    <h3>Standard</h3>
+                    <div class="price">Rp250.000 <span>/proyek</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Editing video (hingga 10 menit)</li>
+                        <li><i class="fas fa-check"></i> Grading warna lanjutan</li>
+                        <li><i class="fas fa-check"></i> Transisi custom</li>
+                        <li><i class="fas fa-check"></i> Motion graphic dasar</li>
+                        <li><i class="fas fa-check"></i> 2 revisi</li>
+                        <li><i class="fas fa-check"></i> Pengiriman 1-2 hari</li>
+                        <li><i class="fas fa-check"></i> Beberapa format output</li>
+                    </ul>
+                    <a href="#contact" class="btn">Pesan Sekarang</a>
+                </div>
+                
+                <div class="pricing-card fade-in delay-4">
+                    <h3>Premium</h3>
+                    <div class="price">Rp350.000 <span>/proyek</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Editing video (hingga 15 menit)</li>
+                        <li><i class="fas fa-check"></i> Grading warna profesional</li>
+                        <li><i class="fas fa-check"></i> Motion graphic lanjutan</li>
+                        <li><i class="fas fa-check"></i> Animasi custom</li>
+                        <li><i class="fas fa-check"></i> Revisi tanpa batas</li>
+                        <li><i class="fas fa-check"></i> Pengiriman 24 jam</li>
+                        <li><i class="fas fa-check"></i> Semua format output</li>
+                        <li><i class="fas fa-check"></i> File sumber included</li>
+                    </ul>
+                    <a href="#contact" class="btn">Pesan Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cara Order Section -->
+    <section class="order-steps" id="order">
+        <div class="container">
+            <h2 class="section-title fade-in">Cara <span>Order</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Proses mudah untuk memesan jasa desain dari kami.</p>
+            
+            <div class="steps-container">
+                <div class="step-card fade-in delay-2">
+                    <div class="step-number">1</div>
+                    <h3>Pilih Paket</h3>
+                    <p>Pilih paket layanan yang sesuai dengan kebutuhan Anda. Konsultasi gratis tanpa biaya.</p>
+                </div>
+                
+                <div class="step-card fade-in delay-3">
+                    <div class="step-number">2</div>
+                    <h3>Isi Formulir</h3>
+                    <p>Isi formulir pemesanan dengan detail kebutuhan Anda. Kami akan menghubungi via WhatsApp.</p>
+                </div>
+                
+                <div class="step-card fade-in delay-4">
+                    <div class="step-number">3</div>
+                    <h3>Lihat Hasil Edit</h3>
+                    <p>Anda bisa meminta revisi sampai puas dengan hasil desain yang kami buat.</p>
+                </div>
+                
+                <div class="step-card fade-in delay-5">
+                    <div class="step-number">4</div>
+                    <h3>Terima Hasil Jadi</h3>
+                    <p>Setelah final, file akan dikirim melalui WhatsApp atau email sesuai preferensi Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Hubungi <span>Kami</span></h2>
+            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Siap memulai proyek Anda atau ada pertanyaan tentang layanan kami? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
+            
+            <div class="contact-container">
+                <div class="contact-info fade-in delay-2">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Lokasi Kami</h3>
+                            <p>Jl. Pam 2 RT 10 RW 08 no.08 Kelurahan Cempaka Baru Kecamatan Kemayoran</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email Kami</h3>
+                            <a href="mailto:syafiq100308@gmail.com">syafiq100308@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Telepon Kami</h3>
+                            <a href="tel:+6285692602660">+62 856-9260-2660</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Jam Kerja</h3>
+                            <p>Senin - Minggu: 15:00 - 23:00 WIB</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in delay-3">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subjek">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Pesan Anda" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Comment Section -->
+            <div class="comment-section fade-in delay-4">
+                <h3>Komentar</h3>
+                <p class="subtitle">Kami senang mendengar dari Anda</p>
+                
+                <div class="comments-list" id="commentsList">
+                    <!-- Komentar akan dimuat di sini -->
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-avatar">A</div>
+                            <div class="comment-author">Admin Bejir</div>
+                            <div class="comment-date">9/4/2023, 6:40:20 AM</div>
+                        </div>
+                        <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+                    </div>
+                </div>
+                
+                <div class="comment-form">
+    <h4>POST A COMMENT</h4>
+    <form id="commentForm">
+        <div class="form-group">
+            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
+        </div>
+        <button type="submit" class="comment-submit">PUBLISH</button>
+    </form>
+    <div class="recaptcha-notice">
+        This site is protected by reCAPTCHA and the Google 
+        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
+        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+    </div>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <p><b>Kami menciptakan desain menakjubkan yang membantu bisnis menonjol dan terhubung dengan audiens mereka.</b></p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Layanan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Editing Video</a></li>
+                        <li><a href="#">Desain Grafis</a></li>
+                        <li><a href="#">Motion Graphic</a></li>
+                        <li><a href="#">Desain Cetak</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Tautan Cepat</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#features">Keunggulan</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#testimonials">Testimoni</a></li>
+                        <li><a href="#pricing">Layanan</a></li>
+                        <li><a href="#order">Cara Order</a></li>
+                        <li><a href="#contact">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Berlangganan newsletter kami untuk tips desain dan penawaran spesial.</p>
+                    <form class="newsletter-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Anda" required>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Berlangganan</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Vexernoss Studio. Semua Hak Dilindungi. | <a href="#" style="color: var(--secondary);">Kebijakan Privasi</a> | <a href="#" style="color: var(--secondary);">Syarat Layanan</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+        
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Portfolio Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Testimonial Slider
+        $(document).ready(function(){
+            $('.testimonial-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                arrows: false
+            });
+        });
+        
+        // Image Parallax Effect
+        const mainImage = document.getElementById('mainImage');
+        
+        if (mainImage) {
+            window.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+        }
+        
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        
+        fadeElements.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+        
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = this.querySelector('input[type="text"]').value;
+                const email = this.querySelector('input[type="email"]').value;
+                const subject = this.querySelector('input[placeholder="Subjek"]').value;
+                const message = this.querySelector('textarea').value;
+                
+                // Here you would typically send the data to a server
+                // For demo purposes, we'll just show an alert
+                showNotification(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
+                
+                // Reset form
+                this.reset();
+            });
+        }
+        
+        // Comment System
+const commentForm = document.getElementById('commentForm');
+const commentsList = document.getElementById('commentsList');
+
+// Function to show notification
+function showNotification(message, isSuccess = true) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+    notification.innerHTML = `
+        <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animasi muncul
+    setTimeout(() => {
+        notification.classList.add('active');
+    }, 100);
+    
+    // Hilangkan setelah 3 detik
+    setTimeout(() => {
+        notification.classList.remove('active');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Function to generate a unique ID for each comment
+function generateCommentId() {
+    return 'comment-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+}
+
+// Function to display comments
+function displayComments() {
+    // Get comments from localStorage
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    const commentsList = document.getElementById('commentsList');
+    
+    // Clear comments list
+    commentsList.innerHTML = '';
+    
+    // Add each comment to the list
+    comments.forEach(comment => {
+        const firstLetter = comment.author.charAt(0).toUpperCase();
+        
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.dataset.commentId = comment.id;
+        commentDiv.innerHTML = `
+            <div class="comment-header">
+                <div class="comment-avatar">${firstLetter}</div>
+                <div class="comment-author">${comment.author}</div>
+                <div class="comment-date">${comment.date}</div>
+                <div class="comment-actions">
+                    <button class="comment-edit" data-comment-id="${comment.id}"><i class="fas fa-edit"></i></button>
+                    <button class="comment-delete" data-comment-id="${comment.id}"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="comment-content">${comment.content}</div>
+        `;
+        commentsList.appendChild(commentDiv);
+    });
+    
+    // Add event listeners to edit and delete buttons
+    document.querySelectorAll('.comment-edit').forEach(btn => {
+        btn.addEventListener('click', handleEditComment);
+    });
+    
+    document.querySelectorAll('.comment-delete').forEach(btn => {
+        btn.addEventListener('click', handleDeleteComment);
+    });
+}
+
+// Function to handle comment submission
+function handleCommentSubmit(e) {
+    e.preventDefault();
+    
+    const commentName = document.getElementById('commentName').value.trim();
+    const commentText = document.getElementById('commentText').value.trim();
+    
+    if (commentName && commentText) {
+        // Create new comment object
+        const newComment = {
+            id: generateCommentId(),
+            author: commentName,
+            date: new Date().toLocaleString(),
+            content: commentText
+        };
+        
+        // Get existing comments from localStorage
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        
+        // Add new comment at the beginning
+        comments.unshift(newComment);
+        
+        // Save back to localStorage
+        localStorage.setItem('comments', JSON.stringify(comments));
+        
+        // Update comments display
+        displayComments();
+        
+        // Reset form
+        document.getElementById('commentForm').reset();
+        
+        // Show success message
+        showNotification('Komentar Anda telah dipublikasikan!');
+    } else {
+        showNotification('Harap isi nama dan komentar!', false);
+    }
+}
+
+// Function to handle comment edit
+function handleEditComment(e) {
+    const commentId = e.target.closest('button').dataset.commentId;
+    const comments = JSON.parse(localStorage.getItem('comments')) || [];
+    const commentIndex = comments.findIndex(c => c.id === commentId);
+    
+    if (commentIndex !== -1) {
+        const comment = comments[commentIndex];
+        const newName = prompt('Edit nama Anda:', comment.author);
+        if (newName !== null && newName.trim() !== '') {
+            const newContent = prompt('Edit komentar Anda:', comment.content);
+            if (newContent !== null && newContent.trim() !== '') {
+                comments[commentIndex] = {
+                    ...comment,
+                    author: newName.trim(),
+                    content: newContent.trim(),
+                    date: new Date().toLocaleString()
+                };
+                localStorage.setItem('comments', JSON.stringify(comments));
+                displayComments();
+                showNotification('Komentar berhasil diperbarui!');
+            }
+        }
+    }
+}
+
+// Function to handle comment deletion
+function handleDeleteComment(e) {
+    if (confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
+        const commentId = e.target.closest('button').dataset.commentId;
+        const comments = JSON.parse(localStorage.getItem('comments')) || [];
+        const updatedComments = comments.filter(c => c.id !== commentId);
+        
+        localStorage.setItem('comments', JSON.stringify(updatedComments));
+        displayComments();
+        showNotification('Komentar berhasil dihapus!');
+    }
+}
+
+// Load comments when page loads
+window.addEventListener('DOMContentLoaded', () => {
+    // Initialize comments if none exist
+    if (!localStorage.getItem('comments')) {
+        const initialComment = {
+            id: generateCommentId(),
+            author: 'Admin',
+            date: new Date().toLocaleString(),
+            content: 'Selamat datang di situs kami! Silakan tinggalkan komentar.'
+        };
+        localStorage.setItem('comments', JSON.stringify([initialComment]));
+    }
+    
+    displayComments();
+});
+
+// Add event listener to comment form
+if (commentForm) {
+    commentForm.addEventListener('submit', handleCommentSubmit);
+}
+        
+        // Mobile menu toggle animation
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
