@@ -2057,155 +2057,94 @@ function showNotification(message, isSuccess = true) {
     }, 3000);
 }
 
-// Function to generate a unique ID for each comment
-function generateCommentId() {
-    return 'comment-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+// GitHub API Configuration
+const GITHUB_USERNAME = 'SyafiqRendiya';
+const GITHUB_REPO = 'https://github.com/SyafiqRendiya/vexernoss-comments';
+const GITHUB_TOKEN = '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'; // Generate di GitHub Settings > Developer settings > Personal access tokens
+
+// Function to post comment to GitHub Issues
+async function postCommentToGitHub(name, comment) {
+    const issueTitle = `Komentar dari ${name}`;
+    const issueBody = comment;
+    
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+            title: issueTitle,
+            body: issueBody,
+            labels: ['comment']
+        })
+    });
+    
+    return await response.json();
 }
 
-// Function to display comments
-function displayComments() {
-    // Get comments from localStorage
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    const commentsList = document.getElementById('commentsList');
-    
-    // Clear comments list
-    commentsList.innerHTML = '';
-    
-    // Add each comment to the list
-    comments.forEach(comment => {
-        const firstLetter = comment.author.charAt(0).toUpperCase();
-        
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment';
-        commentDiv.dataset.commentId = comment.id;
-        commentDiv.innerHTML = `
-            <div class="comment-header">
-                <div class="comment-avatar">${firstLetter}</div>
-                <div class="comment-author">${comment.author}</div>
-                <div class="comment-date">${comment.date}</div>
-                <div class="comment-actions">
-                    <button class="comment-edit" data-comment-id="${comment.id}"><i class="fas fa-edit"></i></button>
-                    <button class="comment-delete" data-comment-id="${comment.id}"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-            <div class="comment-content">${comment.content}</div>
-        `;
-        commentsList.appendChild(commentDiv);
-    });
-    
-    // Add event listeners to edit and delete buttons
-    document.querySelectorAll('.comment-edit').forEach(btn => {
-        btn.addEventListener('click', handleEditComment);
-    });
-    
-    document.querySelectorAll('.comment-delete').forEach(btn => {
-        btn.addEventListener('click', handleDeleteComment);
-    });
+// Function to get comments from GitHub Issues
+async function getCommentsFromGitHub() {
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?labels=comment&state=all`);
+    return await response.json();
 }
 
-// Function to handle comment submission
-function handleCommentSubmit(e) {
+// Modified comment form handler
+async function handleCommentSubmit(e) {
     e.preventDefault();
     
     const commentName = document.getElementById('commentName').value.trim();
     const commentText = document.getElementById('commentText').value.trim();
     
     if (commentName && commentText) {
-        // Create new comment object
-        const newComment = {
-            id: generateCommentId(),
-            author: commentName,
-            date: new Date().toLocaleString(),
-            content: commentText
-        };
-        
-        // Get existing comments from localStorage
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        
-        // Add new comment at the beginning
-        comments.unshift(newComment);
-        
-        // Save back to localStorage
-        localStorage.setItem('comments', JSON.stringify(comments));
-        
-        // Update comments display
-        displayComments();
-        
-        // Reset form
-        document.getElementById('commentForm').reset();
-        
-        // Show success message
-        showNotification('Komentar Anda telah dipublikasikan!');
+        try {
+            await postCommentToGitHub(commentName, commentText);
+            displayComments();
+            document.getElementById('commentForm').reset();
+            showNotification('Komentar Anda telah dipublikasikan!');
+        } catch (error) {
+            console.error('Error:', error);
+            showNotification('Gagal memposting komentar', false);
+        }
     } else {
         showNotification('Harap isi nama dan komentar!', false);
     }
 }
 
-// Function to handle comment edit
-function handleEditComment(e) {
-    const commentId = e.target.closest('button').dataset.commentId;
-    const comments = JSON.parse(localStorage.getItem('comments')) || [];
-    const commentIndex = comments.findIndex(c => c.id === commentId);
-    
-    if (commentIndex !== -1) {
-        const comment = comments[commentIndex];
-        const newName = prompt('Edit nama Anda:', comment.author);
-        if (newName !== null && newName.trim() !== '') {
-            const newContent = prompt('Edit komentar Anda:', comment.content);
-            if (newContent !== null && newContent.trim() !== '') {
-                comments[commentIndex] = {
-                    ...comment,
-                    author: newName.trim(),
-                    content: newContent.trim(),
-                    date: new Date().toLocaleString()
-                };
-                localStorage.setItem('comments', JSON.stringify(comments));
-                displayComments();
-                showNotification('Komentar berhasil diperbarui!');
-            }
-        }
-    }
-}
-
-// Function to handle comment deletion
-function handleDeleteComment(e) {
-    if (confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-        const commentId = e.target.closest('button').dataset.commentId;
-        const comments = JSON.parse(localStorage.getItem('comments')) || [];
-        const updatedComments = comments.filter(c => c.id !== commentId);
+// Modified display comments function
+async function displayComments() {
+    try {
+        const comments = await getCommentsFromGitHub();
+        const commentsList = document.getElementById('commentsList');
         
-        localStorage.setItem('comments', JSON.stringify(updatedComments));
-        displayComments();
-        showNotification('Komentar berhasil dihapus!');
+        commentsList.innerHTML = '';
+        
+        comments.forEach(comment => {
+            const firstLetter = comment.user?.login?.charAt(0).toUpperCase() || 'A';
+            const authorName = comment.user?.login || 'Anonymous';
+            const date = new Date(comment.created_at).toLocaleString();
+            
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${firstLetter}</div>
+                    <div class="comment-author">${authorName}</div>
+                    <div class="comment-date">${date}</div>
+                </div>
+                <div class="comment-content">${comment.body}</div>
+            `;
+            commentsList.appendChild(commentDiv);
+        });
+    } catch (error) {
+        console.error('Error loading comments:', error);
     }
 }
 
 // Load comments when page loads
-window.addEventListener('DOMContentLoaded', () => {
-    // Initialize comments if none exist
-    if (!localStorage.getItem('comments')) {
-        const initialComment = {
-            id: generateCommentId(),
-            author: 'Admin',
-            date: new Date().toLocaleString(),
-            content: 'Selamat datang di situs kami! Silakan tinggalkan komentar.'
-        };
-        localStorage.setItem('comments', JSON.stringify([initialComment]));
-    }
-    
-    displayComments();
-});
+window.addEventListener('DOMContentLoaded', displayComments);
 
-// Add event listener to comment form
-if (commentForm) {
-    commentForm.addEventListener('submit', handleCommentSubmit);
-}
-        
-        // Mobile menu toggle animation
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-        
     </script>
 </body>
 </html>
