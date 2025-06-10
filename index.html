@@ -1950,991 +1950,259 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
     <script>
-        // Mobile Navigation
-        const hamburger = document.querySelector('.hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMenu = document.getElementById('closeMenu');
+        <script>
+// Mobile Navigation
+const hamburger = document.querySelector('.hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+
+hamburger.addEventListener('click', () => {
+    mobileMenu.classList.add('active');
+    document.body.style.overflow = 'hidden';
+});
+
+closeMenu.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+});
+
+// Sticky Header
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
         
-        hamburger.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        
+        window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
         });
+    });
+});
+
+// Back to Top Button
+const backToTopBtn = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('active');
+    } else {
+        backToTopBtn.classList.remove('active');
+    }
+});
+
+backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Portfolio Filter
+const filterBtns = document.querySelectorAll('.filter-btn');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
         
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+        const filter = btn.getAttribute('data-filter');
         
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        // Sticky Header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-        
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('active');
+        portfolioItems.forEach(item => {
+            if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                item.style.display = 'block';
             } else {
-                backToTopBtn.classList.remove('active');
+                item.style.display = 'none';
             }
         });
-        
-        backToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Portfolio Filter
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const filter = btn.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Testimonial Slider
-        $(document).ready(function(){
-            $('.testimonial-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                arrows: false
-            });
-        });
-        
-        // Image Parallax Effect
-        const mainImage = document.getElementById('mainImage');
-        
-        if (mainImage) {
-            window.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-                mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-        }
-        
-        // Scroll Animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const appearOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('active');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-        
-        fadeElements.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-        
-        // Form Submission
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = this.querySelector('input[type="text"]').value;
-                const email = this.querySelector('input[type="email"]').value;
-                const subject = this.querySelector('input[placeholder="Subjek"]').value;
-                const message = this.querySelector('textarea').value;
-                
-                // Here you would typically send the data to a server
-                // For demo purposes, we'll just show an alert
-                showNotification(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
-                
-                // Reset form
-                this.reset();
-            });
-        }
+    });
+});
 
-        // Comment System
-        const commentForm = document.getElementById('commentForm');
-        const commentsList = document.getElementById('commentsList');
-        
-        // Function to show notification
-        function showNotification(message, isSuccess = true) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
-            notification.innerHTML = `
-                <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('active');
-            }, 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('active');
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-        }
-        
-        // GitHub API Configuration
-        const GITHUB_USERNAME = 'SyafiqRendiya';
-        const GITHUB_REPO = 'vexernoss-comments';
-        // HARAP BUAT TOKEN BARU DAN SIMPAN SECARA AMAN
-        const GITHUB_TOKEN = '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'; 
-        
-        // Function to generate a unique ID for each comment
-        function generateCommentId() {
-            return 'comment-' + Math.random().toString(36).substr(2, 9);
-        }
-        
-        // Function to format date
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleString();
-        }
-        
-        // Function to calculate time remaining for editing (60 minutes)
-        function getTimeRemaining(createdAt) {
-            const createdTime = new Date(createdAt).getTime();
-            const currentTime = new Date().getTime();
-            const timePassed = (currentTime - createdTime) / (1000 * 60); // in minutes
-            const timeRemaining = Math.max(0, 60 - timePassed);
-            
-            if (timeRemaining <= 0) return "Waktu edit habis";
-            
-            const hours = Math.floor(timeRemaining / 60);
-            const minutes = Math.floor(timeRemaining % 60);
-            
-            if (hours > 0) {
-                return `${hours} jam ${minutes} menit tersisa`;
-            } else {
-                return `${minutes} menit tersisa`;
-            }
-        }
-        
-        // Function to post comment to GitHub Issues
-        async function postCommentToGitHub(name, comment, parentId = null) {
-            const issueTitle = `Komentar dari ${name}`;
-            let issueBody = comment;
-            
-            // Add metadata to the comment body
-            const commentId = generateCommentId();
-            const metadata = {
-                id: commentId,
-                author: name,
-                createdAt: new Date().toISOString(),
-                parentId: parentId
-            };
-            
-            issueBody += `\n\n<!-- METADATA: ${JSON.stringify(metadata)} -->`;
-            
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                body: JSON.stringify({
-                    title: issueTitle,
-                    body: issueBody,
-                    labels: ['comment']
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error('Gagal memposting komentar');
-            }
-            
-            return await response.json();
-        }
-        
-        // Function to update comment on GitHub
-        async function updateCommentOnGitHub(commentId, newContent) {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues/${commentId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                body: JSON.stringify({
-                    body: newContent
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error('Gagal mengupdate komentar');
-            }
-            
-            return await response.json();
-        }
-        
-        // Function to delete comment on GitHub (by closing the issue)
-        async function deleteCommentOnGitHub(commentId) {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues/${commentId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Authorization': `token ${GITHUB_TOKEN}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/vnd.github.v3+json'
-                },
-                body: JSON.stringify({
-                    state: 'closed'
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error('Gagal menghapus komentar');
-            }
-            
-            return await response.json();
-        }
-        
-        // Function to get comments from GitHub Issues
-        async function getCommentsFromGitHub() {
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?labels=comment&state=all`);
-            
-            if (!response.ok) {
-                throw new Error('Gagal mengambil komentar');
-            }
-            
-            return await response.json();
-        }
-        
-        // Function to parse metadata from comment body
-        function parseCommentMetadata(commentBody) {
-            const metadataMatch = commentBody.match(/<!-- METADATA: ({.+?}) -->/);
-            if (metadataMatch) {
-                try {
-                    return JSON.parse(metadataMatch[1]);
-                } catch (e) {
-                    console.error('Error parsing metadata:', e);
-                    return null;
-                }
-            }
-            return null;
-        }
-        
-        // Function to extract comment text without metadata
-        function getCommentText(commentBody) {
-            return commentBody.replace(/<!-- METADATA: ({.+?}) -->/, '').trim();
-        }
-        
-        // Function to create a comment element
-        function createCommentElement(commentData, isReply = false) {
-            const metadata = parseCommentMetadata(commentData.body) || {};
-            const commentText = getCommentText(commentData.body);
-            const commentId = metadata.id || generateCommentId();
-            const authorName = metadata.author || commentData.user?.login || 'Anonymous';
-            const createdAt = metadata.createdAt || commentData.created_at;
-            const parentId = metadata.parentId || null;
-            
-            const firstLetter = authorName.charAt(0).toUpperCase();
-            const date = formatDate(createdAt);
-            
-            const commentDiv = document.createElement('div');
-            commentDiv.className = `comment ${isReply ? 'reply' : ''}`;
-            commentDiv.id = commentId;
-            commentDiv.dataset.createdAt = createdAt;
-            commentDiv.dataset.author = authorName;
-            
-            // Check if current user is the author (using localStorage)
-            const currentUser = localStorage.getItem('currentCommentUser');
-            const isAuthor = currentUser && currentUser === authorName;
-            
-            // Check if comment is still editable (within 60 minutes)
-            const isEditable = isAuthor && (new Date().getTime() - new Date(createdAt).getTime()) < (60 * 60 * 1000);
-            
-            commentDiv.innerHTML = `
-                <div class="comment-header">
-                    <div class="comment-avatar">${firstLetter}</div>
-                    <div class="comment-author">${authorName} ${isAuthor ? '<span class="comment-author-badge">Anda</span>' : ''}</div>
-                    <div class="comment-date">${date}</div>
-                    ${isAuthor ? `
-                    <div class="comment-actions">
-                        <button class="reply-btn" title="Balas"><i class="fas fa-reply"></i></button>
-                        ${isEditable ? `
-                        <button class="edit-btn" title="Edit"><i class="fas fa-edit"></i></button>
-                        <span class="comment-time-left">${getTimeRemaining(createdAt)}</span>
-                        ` : ''}
-                        <button class="delete-btn" title="Hapus"><i class="fas fa-trash"></i></button>
-                    </div>
-                    ` : `
-                    <div class="comment-actions">
-                        <button class="reply-btn" title="Balas"><i class="fas fa-reply"></i></button>
-                    </div>
-                    `}
-                </div>
-                <div class="comment-content">${commentText}</div>
-                <div class="comment-edit-form">
-                    <textarea class="form-control">${commentText}</textarea>
-                    <div class="comment-edit-buttons">
-                        <button class="btn btn-accent save-edit">Simpan</button>
-                        <button class="btn cancel-edit">Batal</button>
-                    </div>
-                </div>
-                <div class="comment-replies"></div>
-                <div class="reply-form">
-                    <textarea class="form-control" placeholder="Tulis balasan Anda..."></textarea>
-                    <div class="comment-edit-buttons">
-                        <button class="btn btn-accent submit-reply">Kirim</button>
-                        <button class="btn cancel-reply">Batal</button>
-                    </div>
-                </div>
-            `;
-            
-            return commentDiv;
-        }
-        
-        // Function to display comments
-        async function displayComments() {
-            try {
-                const comments = await getCommentsFromGitHub();
-                commentsList.innerHTML = '';
-                
-                // Add admin comment
-                commentsList.innerHTML += `
-                    <div class="comment" id="adminComment">
-                        <div class="comment-header">
-                            <div class="comment-avatar">A</div>
-                            <div class="comment-author">Admin Bejir</div>
-                            <div class="comment-date">9/4/2023, 6:40:20 AM</div>
-                        </div>
-                        <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
-                    </div>
-                `;
-                
-                // Organize comments into parent and replies
-                const parentComments = [];
-                const replies = [];
-                
-                comments.forEach(comment => {
-                    const metadata = parseCommentMetadata(comment.body);
-                    if (metadata) {
-                        if (metadata.parentId) {
-                            replies.push(comment);
-                        } else {
-                            parentComments.push(comment);
-                        }
-                    } else {
-                        parentComments.push(comment);
-                    }
-                });
-                
-                // Sort by date (newest first)
-                parentComments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-                
-                // Display parent comments
-                parentComments.forEach(comment => {
-                    const commentElement = createCommentElement(comment);
-                    commentsList.appendChild(commentElement);
-                });
-                
-                // Display replies
-                replies.forEach(reply => {
-                    const metadata = parseCommentMetadata(reply.body);
-                    if (metadata && metadata.parentId) {
-                        const parentComment = document.getElementById(metadata.parentId);
-                        if (parentComment) {
-                            let repliesContainer = parentComment.querySelector('.comment-replies');
-                            if (!repliesContainer) {
-                                repliesContainer = document.createElement('div');
-                                repliesContainer.className = 'comment-replies';
-                                parentComment.appendChild(repliesContainer);
-                            }
-                            const replyElement = createCommentElement(reply, true);
-                            repliesContainer.appendChild(replyElement);
-                        }
-                    }
-                });
-                
-                // Set up event listeners for all comment actions
-                setupCommentEventListeners();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Gagal memuat komentar', false);
-            }
-        }
-        
-        // Function to set up event listeners for comment actions
-        function setupCommentEventListeners() {
-            // Reply button
-            document.querySelectorAll('.reply-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const replyForm = comment.querySelector('.reply-form');
-                    const allReplyForms = document.querySelectorAll('.reply-form');
-                    
-                    // Hide all other reply forms
-                    allReplyForms.forEach(form => {
-                        if (form !== replyForm) form.classList.remove('active');
-                    });
-                    
-                    // Toggle this reply form
-                    replyForm.classList.toggle('active');
-                    
-                    // Focus on textarea when form is shown
-                    if (replyForm.classList.contains('active')) {
-                        replyForm.querySelector('textarea').focus();
-                    }
-                });
-            });
-            
-            // Submit reply
-            document.querySelectorAll('.submit-reply').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const replyForm = this.closest('.reply-form');
-                    const textarea = replyForm.querySelector('textarea');
-                    const replyText = textarea.value.trim();
-                    const parentComment = replyForm.closest('.comment');
-                    const parentId = parentComment.id;
-                    
-                    if (!replyText) {
-                        showNotification('Harap isi balasan Anda!', false);
-                        return;
-                    }
-                    
-                    const commentName = localStorage.getItem('currentCommentUser') || 
-                                        document.getElementById('commentName')?.value || 
-                                        'Anonymous';
-                    
-                    try {
-                        showNotification('Mengirim balasan...', true);
-                        
-                        // Post the reply to GitHub
-                        const newReply = await postCommentToGitHub(commentName, replyText, parentId);
-                        
-                        // Reset form
-                        textarea.value = '';
-                        replyForm.classList.remove('active');
-                        
-                        // Create and add the new reply element
-                        const replyElement = createCommentElement(newReply, true);
-                        
-                        let repliesContainer = parentComment.querySelector('.comment-replies');
-                        if (!repliesContainer) {
-                            repliesContainer = document.createElement('div');
-                            repliesContainer.className = 'comment-replies';
-                            parentComment.appendChild(repliesContainer);
-                        }
-                        
-                        repliesContainer.appendChild(replyElement);
-                        
-                        // Set up event listeners for the new reply
-                        setupCommentEventListenersForElement(replyElement);
-                        
-                        showNotification('Balasan berhasil dikirim!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal mengirim balasan', false);
-                    }
-                });
-            });
-            
-            // Cancel reply
-            document.querySelectorAll('.cancel-reply').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const replyForm = this.closest('.reply-form');
-                    replyForm.querySelector('textarea').value = '';
-                    replyForm.classList.remove('active');
-                });
-            });
-            
-            // Edit button
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    
-                    content.style.display = 'none';
-                    editForm.classList.add('active');
-                    editForm.querySelector('textarea').focus();
-                });
-            });
-            
-            // Save edit
-            document.querySelectorAll('.save-edit').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    const newText = editForm.querySelector('textarea').value.trim();
-                    const commentId = comment.id;
-                    
-                    if (!newText) {
-                        showNotification('Komentar tidak boleh kosong!', false);
-                        return;
-                    }
-                    
-                    try {
-                        showNotification('Menyimpan perubahan...', true);
-                        
-                        // Get the original comment data
-                        const comments = await getCommentsFromGitHub();
-                        const originalComment = comments.find(c => {
-                            const metadata = parseCommentMetadata(c.body);
-                            return metadata && metadata.id === commentId;
-                        });
-                        
-                        if (!originalComment) {
-                            throw new Error('Komentar tidak ditemukan');
-                        }
-                        
-                        // Update the comment on GitHub
-                        const metadata = parseCommentMetadata(originalComment.body);
-                        const updatedBody = `${newText}\n\n<!-- METADATA: ${JSON.stringify(metadata)} -->`;
-                        
-                        await updateCommentOnGitHub(originalComment.number, updatedBody);
-                        
-                        // Update the UI
-                        content.textContent = newText;
-                        content.style.display = 'block';
-                        editForm.classList.remove('active');
-                        
-                        showNotification('Perubahan berhasil disimpan!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal menyimpan perubahan', false);
-                    }
-                });
-            });
-            
-            // Cancel edit
-            document.querySelectorAll('.cancel-edit').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    
-                    editForm.querySelector('textarea').value = content.textContent;
-                    content.style.display = 'block';
-                    editForm.classList.remove('active');
-                });
-            });
-            
-            // Delete button
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-                        return;
-                    }
-                    
-                    const comment = this.closest('.comment');
-                    const commentId = comment.id;
-                    
-                    try {
-                        showNotification('Menghapus komentar...', true);
-                        
-                        // Find the comment in GitHub issues
-                        const comments = await getCommentsFromGitHub();
-                        const commentToDelete = comments.find(c => {
-                            const metadata = parseCommentMetadata(c.body);
-                            return metadata && metadata.id === commentId;
-                        });
-                        
-                        if (!commentToDelete) {
-                            throw new Error('Komentar tidak ditemukan');
-                        }
-                        
-                        // Delete the comment by closing the issue
-                        await deleteCommentOnGitHub(commentToDelete.number);
-                        
-                        // Remove from UI
-                        comment.remove();
-                        
-                        showNotification('Komentar berhasil dihapus!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal menghapus komentar', false);
-                    }
-                });
-            });
-        }
-        
-        // Function to set up event listeners for a specific comment element
-        function setupCommentEventListenersForElement(commentElement) {
-            // Reply button
-            const replyBtn = commentElement.querySelector('.reply-btn');
-            if (replyBtn) {
-                replyBtn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const replyForm = comment.querySelector('.reply-form');
-                    const allReplyForms = document.querySelectorAll('.reply-form');
-                    
-                    // Hide all other reply forms
-                    allReplyForms.forEach(form => {
-                        if (form !== replyForm) form.classList.remove('active');
-                    });
-                    
-                    // Toggle this reply form
-                    replyForm.classList.toggle('active');
-                    
-                    // Focus on textarea when form is shown
-                    if (replyForm.classList.contains('active')) {
-                        replyForm.querySelector('textarea').focus();
-                    }
-                });
-            }
-            
-            // Submit reply
-            const submitReplyBtn = commentElement.querySelector('.submit-reply');
-            if (submitReplyBtn) {
-                submitReplyBtn.addEventListener('click', async function() {
-                    const replyForm = this.closest('.reply-form');
-                    const textarea = replyForm.querySelector('textarea');
-                    const replyText = textarea.value.trim();
-                    const parentComment = replyForm.closest('.comment');
-                    const parentId = parentComment.id;
-                    
-                    if (!replyText) {
-                        showNotification('Harap isi balasan Anda!', false);
-                        return;
-                    }
-                    
-                    const commentName = localStorage.getItem('currentCommentUser') || 
-                                        document.getElementById('commentName')?.value || 
-                                        'Anonymous';
-                    
-                    try {
-                        showNotification('Mengirim balasan...', true);
-                        
-                        // Post the reply to GitHub
-                        const newReply = await postCommentToGitHub(commentName, replyText, parentId);
-                        
-                        // Reset form
-                        textarea.value = '';
-                        replyForm.classList.remove('active');
-                        
-                        // Create and add the new reply element
-                        const replyElement = createCommentElement(newReply, true);
-                        
-                        let repliesContainer = parentComment.querySelector('.comment-replies');
-                        if (!repliesContainer) {
-                            repliesContainer = document.createElement('div');
-                            repliesContainer.className = 'comment-replies';
-                            parentComment.appendChild(repliesContainer);
-                        }
-                        
-                        repliesContainer.appendChild(replyElement);
-                        
-                        // Set up event listeners for the new reply
-                        setupCommentEventListenersForElement(replyElement);
-                        
-                        showNotification('Balasan berhasil dikirim!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal mengirim balasan', false);
-                    }
-                });
-            }
-            
-            // Cancel reply
-            const cancelReplyBtn = commentElement.querySelector('.cancel-reply');
-            if (cancelReplyBtn) {
-                cancelReplyBtn.addEventListener('click', function() {
-                    const replyForm = this.closest('.reply-form');
-                    replyForm.querySelector('textarea').value = '';
-                    replyForm.classList.remove('active');
-                });
-            }
-            
-            // Edit button
-            const editBtn = commentElement.querySelector('.edit-btn');
-            if (editBtn) {
-                editBtn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    
-                    content.style.display = 'none';
-                    editForm.classList.add('active');
-                    editForm.querySelector('textarea').focus();
-                });
-            }
-            
-            // Save edit
-            const saveEditBtn = commentElement.querySelector('.save-edit');
-            if (saveEditBtn) {
-                saveEditBtn.addEventListener('click', async function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    const newText = editForm.querySelector('textarea').value.trim();
-                    const commentId = comment.id;
-                    
-                    if (!newText) {
-                        showNotification('Komentar tidak boleh kosong!', false);
-                        return;
-                    }
-                    
-                    try {
-                        showNotification('Menyimpan perubahan...', true);
-                        
-                        // Get the original comment data
-                        const comments = await getCommentsFromGitHub();
-                        const originalComment = comments.find(c => {
-                            const metadata = parseCommentMetadata(c.body);
-                            return metadata && metadata.id === commentId;
-                        });
-                        
-                        if (!originalComment) {
-                            throw new Error('Komentar tidak ditemukan');
-                        }
-                        
-                        // Update the comment on GitHub
-                        const metadata = parseCommentMetadata(originalComment.body);
-                        const updatedBody = `${newText}\n\n<!-- METADATA: ${JSON.stringify(metadata)} -->`;
-                        
-                        await updateCommentOnGitHub(originalComment.number, updatedBody);
-                        
-                        // Update the UI
-                        content.textContent = newText;
-                        content.style.display = 'block';
-                        editForm.classList.remove('active');
-                        
-                        showNotification('Perubahan berhasil disimpan!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal menyimpan perubahan', false);
-                    }
-                });
-            }
-            
-            // Cancel edit
-            const cancelEditBtn = commentElement.querySelector('.cancel-edit');
-            if (cancelEditBtn) {
-                cancelEditBtn.addEventListener('click', function() {
-                    const comment = this.closest('.comment');
-                    const content = comment.querySelector('.comment-content');
-                    const editForm = comment.querySelector('.comment-edit-form');
-                    
-                    editForm.querySelector('textarea').value = content.textContent;
-                    content.style.display = 'block';
-                    editForm.classList.remove('active');
-                });
-            }
-            
-            // Delete button
-            const deleteBtn = commentElement.querySelector('.delete-btn');
-            if (deleteBtn) {
-                deleteBtn.addEventListener('click', async function() {
-                    if (!confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-                        return;
-                    }
-                    
-                    const comment = this.closest('.comment');
-                    const commentId = comment.id;
-                    
-                    try {
-                        showNotification('Menghapus komentar...', true);
-                        
-                        // Find the comment in GitHub issues
-                        const comments = await getCommentsFromGitHub();
-                        const commentToDelete = comments.find(c => {
-                            const metadata = parseCommentMetadata(c.body);
-                            return metadata && metadata.id === commentId;
-                        });
-                        
-                        if (!commentToDelete) {
-                            throw new Error('Komentar tidak ditemukan');
-                        }
-                        
-                        // Delete the comment by closing the issue
-                        await deleteCommentOnGitHub(commentToDelete.number);
-                        
-                        // Remove from UI
-                        comment.remove();
-                        
-                        showNotification('Komentar berhasil dihapus!');
-                        
-                    } catch (error) {
-                        console.error('Error:', error);
-                        showNotification('Gagal menghapus komentar', false);
-                    }
-                });
-            }
-        }
-        
-        // Function to handle comment submission
-        async function handleCommentSubmit(e) {
-            e.preventDefault();
-            
-            const commentName = document.getElementById('commentName').value.trim();
-            const commentText = document.getElementById('commentText').value.trim();
-            
-            if (!commentName || !commentText) {
-                showNotification('Harap isi nama dan komentar!', false);
-                return;
-            }
-            
-            // Save the user's name for future comments/replies
-            localStorage.setItem('currentCommentUser', commentName);
-            
-            try {
-                showNotification('Memposting komentar...', true);
-                
-                // Post the comment to GitHub
-                const newComment = await postCommentToGitHub(commentName, commentText);
-                
-                // Reset form
-                document.getElementById('commentForm').reset();
-                
-                // Create and add the new comment element
-                const commentElement = createCommentElement(newComment);
-                
-                // Add the new comment after the admin comment
-                const adminComment = commentsList.querySelector('#adminComment');
-                commentsList.insertBefore(commentElement, adminComment.nextSibling);
-                
-                // Set up event listeners for the new comment
-                setupCommentEventListenersForElement(commentElement);
-                
-                showNotification('Komentar berhasil diposting!');
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Gagal memposting komentar', false);
-            }
-        }
-        
-        // Event listener for comment form
-        if (commentForm) {
-            commentForm.addEventListener('submit', handleCommentSubmit);
-        }
-        
-        // Load comments when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            displayComments();
-            
-            // Check URL for new comment parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('commentPosted')) {
-                showNotification('Komentar Anda berhasil diposting!');
-                // Remove parameter from URL without reload
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-            
-            // Check if user has previously commented
-            const currentUser = localStorage.getItem('currentCommentUser');
-            if (currentUser) {
-                document.getElementById('commentName').value = currentUser;
-            }
-        });
-        
-        // Auto-refresh comments every 30 seconds
-        setInterval(() => {
-            displayComments();
-        }, 30000);
+// Testimonial Slider
+$(document).ready(function(){
+    $('.testimonial-slider').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        arrows: false
+    });
+});
 
-        <!-- Firebase core -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-  import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
+// Image Parallax Effect
+const mainImage = document.getElementById('mainImage');
 
-  const firebaseConfig = {
+if (mainImage) {
+    window.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+}
+
+// Scroll Animation
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const appearOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) {
+            return;
+        } else {
+            entry.target.classList.add('active');
+            appearOnScroll.unobserve(entry.target);
+        }
+    });
+}, appearOptions);
+
+fadeElements.forEach(fader => {
+    appearOnScroll.observe(fader);
+});
+
+// Form Submission
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const name = this.querySelector('input[type="text"]').value;
+        const email = this.querySelector('input[type="email"]').value;
+        const subject = this.querySelector('input[placeholder="Subjek"]').value;
+        const message = this.querySelector('textarea').value;
+        
+        // Here you would typically send the data to a server
+        // For demo purposes, we'll just show an alert
+        alert(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
+        
+        // Reset form
+        this.reset();
+    });
+}
+
+// Initialize Firebase
+const firebaseConfig = {
     apiKey: "AIzaSyDPWiPfqfjlOwWhebegBo7jRNbFs5Fq3xE",
     authDomain: "vexernoss.firebaseapp.com",
+    databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "vexernoss",
-    storageBucket: "vexernoss.firebasestorage.app",
+    storageBucket: "vexernoss.appspot.com",
     messagingSenderId: "653268071478",
     appId: "1:653268071478:web:d8d88c924c18aad5029497",
-    measurementId: "G-HV411SWR11",
-    databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app" // tambahkan ini!
-  };
+    measurementId: "G-HV411SWR11"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const commentRef = ref(db, 'comments');
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const commentRef = database.ref('comments');
 
-  // Submit komen
-  document.getElementById("commentForm").addEventListener("submit", function (e) {
+// Function to show notification
+function showNotification(message, isSuccess = true) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+    notification.innerHTML = `
+        <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('active');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('active');
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
+}
+
+// Comment System
+document.getElementById('commentForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const comment = document.getElementById("comment").value;
-
-    if (name && comment) {
-      push(commentRef, {
+    
+    const name = document.getElementById('commentName').value.trim();
+    const comment = document.getElementById('commentText').value.trim();
+    
+    if (!name || !comment) {
+        showNotification('Harap isi nama dan komentar!', false);
+        return;
+    }
+    
+    // Save comment to Firebase
+    commentRef.push({
         name: name,
         comment: comment,
-        timestamp: Date.now()
-      });
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+    })
+    .then(() => {
+        showNotification('Komentar berhasil diposting!');
+        document.getElementById('commentForm').reset();
+        localStorage.setItem('currentCommentUser', name);
+    })
+    .catch(error => {
+        console.error('Error posting comment:', error);
+        showNotification('Gagal memposting komentar', false);
+    });
+});
 
-      document.getElementById("commentForm").reset();
+// Display comments from Firebase
+commentRef.orderByChild('timestamp').on('child_added', function(snapshot) {
+    const comment = snapshot.val();
+    const commentElement = document.createElement('div');
+    commentElement.className = 'comment';
+    commentElement.innerHTML = `
+        <div class="comment-header">
+            <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+            <div class="comment-author">${comment.name}</div>
+            <div class="comment-date">${new Date(comment.timestamp).toLocaleString()}</div>
+        </div>
+        <div class="comment-content">${comment.comment}</div>
+    `;
+    
+    // Insert after admin comment
+    const adminComment = document.getElementById('adminComment');
+    if (adminComment) {
+        adminComment.parentNode.insertBefore(commentElement, adminComment.nextSibling);
+    } else {
+        document.getElementById('commentsList').appendChild(commentElement);
     }
-  });
+});
+</script>
 
-  // Menampilkan komentar yang masuk
-  onChildAdded(commentRef, function (data) {
-    const commentData = data.val();
-    const commentElement = document.createElement("div");
-    commentElement.innerHTML = `<strong>${commentData.name}:</strong> ${commentData.comment}`;
-    document.getElementById("commentSection").appendChild(commentElement);
-  });
+<!-- Load Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </script>
 </body>
 </html>
