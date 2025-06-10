@@ -978,6 +978,76 @@
             padding-left: 55px;
         }
         
+        /* New Comment Action Styles */
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: rgba(108, 92, 231, 0.1);
+        }
+        
+        .comment-action-btn:hover {
+            background: rgba(108, 92, 231, 0.2);
+        }
+        
+        .comment-action-btn.delete {
+            color: var(--accent);
+            background: rgba(253, 121, 168, 0.1);
+        }
+        
+        .comment-action-btn.delete:hover {
+            background: rgba(253, 121, 168, 0.2);
+        }
+        
+        .edit-comment-textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 8px;
+            background: #333;
+            color: var(--text-color);
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .reply-form {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+        
+        .reply-form textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .replies-container {
+            margin-top: 15px;
+            padding-left: 20px;
+            border-left: 2px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        .reply {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 8px;
+        }
+        
         .comment-actions {
             position: absolute;
             top: 15px;
@@ -1852,22 +1922,22 @@
                 </div>
                 
                 <div class="comment-form">
-    <h4>POST A COMMENT</h4>
-    <form id="commentForm">
-        <div class="form-group">
-            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
-        </div>
-        <div class="form-group">
-            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
-        </div>
-        <button type="submit" class="comment-submit">PUBLISH</button>
-    </form>
-    <div class="recaptcha-notice">
-        This site is protected by reCAPTCHA and the Google 
-        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
-        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
-    </div>
-</div>
+                    <h4>POST A COMMENT</h4>
+                    <form id="commentForm">
+                        <div class="form-group">
+                            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
+                        </div>
+                        <button type="submit" class="comment-submit">PUBLISH</button>
+                    </form>
+                    <div class="recaptcha-notice">
+                        This site is protected by reCAPTCHA and the Google 
+                        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
+                        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1935,7 +2005,23 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
     <script>
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDPDMPIFqFj1IOWhebeboO7jRNBF5fQ3xE",
+            authDomain: "vexernoss.firebaseapp.com",
+            databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "vexernoss",
+            storageBucket: "vexernoss.appspot.com",
+            messagingSenderId: "653268071478",
+            appId: "1:653268071478:web:d8bd8bc924c18aad5029497"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
         // Mobile Navigation
         const hamburger = document.querySelector('.hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -2119,246 +2205,375 @@
             }
         }
         
-       
-       // Comment System
-const commentForm = document.getElementById('commentForm');
-const commentsList = document.getElementById('commentsList');
-
-// Function to show notification
-function showNotification(message, isSuccess = true) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
-    notification.innerHTML = `
-        <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.classList.add('active');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('active');
-        setTimeout(() => notification.remove(), 500);
-    }, 3000);
-}
-
-
-/// Fungsi untuk memposting komentar ke Firebase
-async function postCommentToFirebase(name, comment) {
-  try {
-    const db = firebase.database(); // Dapatkan instance database
-    const commentsRef = db.ref('comments'); // Referensi ke node 'comments' di database Anda
-
-    const newCommentRef = commentsRef.push(); // Membuat ID unik untuk komentar baru (misal: -Mx_ABCDEF)
-    await newCommentRef.set({ // Menyimpan data komentar ke Realtime Database
-      name: name,
-      comment: comment,
-      timestamp: firebase.database.ServerValue.TIMESTAMP // Menyimpan timestamp server (penting untuk pengurutan)
-    });
-
-    return newCommentRef.key; // Mengembalikan ID unik dari komentar yang baru saja diposting
-  } catch (error) {
-    console.error("Error posting comment to Firebase:", error);
-    throw error;
-  }
-}
-
-// Fungsi untuk mengambil komentar dari Firebase
-async function getCommentsFromFirebase() {
-  try {
-    const db = firebase.database(); // Dapatkan instance database
-    const commentsRef = db.ref('comments'); // Referensi ke node 'comments'
-
-    // Mengambil snapshot data sekali dan mengurutkannya berdasarkan timestamp
-    const snapshot = await commentsRef.orderByChild('timestamp').once('value');
-    return snapshot.val(); // Mengembalikan data komentar dalam bentuk objek JavaScript
-  } catch (error) {
-    console.error("Error getting comments from Firebase:", error);
-    throw error;
-  }
-}
-
-// Fungsi untuk menampilkan komentar (modifikasi untuk Firebase)
-async function displayComments() {
-    try {
-        commentsList.innerHTML = ''; // Kosongkan daftar komentar yang ada
-
-        // Tambahkan komentar admin default (ini tetap sama)
-        commentsList.innerHTML += `
-            <div class="comment">
-                <div class="comment-header">
-                    <div class="comment-avatar">A</div>
-                    <div class="comment-author">Admin Bejir</div>
-                    <div class="comment-date">9/4/2023, 6:40:20 AM</div>
-                </div>
-                <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
-            </div>
-        `;
-
-        // Panggil fungsi Firebase untuk mengambil komentar
-        const comments = await getCommentsFromFirebase();
-
-        if (comments) {
-            // Firebase mengembalikan objek, kita perlu mengubahnya ke array untuk diurutkan
-            const commentsArray = Object.entries(comments).map(([key, value]) => ({
-                id: key, // ID unik dari Firebase
-                ...value // Nama, komentar, timestamp
-            })).sort((a, b) => b.timestamp - a.timestamp); // Urutkan dari yang terbaru ke terlama
-
-            // Iterasi dan tampilkan setiap komentar
-            commentsArray.forEach(comment => {
-                const date = new Date(comment.timestamp).toLocaleString(); // Format timestamp
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.innerHTML = `
-                    <div class="comment-header">
-                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                        <div class="comment-author">${comment.name}</div>
-                        <div class="comment-date">${date}</div>
-                    </div>
-                    <div class="comment-content">${comment.comment}</div>
-                `;
-                // Tambahkan komentar baru setelah komentar admin
-                const adminComment = commentsList.querySelector('.comment');
-                commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-            });
-        }
-    } catch (error) {
-        console.error('Error in displayComments:', error);
-        showNotification('Gagal memuat komentar dari Firebase', false);
-
-        // Fallback ke localStorage jika Firebase gagal (ini tetap bisa dipertahankan)
-        const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-        if (localComments.length > 0) {
-            localComments.reverse().forEach(comment => {
-                const date = new Date(comment.date).toLocaleString();
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.innerHTML = `
-                    <div class="comment-header">
-                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                        <div class="comment-author">${comment.name}</div>
-                        <div class="comment-date">${date}</div>
-                    </div>
-                    <div class="comment-content">${comment.comment}</div>
-                `;
-                commentsList.appendChild(commentDiv);
-            });
-        }
-    }
-}
-
-// Fungsi handle submit komentar (modifikasi untuk Firebase)
-async function handleCommentSubmit(e) {
-    e.preventDefault(); // Mencegah form submit default
-
-    const commentName = document.getElementById('commentName').value.trim();
-    const commentText = document.getElementById('commentText').value.trim();
-
-    if (!commentName || !commentText) {
-        showNotification('Harap isi nama dan komentar!', false);
-        return;
-    }
-
-    try {
-        showNotification('Memposting komentar...', true);
-
-        // Coba posting ke Firebase
-        await postCommentToFirebase(commentName, commentText);
-
-        // Reset form
-        document.getElementById('commentForm').reset();
-
-        // Tampilkan notifikasi sukses
-        showNotification('Komentar berhasil diposting!');
-
-        // Refresh komentar untuk menampilkan yang baru (ini akan memanggil displayComments())
-        await displayComments();
-
-    } catch (error) {
-        console.error('Error in handleCommentSubmit:', error);
-
-        // Jika gagal ke Firebase, simpan ke localStorage (ini tetap bisa dipertahankan)
-        try {
-            const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-            comments.push({
-                name: commentName,
-                comment: commentText,
-                date: new Date().toISOString()
-            });
-            localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
-
-            showNotification('Gagal posting ke Firebase, komentar disimpan secara lokal', true); // Ubah pesan notifikasi
-
-            // Tampilkan komentar dari localStorage ke UI
-            const date = new Date().toLocaleString();
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
-            commentDiv.innerHTML = `
-                <div class="comment-header">
-                    <div class="comment-avatar">${commentName.charAt(0).toUpperCase()}</div>
-                    <div class="comment-author">${commentName}</div>
-                    <div class="comment-date">${date}</div>
-                </div>
-                <div class="comment-content">${commentText}</div>
+        // Function to show notification
+        function showNotification(message, isSuccess = true) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+            notification.innerHTML = `
+                <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
             `;
-
-            const adminComment = commentsList.querySelector('.comment');
-            commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-
-        } catch (localError) {
-            console.error('Gagal menyimpan ke localStorage:', localError);
-            showNotification('Gagal memposting komentar', false);
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('active');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('active');
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
         }
-    }
-}
 
-// Event listener for comment form
-if (commentForm) {
-    commentForm.addEventListener('submit', handleCommentSubmit);
-}
+        // Fungsi untuk memposting komentar ke Firebase
+        async function postCommentToFirebase(name, comment, parentId = null) {
+            try {
+                const db = firebase.database();
+                const commentsRef = db.ref('comments');
 
-// Load comments when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    displayComments();
-    
-    // Periksa URL untuk parameter komentar baru
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('commentPosted')) {
-        showNotification('Komentar Anda berhasil diposting!');
-        // Hapus parameter dari URL tanpa reload
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-});
+                const newCommentRef = commentsRef.push();
+                await newCommentRef.set({
+                    name: name,
+                    comment: comment,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    parentId: parentId
+                });
+
+                return newCommentRef.key;
+            } catch (error) {
+                console.error("Error posting comment to Firebase:", error);
+                throw error;
+            }
+        }
+
+        // Fungsi untuk mengambil komentar dari Firebase
+        async function getCommentsFromFirebase() {
+            try {
+                const db = firebase.database();
+                const commentsRef = db.ref('comments');
+
+                // Mengambil snapshot data sekali dan mengurutkannya berdasarkan timestamp
+                const snapshot = await commentsRef.orderByChild('timestamp').once('value');
+                return snapshot.val();
+            } catch (error) {
+                console.error("Error getting comments from Firebase:", error);
+                throw error;
+            }
+        }
+
+        // Fungsi untuk menampilkan komentar
+        async function displayComments() {
+            try {
+                commentsList.innerHTML = '';
+
+                // Tambahkan komentar admin default
+                commentsList.innerHTML += `
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-avatar">A</div>
+                            <div class="comment-author">Admin Bejir</div>
+                            <div class="comment-date">9/4/2023, 6:40:20 AM</div>
+                        </div>
+                        <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+                    </div>
+                `;
+
+                // Panggil fungsi Firebase untuk mengambil komentar
+                const comments = await getCommentsFromFirebase();
+
+                if (comments) {
+                    const commentsArray = Object.entries(comments).map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    })).sort((a, b) => b.timestamp - a.timestamp);
+
+                    // Pisahkan komentar utama dan balasan
+                    const mainComments = commentsArray.filter(comment => !comment.parentId);
+                    const replies = commentsArray.filter(comment => comment.parentId);
+
+                    // Tampilkan komentar utama
+                    mainComments.forEach(comment => {
+                        const date = new Date(comment.timestamp).toLocaleString();
+                        const commentDiv = document.createElement('div');
+                        commentDiv.className = 'comment';
+                        commentDiv.id = `comment-${comment.id}`;
+                        commentDiv.innerHTML = `
+                            <div class="comment-header">
+                                <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                                <div class="comment-author">${comment.name}</div>
+                                <div class="comment-date">${date}</div>
+                            </div>
+                            <div class="comment-content">${comment.comment}</div>
+                            <div class="comment-actions">
+                                <button class="comment-action-btn reply-btn" data-id="${comment.id}">Balas</button>
+                                <button class="comment-action-btn edit-btn" data-id="${comment.id}">Edit</button>
+                                <button class="comment-action-btn delete delete-btn" data-id="${comment.id}">Hapus</button>
+                            </div>
+                            <div class="replies-container" id="replies-${comment.id}"></div>
+                            <div class="reply-form" id="reply-form-${comment.id}" style="display: none;">
+                                <textarea placeholder="Tulis balasan Anda..." class="form-control reply-textarea"></textarea>
+                                <button class="btn submit-reply" data-id="${comment.id}">Kirim Balasan</button>
+                            </div>
+                        `;
+                        
+                        const adminComment = commentsList.querySelector('.comment');
+                        commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+
+                        // Tampilkan balasan untuk komentar ini
+                        const commentReplies = replies.filter(reply => reply.parentId === comment.id);
+                        if (commentReplies.length > 0) {
+                            const repliesContainer = document.getElementById(`replies-${comment.id}`);
+                            commentReplies.forEach(reply => {
+                                const replyDate = new Date(reply.timestamp).toLocaleString();
+                                const replyDiv = document.createElement('div');
+                                replyDiv.className = 'reply';
+                                replyDiv.id = `comment-${reply.id}`;
+                                replyDiv.innerHTML = `
+                                    <div class="comment-header">
+                                        <div class="comment-avatar">${reply.name.charAt(0).toUpperCase()}</div>
+                                        <div class="comment-author">${reply.name}</div>
+                                        <div class="comment-date">${replyDate}</div>
+                                    </div>
+                                    <div class="comment-content">${reply.comment}</div>
+                                    <div class="comment-actions">
+                                        <button class="comment-action-btn delete delete-btn" data-id="${reply.id}">Hapus</button>
+                                    </div>
+                                `;
+                                repliesContainer.appendChild(replyDiv);
+                            });
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error in displayComments:', error);
+                showNotification('Gagal memuat komentar dari Firebase', false);
+
+                // Fallback ke localStorage
+                const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+                if (localComments.length > 0) {
+                    localComments.reverse().forEach(comment => {
+                        const date = new Date(comment.date).toLocaleString();
+                        const commentDiv = document.createElement('div');
+                        commentDiv.className = 'comment';
+                        commentDiv.innerHTML = `
+                            <div class="comment-header">
+                                <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                                <div class="comment-author">${comment.name}</div>
+                                <div class="comment-date">${date}</div>
+                            </div>
+                            <div class="comment-content">${comment.comment}</div>
+                            <div class="comment-actions">
+                                <button class="comment-action-btn delete delete-btn" data-id="local-${Date.now()}">Hapus</button>
+                            </div>
+                        `;
+                        commentsList.appendChild(commentDiv);
+                    });
+                }
+            }
+        }
+
+        // Event listeners untuk fitur baru
+        document.addEventListener('click', function(e) {
+            // Fitur Hapus Komentar
+            if (e.target.classList.contains('delete-btn')) {
+                const commentId = e.target.dataset.id;
+                if (confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
+                    deleteComment(commentId);
+                }
+            }
+            
+            // Fitur Edit Komentar
+            if (e.target.classList.contains('edit-btn')) {
+                const commentId = e.target.dataset.id;
+                enableCommentEdit(commentId);
+            }
+            
+            // Fitur Balas Komentar - Tampilkan form
+            if (e.target.classList.contains('reply-btn')) {
+                const commentId = e.target.dataset.id;
+                document.getElementById(`reply-form-${commentId}`).style.display = 'block';
+            }
+            
+            // Fitur Balas Komentar - Submit
+            if (e.target.classList.contains('submit-reply')) {
+                const parentId = e.target.dataset.id;
+                const replyText = document.querySelector(`#reply-form-${parentId} .reply-textarea`).value.trim();
+                if (replyText) {
+                    postReply(parentId, replyText);
+                } else {
+                    showNotification('Harap isi balasan Anda!', false);
+                }
+            }
+            
+            // Fitur Simpan Edit Komentar
+            if (e.target.classList.contains('save-edit-btn')) {
+                const commentId = e.target.dataset.id;
+                const newText = document.querySelector(`#edit-textarea-${commentId}`).value.trim();
+                if (newText) {
+                    updateComment(commentId, newText);
+                } else {
+                    showNotification('Komentar tidak boleh kosong!', false);
+                }
+            }
+        });
+
+        // Fungsi untuk menghapus komentar
+        async function deleteComment(commentId) {
+            try {
+                const commentRef = firebase.database().ref('comments/' + commentId);
+                await commentRef.remove();
+                document.getElementById(`comment-${commentId}`).remove();
+                showNotification('Komentar berhasil dihapus!');
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+                showNotification('Gagal menghapus komentar', false);
+            }
+        }
+
+        // Fungsi untuk mengaktifkan mode edit komentar
+        function enableCommentEdit(commentId) {
+            const commentDiv = document.getElementById(`comment-${commentId}`);
+            const contentDiv = commentDiv.querySelector('.comment-content');
+            const currentText = contentDiv.textContent;
+            
+            // Ganti konten dengan textarea
+            contentDiv.innerHTML = `
+                <textarea id="edit-textarea-${commentId}" class="edit-comment-textarea">${currentText}</textarea>
+                <button class="btn save-edit-btn" data-id="${commentId}" style="margin-top: 10px;">Simpan Perubahan</button>
+            `;
+        }
+
+        // Fungsi untuk update komentar
+        async function updateComment(commentId, newText) {
+            try {
+                const commentRef = firebase.database().ref('comments/' + commentId);
+                await commentRef.update({ comment: newText });
+                
+                // Update tampilan
+                const commentDiv = document.getElementById(`comment-${commentId}`);
+                const contentDiv = commentDiv.querySelector('.comment-content');
+                contentDiv.innerHTML = newText;
+                
+                showNotification('Komentar berhasil diperbarui!');
+            } catch (error) {
+                console.error('Error updating comment:', error);
+                showNotification('Gagal memperbarui komentar', false);
+            }
+        }
+
+        // Fungsi untuk posting balasan
+        async function postReply(parentId, replyText) {
+            try {
+                const name = document.getElementById('commentName').value.trim() || 'Anonymous';
+                const db = firebase.database();
+                const repliesRef = db.ref('comments');
+                
+                const newReplyRef = repliesRef.push();
+                await newReplyRef.set({
+                    name: name,
+                    comment: replyText,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                    parentId: parentId
+                });
+                
+                // Sembunyikan form balasan
+                document.getElementById(`reply-form-${parentId}`).style.display = 'none';
+                // Kosongkan textarea
+                document.querySelector(`#reply-form-${parentId} .reply-textarea`).value = '';
+                
+                // Refresh komentar untuk menampilkan balasan baru
+                await displayComments();
+                
+                showNotification('Balasan berhasil diposting!');
+            } catch (error) {
+                console.error('Error posting reply:', error);
+                showNotification('Gagal memposting balasan', false);
+            }
+        }
+
+        // Fungsi handle submit komentar
+        async function handleCommentSubmit(e) {
+            e.preventDefault();
+
+            const commentName = document.getElementById('commentName').value.trim();
+            const commentText = document.getElementById('commentText').value.trim();
+
+            if (!commentName || !commentText) {
+                showNotification('Harap isi nama dan komentar!', false);
+                return;
+            }
+
+            try {
+                showNotification('Memposting komentar...', true);
+
+                // Post ke Firebase
+                await postCommentToFirebase(commentName, commentText);
+
+                // Reset form
+                document.getElementById('commentForm').reset();
+                showNotification('Komentar berhasil diposting!');
+                await displayComments();
+
+            } catch (error) {
+                console.error('Error in handleCommentSubmit:', error);
+                
+                // Fallback ke localStorage
+                try {
+                    const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+                    comments.push({
+                        id: 'local-' + Date.now(),
+                        name: commentName,
+                        comment: commentText,
+                        date: new Date().toISOString()
+                    });
+                    localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
+
+                    showNotification('Komentar disimpan secara lokal', true);
+                    
+                    // Tampilkan komentar lokal
+                    const date = new Date().toLocaleString();
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `
+                        <div class="comment-header">
+                            <div class="comment-avatar">${commentName.charAt(0).toUpperCase()}</div>
+                            <div class="comment-author">${commentName}</div>
+                            <div class="comment-date">${date}</div>
+                        </div>
+                        <div class="comment-content">${commentText}</div>
+                        <div class="comment-actions">
+                            <button class="comment-action-btn delete delete-btn" data-id="local-${Date.now()}">Hapus</button>
+                        </div>
+                    `;
+
+                    const adminComment = commentsList.querySelector('.comment');
+                    commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+
+                } catch (localError) {
+                    console.error('Gagal menyimpan ke localStorage:', localError);
+                    showNotification('Gagal memposting komentar', false);
+                }
+            }
+        }
+
+        // Event listener for comment form
+        if (commentForm) {
+            commentForm.addEventListener('submit', handleCommentSubmit);
+        }
+
+        // Load comments when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayComments();
+            
+            // Periksa URL untuk parameter komentar baru
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('commentPosted')) {
+                showNotification('Komentar Anda berhasil diposting!');
+                // Hapus parameter dari URL tanpa reload
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
     </script>
-
-    <!-- Tambahkan sebelum script lainnya -->
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
-
-<script>
-  // Konfigurasi Firebase Anda
-  const firebaseConfig = {
-    apiKey: "AIzaSyDPDMPIFqFj1IOWhebeboO7jRNBF5fQ3xE",
-    authDomain: "vexernoss.firebaseapp.com",
-    databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "vexernoss",
-    storageBucket: "vexernoss.appspot.com",
-    messagingSenderId: "653268071478",
-    appId: "1:653268071478:web:d8bd8bc924c18aad5029497",
-    // measurementId: "G-HV411SWR11" // Opsional, bisa dihapus jika tidak perlu Analytics
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script>
-    // ... semua kode JavaScript Anda di sini ...
-</script>
 </body>
 </html>
