@@ -2891,30 +2891,30 @@
             displayComments();
         }, 30000);
 
-        // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+        <!-- Firebase core -->
+<script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js"></script>
 
-<!-- Jika ingin pakai fitur lainnya, bisa ditambah nanti, misalnya firestore, auth, dll -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPWiPfqfj1OwWhebegBo7jRNbFsSFq3xE",
+    authDomain: "vexernoss.firebaseapp.com",
+    projectId: "vexernoss",
+    storageBucket: "vexernoss.appspot.com",
+    messagingSenderId: "835872196134",
+    appId: "1:835872196134:web:5b4640158c8d2ce625ee8c",
+    measurementId: "G-Z25XMRF8EG"
+  };
 
-  // Konfigurasi dari Firebase console
-      const firebaseConfig = {
-        apiKey: "AIzaSyDPWiPfqfj1OwWhebegBo7jRNbFsSFq3xE",
-        authDomain: "vexernoss.firebaseapp.com",
-        projectId: "vexernoss",
-        storageBucket: "vexernoss.appspot.com",
-        messagingSenderId: "835872196134",
-        appId: "1:835872196134:web:5b4640158c8d2ce625ee8c",
-        measurementId: "G-Z25XMRF8EG"
-      };
+  // Inisialisasi Firebase
+  firebase.initializeApp(firebaseConfig);
 
-      // Inisialisasi Firebase
-      firebase.initializeApp(firebaseConfig);
+  // Jika pakai Analytics
+  if (typeof firebase.analytics === 'function') {
+    firebase.analytics();
+  }
 
-      // Tes koneksi
-      console.log("Firebase berhasil terkoneksi:", firebaseConfig.projectId);
-    </script>
+  console.log("Firebase berhasil terkoneksi:", firebaseConfig.projectId);
+</script>
 </body>
 </html>
