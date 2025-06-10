@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    
     <style>
         /* Global Styles */
         :root {
@@ -130,7 +129,7 @@
         }
         
         .logo img {
-            height: 75px;
+            height: 60px;
             margin-right: 10px;
         }
         
@@ -618,6 +617,12 @@
             object-fit: cover;
             margin-right: 15px;
             border: 3px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .author-img:hover {
+            transform: scale(1.05);
         }
         
         .author-info h4 {
@@ -643,6 +648,47 @@
         .slick-dots li.slick-active button:before {
             opacity: 1;
             color: white;
+        }
+        
+        /* Image Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
         }
         
         /* Layanan Section */
@@ -1001,6 +1047,7 @@
             color: var(--primary);
         }
         
+        
         .comment-submit {
             background: var(--primary);
             color: white;
@@ -1026,83 +1073,6 @@
         .recaptcha-notice a {
             color: var(--primary);
             text-decoration: none;
-        }
-        
-        /* Additional Comment Styles */
-        .comment-replies {
-            margin-top: 15px;
-            padding-left: 30px;
-            border-left: 2px solid rgba(108, 92, 231, 0.3);
-        }
-        
-        .reply-form {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(108, 92, 231, 0.05);
-            border-radius: 8px;
-            display: none;
-        }
-        
-        .reply-form.active {
-            display: block;
-        }
-        
-        .reply-btn, .edit-btn, .delete-btn {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: color 0.3s ease;
-            margin-left: 10px;
-        }
-        
-        .reply-btn:hover {
-            color: var(--primary);
-        }
-        
-        .edit-btn:hover {
-            color: var(--secondary);
-        }
-        
-        .delete-btn:hover {
-            color: var(--accent);
-        }
-        
-        .comment-edit-form {
-            display: none;
-            margin-top: 10px;
-        }
-        
-        .comment-edit-form.active {
-            display: block;
-        }
-        
-        .comment-edit-form textarea {
-            width: 100%;
-            min-height: 100px;
-            margin-bottom: 10px;
-        }
-        
-        .comment-edit-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .comment-time-left {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-left: 10px;
-        }
-        
-        .comment-author-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            background: var(--primary);
-            color: white;
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin-left: 5px;
         }
         
         /* Notification Styles */
@@ -1440,7 +1410,7 @@
     <header id="header">
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo"><img src="https://qu.ax/UaGdl.png" alt="Vexernoss Logo"> </a>
+                <a href="#" class="logo"><img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo"> </a>
                 <ul class="nav-links">
                     <li><a href="#home">Beranda</a></li>
                     <li><a href="#features">Keunggulan</a></li>
@@ -1450,8 +1420,6 @@
                     <li><a href="#order">Cara Order</a></li>
                     <li><a href="#contact">Kontak</a></li>
                     <div class="auth-buttons">
-                        <a href="#" class="btn" id="loginBtn">Masuk</a>
-                        <a href="#" class="btn btn-accent">Daftar</a>
                     </div>
                 </ul>
                 <div class="hamburger">
@@ -1649,10 +1617,10 @@
             <div class="testimonial-slider fade-in delay-2">
                 <div class="testimonial-slide">
                     <div class="testimonial-content">
-                        Sangat puas dengan hasil editing video dari Vexernoss. Mereka memahami kebutuhan saya sebagai content creator dan memberikan hasil yang melebihi ekspektasi. Proses revisinya juga cepat dan responsif.
+                        "Sangat puas dengan hasil editing video dari Vexernoss. Mereka memahami kebutuhan saya sebagai content creator dan memberikan hasil yang melebihi ekspektasi. Proses revisinya juga cepat dan responsif."
                     </div>
                     <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-img">
+                        <img src="https://qu.ax/Doyji.jpg" alt="Testimoni Klien 1" class="author-img" data-fullsize="https://qu.ax/Doyji.jpg">
                         <div class="author-info">
                             <h4>Sarah Wijaya</h4>
                             <p>Content Creator</p>
@@ -1662,10 +1630,10 @@
                 
                 <div class="testimonial-slide">
                     <div class="testimonial-content">
-                        Desain logo dan branding untuk kafe saya sangat memukau. Vexernoss mampu menangkap konsep yang saya inginkan dan menerjemahkannya menjadi desain yang profesional dan menarik. Kafe saya sekarang memiliki identitas visual yang kuat.
+                        "Desain logo dan branding untuk kafe saya sangat memukau. Vexernoss mampu menangkap konsep yang saya inginkan dan menerjemahkannya menjadi desain yang profesional dan menarik. Kafe saya sekarang memiliki identitas visual yang kuat."
                     </div>
                     <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-img">
+                        <img src="https://i.imgur.com/example2.jpg" alt="Testimoni Klien 2" class="author-img" data-fullsize="https://i.imgur.com/example2-full.jpg">
                         <div class="author-info">
                             <h4>Michael Santoso</h4>
                             <p>Pemilik Kafe</p>
@@ -1675,19 +1643,38 @@
                 
                 <div class="testimonial-slide">
                     <div class="testimonial-content">
-                        Sebagai startup dengan budget terbatas, saya ragu untuk menggunakan jasa desain profesional. Tapi Vexernoss memberikan nilai yang luar biasa. Desain aplikasi kami membantu menarik investor pertama dan pengguna awal.
+                        "Sebagai startup dengan budget terbatas, saya ragu untuk menggunakan jasa desain profesional. Tapi Vexernoss memberikan nilai yang luar biasa. Desain aplikasi kami membantu menarik investor pertama dan pengguna awal."
                     </div>
                     <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez" class="author-img">
+                        <img src="https://i.imgur.com/example3.jpg" alt="Testimoni Klien 3" class="author-img" data-fullsize="https://i.imgur.com/example3-full.jpg">
                         <div class="author-info">
                             <h4>Emily Putri</h4>
                             <p>Founder Startup</p>
                         </div>
                     </div>
                 </div>
+                
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        "Saya sudah menggunakan jasa Vexernoss beberapa kali untuk kebutuhan desain sosial media bisnis saya. Hasilnya selalu memuaskan dan sesuai dengan brief yang saya berikan. Sangat recommended!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://i.imgur.com/example4.jpg" alt="Testimoni Klien 4" class="author-img" data-fullsize="https://i.imgur.com/example4-full.jpg">
+                        <div class="author-info">
+                            <h4>Budi Hartono</h4>
+                            <p>Pemilik Bisnis</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 
     <!-- Layanan Section -->
     <section class="pricing" id="pricing">
@@ -1854,7 +1841,7 @@
                 
                 <div class="comments-list" id="commentsList">
                     <!-- Komentar akan dimuat di sini -->
-                    <div class="comment" id="adminComment">
+                    <div class="comment">
                         <div class="comment-header">
                             <div class="comment-avatar">A</div>
                             <div class="comment-author">Admin Bejir</div>
@@ -1865,22 +1852,22 @@
                 </div>
                 
                 <div class="comment-form">
-                    <h4>POST A COMMENT</h4>
-                    <form id="commentForm">
-                        <div class="form-group">
-                            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
-                        </div>
-                        <button type="submit" class="comment-submit">PUBLISH</button>
-                    </form>
-                    <div class="recaptcha-notice">
-                        This site is protected by reCAPTCHA and the Google 
-                        <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and 
-                        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
-                    </div>
-                </div>
+    <h4>POST A COMMENT</h4>
+    <form id="commentForm">
+        <div class="form-group">
+            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
+        </div>
+        <button type="submit" class="comment-submit">PUBLISH</button>
+    </form>
+    <div class="recaptcha-notice">
+        This site is protected by reCAPTCHA and the Google 
+        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
+        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+    </div>
+</div>
             </div>
         </div>
     </section>
@@ -1948,183 +1935,194 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
     <script>
-        <script>
-// Mobile Navigation
-const hamburger = document.querySelector('.hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-const closeMenu = document.getElementById('closeMenu');
-
-hamburger.addEventListener('click', () => {
-    mobileMenu.classList.add('active');
-    document.body.style.overflow = 'hidden';
-});
-
-closeMenu.addEventListener('click', () => {
-    mobileMenu.classList.remove('active');
-    document.body.style.overflow = 'auto';
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-});
-
-// Sticky Header
-window.addEventListener('scroll', () => {
-    const header = document.getElementById('header');
-    header.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
         
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        
-        window.scrollTo({
-            top: targetElement.offsetTop - 80,
-            behavior: 'smooth'
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
-    });
-});
-
-// Back to Top Button
-const backToTopBtn = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopBtn.classList.add('active');
-    } else {
-        backToTopBtn.classList.remove('active');
-    }
-});
-
-backToTopBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Portfolio Filter
-const filterBtns = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        btn.classList.add('active');
         
-        const filter = btn.getAttribute('data-filter');
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
         
-        portfolioItems.forEach(item => {
-            if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                item.style.display = 'block';
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Sticky Header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
             } else {
-                item.style.display = 'none';
+                backToTopBtn.classList.remove('active');
             }
         });
-    });
-});
-
-// Testimonial Slider
-$(document).ready(function(){
-    $('.testimonial-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        arrows: false
-    });
-});
-
-// Image Parallax Effect
-const mainImage = document.getElementById('mainImage');
-
-if (mainImage) {
-    window.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    });
-}
-
-// Scroll Animation
-const fadeElements = document.querySelectorAll('.fade-in');
-
-const appearOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) {
-            return;
-        } else {
-            entry.target.classList.add('active');
-            appearOnScroll.unobserve(entry.target);
+        
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Portfolio Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Testimonial Slider
+        $(document).ready(function(){
+            $('.testimonial-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                arrows: false
+            });
+        });
+        
+        // Image Parallax Effect
+        const mainImage = document.getElementById('mainImage');
+        
+        if (mainImage) {
+            window.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
         }
-    });
-}, appearOptions);
-
-fadeElements.forEach(fader => {
-    appearOnScroll.observe(fader);
-});
-
-// Form Submission
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
         
-        // Get form values
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const subject = this.querySelector('input[placeholder="Subjek"]').value;
-        const message = this.querySelector('textarea').value;
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
         
-        // Here you would typically send the data to a server
-        // For demo purposes, we'll just show an alert
-        alert(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
         
-        // Reset form
-        this.reset();
-    });
-}
-
-// Initialize Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyDPWiPfqfjlOwWhebegBo7jRNbFs5Fq3xE",
-    authDomain: "vexernoss.firebaseapp.com",
-    databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "vexernoss",
-    storageBucket: "vexernoss.appspot.com",
-    messagingSenderId: "653268071478",
-    appId: "1:653268071478:web:d8d88c924c18aad5029497",
-    measurementId: "G-HV411SWR11"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-const commentRef = database.ref('comments');
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('active');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        
+        fadeElements.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+        
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = this.querySelector('input[type="text"]').value;
+                const email = this.querySelector('input[type="email"]').value;
+                const subject = this.querySelector('input[placeholder="Subjek"]').value;
+                const message = this.querySelector('textarea').value;
+                
+                // Here you would typically send the data to a server
+                // For demo purposes, we'll just show an alert
+                showNotification(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
+                
+                // Reset form
+                this.reset();
+            });
+        }
+        
+        // Image Modal Functionality
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeModal = document.getElementsByClassName("close-modal")[0];
+        
+        // Get all testimonial images
+        const testimonialImages = document.querySelectorAll('.author-img');
+        
+        testimonialImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "block";
+                modalImg.src = this.getAttribute('data-fullsize') || this.src;
+            });
+        });
+        
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+       
+       // Comment System
+const commentForm = document.getElementById('commentForm');
+const commentsList = document.getElementById('commentsList');
 
 // Function to show notification
 function showNotification(message, isSuccess = true) {
@@ -2147,62 +2145,207 @@ function showNotification(message, isSuccess = true) {
     }, 3000);
 }
 
-// Comment System
-document.getElementById('commentForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+// GitHub API Configuration
+const GITHUB_USERNAME = 'SyafiqRendiya';
+const GITHUB_REPO = 'vexernoss-comments';
+// HARAP BUAT TOKEN BARU DAN SIMPAN SECARA AMAN
+const GITHUB_TOKEN = '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'; 
+
+// Function to post comment to GitHub Issues
+async function postCommentToGitHub(name, comment) {
+    const issueTitle = `Komentar dari ${name}`;
+    const issueBody = comment;
     
-    const name = document.getElementById('commentName').value.trim();
-    const comment = document.getElementById('commentText').value.trim();
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+            title: issueTitle,
+            body: issueBody,
+            labels: ['comment']
+        })
+    });
     
-    if (!name || !comment) {
+    if (!response.ok) {
+        throw new Error('Gagal memposting komentar');
+    }
+    
+    return await response.json();
+}
+
+// Function to get comments from GitHub Issues
+async function getCommentsFromGitHub() {
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?labels=comment&state=all`);
+    
+    if (!response.ok) {
+        throw new Error('Gagal mengambil komentar');
+    }
+    
+    return await response.json();
+}
+
+// Function to display comments
+async function displayComments() {
+    try {
+        const comments = await getCommentsFromGitHub();
+        commentsList.innerHTML = '';
+        
+        // Tambahkan komentar admin default
+        commentsList.innerHTML += `
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar">A</div>
+                    <div class="comment-author">Admin Bejir</div>
+                    <div class="comment-date">9/4/2023, 6:40:20 AM</div>
+                </div>
+                <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+            </div>
+        `;
+        
+        // Tambahkan komentar dari GitHub (dibalik urutannya agar yang baru di atas)
+        comments.reverse().forEach(comment => {
+            const firstLetter = comment.user?.login?.charAt(0).toUpperCase() || 'U';
+            const authorName = comment.user?.login || 'Anonymous';
+            const date = new Date(comment.created_at).toLocaleString();
+            
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${firstLetter}</div>
+                    <div class="comment-author">${authorName}</div>
+                    <div class="comment-date">${date}</div>
+                </div>
+                <div class="comment-content">${comment.body}</div>
+            `;
+            commentsList.appendChild(commentDiv);
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('Gagal memuat komentar', false);
+        
+        // Coba tampilkan komentar dari localStorage jika GitHub gagal
+        const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+        if (localComments.length > 0) {
+            localComments.reverse().forEach(comment => {
+                const date = new Date(comment.date).toLocaleString();
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-author">${comment.name}</div>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                    <div class="comment-content">${comment.comment}</div>
+                `;
+                commentsList.appendChild(commentDiv);
+            });
+        }
+    }
+}
+
+// Function to handle comment submission
+async function handleCommentSubmit(e) {
+    e.preventDefault(); // Mencegah form submit default
+    
+    const commentName = document.getElementById('commentName').value.trim();
+    const commentText = document.getElementById('commentText').value.trim();
+    
+    if (!commentName || !commentText) {
         showNotification('Harap isi nama dan komentar!', false);
         return;
     }
     
-    // Save comment to Firebase
-    commentRef.push({
-        name: name,
-        comment: comment,
-        timestamp: firebase.database.ServerValue.TIMESTAMP
-    })
-    .then(() => {
-        showNotification('Komentar berhasil diposting!');
+    try {
+        showNotification('Memposting komentar...', true);
+        
+        // Coba posting ke GitHub
+        const newComment = await postCommentToGitHub(commentName, commentText);
+        
+        // Reset form
         document.getElementById('commentForm').reset();
-        localStorage.setItem('currentCommentUser', name);
-    })
-    .catch(error => {
-        console.error('Error posting comment:', error);
-        showNotification('Gagal memposting komentar', false);
-    });
-});
+        
+        // Tampilkan notifikasi sukses
+        showNotification('Komentar berhasil diposting!');
+        
+        // Buat elemen komentar baru dan tambahkan ke atas daftar
+        const firstLetter = commentName.charAt(0).toUpperCase();
+        const date = new Date().toLocaleString();
+        
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+            <div class="comment-header">
+                <div class="comment-avatar">${firstLetter}</div>
+                <div class="comment-author">${commentName}</div>
+                <div class="comment-date">${date}</div>
+            </div>
+            <div class="comment-content">${commentText}</div>
+        `;
+        
+        // Tambahkan komentar baru setelah komentar admin
+        const adminComment = commentsList.querySelector('.comment');
+        commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        
+        // Jika gagal ke GitHub, simpan ke localStorage
+        try {
+            const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+            comments.push({
+                name: commentName,
+                comment: commentText,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
+            
+            // Tampilkan komentar dari localStorage
+            const date = new Date().toLocaleString();
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${commentName.charAt(0).toUpperCase()}</div>
+                    <div class="comment-author">${commentName}</div>
+                    <div class="comment-date">${date}</div>
+                </div>
+                <div class="comment-content">${commentText}</div>
+            `;
+            
+            const adminComment = commentsList.querySelector('.comment');
+            commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+            
+            showNotification('Komentar disimpan secara lokal', true);
+        } catch (localError) {
+            console.error('Gagal menyimpan ke localStorage:', localError);
+            showNotification('Gagal memposting komentar', false);
+        }
+    }
+}
 
-// Display comments from Firebase
-commentRef.orderByChild('timestamp').on('child_added', function(snapshot) {
-    const comment = snapshot.val();
-    const commentElement = document.createElement('div');
-    commentElement.className = 'comment';
-    commentElement.innerHTML = `
-        <div class="comment-header">
-            <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-            <div class="comment-author">${comment.name}</div>
-            <div class="comment-date">${new Date(comment.timestamp).toLocaleString()}</div>
-        </div>
-        <div class="comment-content">${comment.comment}</div>
-    `;
+// Event listener for comment form
+if (commentForm) {
+    commentForm.addEventListener('submit', handleCommentSubmit);
+}
+
+// Load comments when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    displayComments();
     
-    // Insert after admin comment
-    const adminComment = document.getElementById('adminComment');
-    if (adminComment) {
-        adminComment.parentNode.insertBefore(commentElement, adminComment.nextSibling);
-    } else {
-        document.getElementById('commentsList').appendChild(commentElement);
+    // Periksa URL untuk parameter komentar baru
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('commentPosted')) {
+        showNotification('Komentar Anda berhasil diposting!');
+        // Hapus parameter dari URL tanpa reload
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
-</script>
-
-<!-- Load Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-</script>
+    </script>
 </body>
 </html>
