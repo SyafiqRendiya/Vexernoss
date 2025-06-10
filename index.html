@@ -2300,21 +2300,23 @@
                         commentDiv.className = 'comment';
                         commentDiv.id = `comment-${comment.id}`;
                         commentDiv.innerHTML = `
-                            <div class="comment-header">
-                                <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                                <div class="comment-author">${comment.name}</div>
-                                <div class="comment-date">${date}</div>
-                            </div>
-                            <div class="comment-content">${comment.comment}</div>
-                            <div class="comment-actions">
-                                <button class="comment-action-btn reply-btn" data-id="${comment.id}">Balas</button>
-                            </div>
-                            <div class="replies-container" id="replies-${comment.id}"></div>
-                            <div class="reply-form" id="reply-form-${comment.id}" style="display: none;">
-                                <textarea placeholder="Tulis balasan Anda..." class="form-control reply-textarea"></textarea>
-                                <button class="btn submit-reply" data-id="${comment.id}">Kirim Balasan</button>
-                            </div>
-                        `;
+    <div class="comment-header">
+        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+        <div class="comment-author">${comment.name}</div>
+        <div class="comment-date">${date}</div>
+    </div>
+    <div class="comment-content">${comment.comment.replace(/\n/g, '<br>')}</div>
+    <div class="comment-actions">
+        <button class="comment-action-btn reply-btn" data-id="${comment.id}">Balas</button>
+        <button class="comment-action-btn edit-btn" data-id="${comment.id}">Edit</button>
+        <button class="comment-action-btn delete delete-btn" data-id="${comment.id}">Hapus</button>
+    </div>
+    <div class="replies-container" id="replies-${comment.id}"></div>
+    <div class="reply-form" id="reply-form-${comment.id}" style="display: none;">
+        <textarea placeholder="Tulis balasan Anda..." class="form-control reply-textarea"></textarea>
+        <button class="btn submit-reply" data-id="${comment.id}">Kirim Balasan</button>
+    </div>
+`;
                         
                         const adminComment = commentsList.querySelector('.comment');
                         commentsList.insertBefore(commentDiv, adminComment.nextSibling);
@@ -2496,7 +2498,7 @@
             e.preventDefault();
 
             const commentName = document.getElementById('commentName').value.trim();
-            const commentText = document.getElementById('commentText').value.trim();
+            const commentText = document.getElementById('commentText').value; // Hapus .trim()
 
             if (!commentName || !commentText) {
                 showNotification('Harap isi nama dan komentar!', false);
