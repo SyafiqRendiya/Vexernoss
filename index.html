@@ -2892,8 +2892,13 @@
         }, 30000);
 
         <!-- Firebase core -->
-<script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js"></script>
+<script>
+  const firebaseConfig = { /* ... */ };
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 
 <script>
   const firebaseConfig = {
