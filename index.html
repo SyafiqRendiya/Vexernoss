@@ -2030,32 +2030,129 @@
             });
         }
         
-        // Comment System
-const commentForm = document.getElementById('commentForm');
-const commentsList = document.getElementById('commentsList');
+        [⚠️ Suspicious Content] // Comment System
+    const commentForm = document.getElementById('commentForm');
+    const commentsList = document.getElementById('commentsList');
 
-// Function to show notification
-function showNotification(message, isSuccess = true) {
-    const notification = document.createElement('div');
-    notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
-    notification.innerHTML = `
-        <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animasi muncul
-    setTimeout(() => {
-        notification.classList.add('active');
-    }, 100);
-    
-    // Hilangkan setelah 3 detik
-    setTimeout(() => {
-        notification.classList.remove('active');
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
+    // Function to show notification
+    function showNotification(message, isSuccess = true) {
+        const notification = document.createElement('div');
+        notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+        notification.innerHTML = `
+            <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animasi muncul
+        setTimeout(() => {
+            notification.classList.add('active');
+        }, 100);
+        
+        // Hilangkan setelah 3 detik
+        setTimeout(() => {
+            notification.classList.remove('active');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    // Function to save comments to localStorage
+    function saveComment(name, comment) {
+        try {
+            // Get existing comments or initialize empty array
+            const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+            
+            // Add new comment
+            comments.push({
+                name: name,
+                comment: comment,
+                date: new Date().toISOString()
+            });
+            
+            // Save back to localStorage
+            localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
+            return true;
+        } catch (error) {
+            console.error('Error saving comment:', error);
+            return false;
+        }
+    }
+
+    // Function to load comments from localStorage
+    function loadComments() {
+        try {
+            const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+            return comments;
+        } catch (error) {
+            console.error('Error loading comments:', error);
+            return [];
+        }
+    }
+
+    // Function to display comments
+    function displayComments() {
+        const comments = loadComments();
+        commentsList.innerHTML = '';
+        
+        // Add default admin comment first
+        commentsList.innerHTML = `
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar">A</div>
+                    <div class="comment-author">Admin Bejir</div>
+                    <div class="comment-date">9/4/2023, 6:40:20 AM</div>
+                </div>
+                <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+            </div>
+        `;
+        
+        // Add user comments
+        comments.forEach(comment => {
+            const firstLetter = comment.name.charAt(0).toUpperCase();
+            const date = new Date(comment.date).toLocaleString();
+            
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${firstLetter}</div>
+                    <div class="comment-author">${comment.name}</div>
+                    <div class="comment-date">${date}</div>
+                </div>
+                <div class="comment-content">${comment.comment}</div>
+            `;
+            commentsList.appendChild(commentDiv);
+        });
+    }
+
+    // Comment form handler
+    function handleCommentSubmit(e) {
+        e.preventDefault();
+        
+        const commentName = document.getElementById('commentName').value.trim();
+        const commentText = document.getElementById('commentText').value.trim();
+        
+        if (commentName && commentText) {
+            if (saveComment(commentName, commentText)) {
+                displayComments();
+                document.getElementById('commentForm').reset();
+                showNotification('Komentar Anda telah dipublikasikan!');
+            } else {
+                showNotification('Gagal menyimpan komentar', false);
+            }
+        } else {
+            showNotification('Harap isi nama dan komentar!', false);
+        }
+    }
+
+    // Event listener for comment form
+    if (commentForm) {
+        commentForm.addEventListener('submit', handleCommentSubmit);
+    }
+
+    // Load comments when page loads
+    window.addEventListener('DOMContentLoaded', displayComments);
 
 // GitHub API Configuration
 const GITHUB_USERNAME = 'SyafiqRendiya';
