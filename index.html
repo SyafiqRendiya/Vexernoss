@@ -2145,56 +2145,48 @@ function showNotification(message, isSuccess = true) {
     }, 3000);
 }
 
-// GitHub API Configuration
-const GITHUB_USERNAME = 'SyafiqRendiya';
-const GITHUB_REPO = 'vexernoss-comments';
-// HARAP BUAT TOKEN BARU DAN SIMPAN SECARA AMAN
-const GITHUB_TOKEN = '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'; 
 
-// Function to post comment to GitHub Issues
-async function postCommentToGitHub(name, comment) {
-    const issueTitle = `Komentar dari ${name}`;
-    const issueBody = comment;
-    
-    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json',
-            'Accept': 'application/vnd.github.v3+json'
-        },
-        body: JSON.stringify({
-            title: issueTitle,
-            body: issueBody,
-            labels: ['comment']
-        })
+/// Fungsi untuk memposting komentar ke Firebase
+async function postCommentToFirebase(name, comment) {
+  try {
+    const db = firebase.database(); // Dapatkan instance database
+    const commentsRef = db.ref('comments'); // Referensi ke node 'comments' di database Anda
+
+    const newCommentRef = commentsRef.push(); // Membuat ID unik untuk komentar baru (misal: -Mx_ABCDEF)
+    await newCommentRef.set({ // Menyimpan data komentar ke Realtime Database
+      name: name,
+      comment: comment,
+      timestamp: firebase.database.ServerValue.TIMESTAMP // Menyimpan timestamp server (penting untuk pengurutan)
     });
-    
-    if (!response.ok) {
-        throw new Error('Gagal memposting komentar');
-    }
-    
-    return await response.json();
+
+    return newCommentRef.key; // Mengembalikan ID unik dari komentar yang baru saja diposting
+  } catch (error) {
+    console.error("Error posting comment to Firebase:", error);
+    throw error;
+  }
 }
 
-// Function to get comments from GitHub Issues
-async function getCommentsFromGitHub() {
-    const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?labels=comment&state=all`);
-    
-    if (!response.ok) {
-        throw new Error('Gagal mengambil komentar');
-    }
-    
-    return await response.json();
+// Fungsi untuk mengambil komentar dari Firebase
+async function getCommentsFromFirebase() {
+  try {
+    const db = firebase.database(); // Dapatkan instance database
+    const commentsRef = db.ref('comments'); // Referensi ke node 'comments'
+
+    // Mengambil snapshot data sekali dan mengurutkannya berdasarkan timestamp
+    const snapshot = await commentsRef.orderByChild('timestamp').once('value');
+    return snapshot.val(); // Mengembalikan data komentar dalam bentuk objek JavaScript
+  } catch (error) {
+    console.error("Error getting comments from Firebase:", error);
+    throw error;
+  }
 }
 
-// Function to display comments
+// Fungsi untuk menampilkan komentar (modifikasi untuk Firebase)
 async function displayComments() {
     try {
-        const comments = await getCommentsFromGitHub();
-        commentsList.innerHTML = '';
-        
-        // Tambahkan komentar admin default
+        commentsList.innerHTML = ''; // Kosongkan daftar komentar yang ada
+
+        // Tambahkan komentar admin default (ini tetap sama)
         commentsList.innerHTML += `
             <div class="comment">
                 <div class="comment-header">
@@ -2205,30 +2197,40 @@ async function displayComments() {
                 <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
             </div>
         `;
-        
-        // Tambahkan komentar dari GitHub (dibalik urutannya agar yang baru di atas)
-        comments.reverse().forEach(comment => {
-            const firstLetter = comment.user?.login?.charAt(0).toUpperCase() || 'U';
-            const authorName = comment.user?.login || 'Anonymous';
-            const date = new Date(comment.created_at).toLocaleString();
-            
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
-            commentDiv.innerHTML = `
-                <div class="comment-header">
-                    <div class="comment-avatar">${firstLetter}</div>
-                    <div class="comment-author">${authorName}</div>
-                    <div class="comment-date">${date}</div>
-                </div>
-                <div class="comment-content">${comment.body}</div>
-            `;
-            commentsList.appendChild(commentDiv);
-        });
+
+        // Panggil fungsi Firebase untuk mengambil komentar
+        const comments = await getCommentsFromFirebase();
+
+        if (comments) {
+            // Firebase mengembalikan objek, kita perlu mengubahnya ke array untuk diurutkan
+            const commentsArray = Object.entries(comments).map(([key, value]) => ({
+                id: key, // ID unik dari Firebase
+                ...value // Nama, komentar, timestamp
+            })).sort((a, b) => b.timestamp - a.timestamp); // Urutkan dari yang terbaru ke terlama
+
+            // Iterasi dan tampilkan setiap komentar
+            commentsArray.forEach(comment => {
+                const date = new Date(comment.timestamp).toLocaleString(); // Format timestamp
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-author">${comment.name}</div>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                    <div class="comment-content">${comment.comment}</div>
+                `;
+                // Tambahkan komentar baru setelah komentar admin
+                const adminComment = commentsList.querySelector('.comment');
+                commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+            });
+        }
     } catch (error) {
-        console.error('Error:', error);
-        showNotification('Gagal memuat komentar', false);
-        
-        // Coba tampilkan komentar dari localStorage jika GitHub gagal
+        console.error('Error in displayComments:', error);
+        showNotification('Gagal memuat komentar dari Firebase', false);
+
+        // Fallback ke localStorage jika Firebase gagal (ini tetap bisa dipertahankan)
         const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
         if (localComments.length > 0) {
             localComments.reverse().forEach(comment => {
@@ -2249,53 +2251,37 @@ async function displayComments() {
     }
 }
 
-// Function to handle comment submission
+// Fungsi handle submit komentar (modifikasi untuk Firebase)
 async function handleCommentSubmit(e) {
     e.preventDefault(); // Mencegah form submit default
-    
+
     const commentName = document.getElementById('commentName').value.trim();
     const commentText = document.getElementById('commentText').value.trim();
-    
+
     if (!commentName || !commentText) {
         showNotification('Harap isi nama dan komentar!', false);
         return;
     }
-    
+
     try {
         showNotification('Memposting komentar...', true);
-        
-        // Coba posting ke GitHub
-        const newComment = await postCommentToGitHub(commentName, commentText);
-        
+
+        // Coba posting ke Firebase
+        await postCommentToFirebase(commentName, commentText);
+
         // Reset form
         document.getElementById('commentForm').reset();
-        
+
         // Tampilkan notifikasi sukses
         showNotification('Komentar berhasil diposting!');
-        
-        // Buat elemen komentar baru dan tambahkan ke atas daftar
-        const firstLetter = commentName.charAt(0).toUpperCase();
-        const date = new Date().toLocaleString();
-        
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment';
-        commentDiv.innerHTML = `
-            <div class="comment-header">
-                <div class="comment-avatar">${firstLetter}</div>
-                <div class="comment-author">${commentName}</div>
-                <div class="comment-date">${date}</div>
-            </div>
-            <div class="comment-content">${commentText}</div>
-        `;
-        
-        // Tambahkan komentar baru setelah komentar admin
-        const adminComment = commentsList.querySelector('.comment');
-        commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-        
+
+        // Refresh komentar untuk menampilkan yang baru (ini akan memanggil displayComments())
+        await displayComments();
+
     } catch (error) {
-        console.error('Error:', error);
-        
-        // Jika gagal ke GitHub, simpan ke localStorage
+        console.error('Error in handleCommentSubmit:', error);
+
+        // Jika gagal ke Firebase, simpan ke localStorage (ini tetap bisa dipertahankan)
         try {
             const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
             comments.push({
@@ -2304,8 +2290,10 @@ async function handleCommentSubmit(e) {
                 date: new Date().toISOString()
             });
             localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
-            
-            // Tampilkan komentar dari localStorage
+
+            showNotification('Gagal posting ke Firebase, komentar disimpan secara lokal', true); // Ubah pesan notifikasi
+
+            // Tampilkan komentar dari localStorage ke UI
             const date = new Date().toLocaleString();
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment';
@@ -2317,11 +2305,10 @@ async function handleCommentSubmit(e) {
                 </div>
                 <div class="comment-content">${commentText}</div>
             `;
-            
+
             const adminComment = commentsList.querySelector('.comment');
             commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-            
-            showNotification('Komentar disimpan secara lokal', true);
+
         } catch (localError) {
             console.error('Gagal menyimpan ke localStorage:', localError);
             showNotification('Gagal memposting komentar', false);
@@ -2347,5 +2334,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
     </script>
+
+    <!-- Tambahkan sebelum script lainnya -->
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+
+<script>
+  // Konfigurasi Firebase Anda
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPDMPIFqFj1IOWhebeboO7jRNBF5fQ3xE",
+    authDomain: "vexernoss.firebaseapp.com",
+    databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebaseio.com",
+    projectId: "vexernoss",
+    storageBucket: "vexernoss.appspot.com",
+    messagingSenderId: "653268071478",
+    appId: "1:653268071478:web:d8bd8bc924c18aad5029497",
+    // measurementId: "G-HV411SWR11" // Opsional, bisa dihapus jika tidak perlu Analytics
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+    // ... semua kode JavaScript Anda di sini ...
+</script>
 </body>
 </html>
