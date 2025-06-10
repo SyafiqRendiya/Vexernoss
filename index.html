@@ -2205,6 +2205,31 @@ if (commentForm) {
         hamburger.addEventListener('click', function() {
             this.classList.toggle('active');
         });
+        // Fungsi untuk mendapatkan komentar
+async function getComments() {
+  const response = await fetch('https://api.github.com/repos/username-anda/repo-name/contents/data/comments.json');
+  const data = await response.json();
+  const content = atob(data.content); // Decode base64
+  return JSON.parse(content);
+}
+
+// Fungsi untuk update komentar (butuh GitHub token)
+async function updateComments(comments) {
+  const token = 'GITHUB_TOKEN_ANDA'; // Buat personal access token
+  const response = await fetch('https://api.github.com/repos/username-anda/repo-name/contents/data/comments.json', {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      message: 'Update comments',
+      content: btoa(JSON.stringify(comments)),
+      sha: 'SHA_DARI_FILE_SEBELUMNYA' // Dapatkan dari response get
+    })
+  });
+  return await response.json();
+}
     </script>
 </body>
 </html>
