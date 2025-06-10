@@ -2035,7 +2035,7 @@
 const commentForm = document.getElementById('commentForm');
 const commentsList = document.getElementById('commentsList');
 
-// Function to show notification - PERBAIKAN
+// Function to show notification
 function showNotification(message, isSuccess = true) {
     const notification = document.createElement('div');
     notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
@@ -2058,8 +2058,9 @@ function showNotification(message, isSuccess = true) {
 
 // GitHub API Configuration
 const GITHUB_USERNAME = 'SyafiqRendiya';
-const GITHUB_REPO = 'vexernoss-comments'; // Hanya nama repo, bukan URL lengkap
-const GITHUB_TOKEN = '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'; // HARAP DIGANTI DENGAN TOKEN BARU SETELAH TESTING
+const GITHUB_REPO = 'vexernoss-comments';
+// HARAP BUAT TOKEN BARU DAN SIMPAN SECARA AMAN
+const GITHUB_TOKEN = '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'; 
 
 // Function to post comment to GitHub Issues
 async function postCommentToGitHub(name, comment) {
@@ -2098,7 +2099,7 @@ async function getCommentsFromGitHub() {
     return await response.json();
 }
 
-// Modified display comments function - PERBAIKAN
+// Function to display comments
 async function displayComments() {
     try {
         const comments = await getCommentsFromGitHub();
@@ -2116,8 +2117,8 @@ async function displayComments() {
             </div>
         `;
         
-        // Tambahkan komentar dari GitHub
-        comments.forEach(comment => {
+        // Tambahkan komentar dari GitHub (dibalik urutannya agar yang baru di atas)
+        comments.reverse().forEach(comment => {
             const firstLetter = comment.user?.login?.charAt(0).toUpperCase() || 'U';
             const authorName = comment.user?.login || 'Anonymous';
             const date = new Date(comment.created_at).toLocaleString();
@@ -2137,12 +2138,31 @@ async function displayComments() {
     } catch (error) {
         console.error('Error:', error);
         showNotification('Gagal memuat komentar', false);
+        
+        // Coba tampilkan komentar dari localStorage jika GitHub gagal
+        const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+        if (localComments.length > 0) {
+            localComments.reverse().forEach(comment => {
+                const date = new Date(comment.date).toLocaleString();
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-author">${comment.name}</div>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                    <div class="comment-content">${comment.comment}</div>
+                `;
+                commentsList.appendChild(commentDiv);
+            });
+        }
     }
 }
 
-// Modified comment form handler - PERBAIKAN
+// Function to handle comment submission
 async function handleCommentSubmit(e) {
-    e.preventDefault(); // Ini penting untuk mencegah form submit default
+    e.preventDefault(); // Mencegah form submit default
     
     const commentName = document.getElementById('commentName').value.trim();
     const commentText = document.getElementById('commentText').value.trim();
@@ -2154,17 +2174,39 @@ async function handleCommentSubmit(e) {
     
     try {
         showNotification('Memposting komentar...', true);
-        await postCommentToGitHub(commentName, commentText);
-        document.getElementById('commentForm').reset();
-        showNotification('Komentar Anda telah dipublikasikan!');
         
-        // Refresh komentar setelah posting baru
-        setTimeout(displayComments, 1000);
+        // Coba posting ke GitHub
+        const newComment = await postCommentToGitHub(commentName, commentText);
+        
+        // Reset form
+        document.getElementById('commentForm').reset();
+        
+        // Tampilkan notifikasi sukses
+        showNotification('Komentar berhasil diposting!');
+        
+        // Buat elemen komentar baru dan tambahkan ke atas daftar
+        const firstLetter = commentName.charAt(0).toUpperCase();
+        const date = new Date().toLocaleString();
+        
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        commentDiv.innerHTML = `
+            <div class="comment-header">
+                <div class="comment-avatar">${firstLetter}</div>
+                <div class="comment-author">${commentName}</div>
+                <div class="comment-date">${date}</div>
+            </div>
+            <div class="comment-content">${commentText}</div>
+        `;
+        
+        // Tambahkan komentar baru setelah komentar admin
+        const adminComment = commentsList.querySelector('.comment');
+        commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+        
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Gagal memposting komentar: ' + error.message, false);
         
-        // Coba simpan ke localStorage sebagai fallback
+        // Jika gagal ke GitHub, simpan ke localStorage
         try {
             const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
             comments.push({
@@ -2173,26 +2215,46 @@ async function handleCommentSubmit(e) {
                 date: new Date().toISOString()
             });
             localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
-            showNotification('Komentar disimpan lokal (akan muncul setelah refresh)', true);
+            
+            // Tampilkan komentar dari localStorage
+            const date = new Date().toLocaleString();
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${commentName.charAt(0).toUpperCase()}</div>
+                    <div class="comment-author">${commentName}</div>
+                    <div class="comment-date">${date}</div>
+                </div>
+                <div class="comment-content">${commentText}</div>
+            `;
+            
+            const adminComment = commentsList.querySelector('.comment');
+            commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+            
+            showNotification('Komentar disimpan secara lokal', true);
         } catch (localError) {
             console.error('Gagal menyimpan ke localStorage:', localError);
+            showNotification('Gagal memposting komentar', false);
         }
     }
 }
 
-// Event listener for comment form - PERBAIKAN
+// Event listener for comment form
 if (commentForm) {
     commentForm.addEventListener('submit', handleCommentSubmit);
 }
 
-// Load comments when page loads - PERBAIKAN
+// Load comments when page loads
 document.addEventListener('DOMContentLoaded', function() {
     displayComments();
     
-    // Cek untuk komentar lokal jika GitHub gagal
-    const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-    if (localComments.length > 0) {
-        showNotification(`${localComments.length} komentar lokal tersedia`, true);
+    // Periksa URL untuk parameter komentar baru
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('commentPosted')) {
+        showNotification('Komentar Anda berhasil diposting!');
+        // Hapus parameter dari URL tanpa reload
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
     </script>
