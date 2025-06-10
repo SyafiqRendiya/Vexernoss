@@ -2888,6 +2888,28 @@
         setInterval(() => {
             displayComments();
         }, 30000);
+
+        // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDPWiPfqfjlOwWhebegBo7jRNbFs5Fq3xE",
+    authDomain: "vexernoss.firebaseapp.com",
+    projectId: "vexernoss",
+    storageBucket: "vexernoss.firebasestorage.app",
+    messagingSenderId: "653268071478",
+    appId: "1:653268071478:web:d8d88c924c18aad5029497",
+    measurementId: "G-HV411SWR11"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
     </script>
 </body>
 </html>
