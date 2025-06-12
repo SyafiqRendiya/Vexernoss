@@ -973,8 +973,8 @@
         }
         
         .comment-content {
-            white-space: pre-wrap; /* Ini yang akan mempertahankan paragraf */
-            word-wrap: break-word;
+             white-space: pre-wrap; /* Ini yang akan mempertahankan paragraf */
+            color: var(--text-color);
             line-height: 1.6;
             padding-left: 55px;
         }
@@ -986,7 +986,17 @@
             margin-top: 10px;
         }
         
-        
+        .comment-action-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: rgba(108, 92, 231, 0.1);
+        }
         
         .comment-action-btn:hover {
             background: rgba(108, 92, 231, 0.2);
@@ -1001,25 +1011,18 @@
             background: rgba(253, 121, 168, 0.2);
         }
         
-        
-        
-        .reply-form textarea {
+        .edit-comment-textarea {
             width: 100%;
-            margin-bottom: 10px;
-        }
-        
-        .replies-container {
-            margin-top: 15px;
-            padding-left: 20px;
-            border-left: 2px solid rgba(108, 92, 231, 0.3);
-        }
-        
-        .reply {
-            margin-top: 10px;
             padding: 10px;
-            background: rgba(108, 92, 231, 0.05);
+            margin-top: 10px;
+            border: 1px solid rgba(108, 92, 231, 0.3);
             border-radius: 8px;
+            background: #333;
+            color: var(--text-color);
+            resize: vertical;
+            min-height: 80px;
         }
+        
         
         .comment-actions {
             position: absolute;
@@ -1046,7 +1049,13 @@
             color: var(--accent);
         }
         
-        
+        .comment-form {
+            background: rgba(108, 92, 231, 0.05);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(108, 92, 231, 0.2);
+        }
+
         .comment-form .form-group {
             margin-bottom: 15px;
         }
@@ -1875,6 +1884,14 @@
             <div class="comment-section fade-in delay-4">
                 <h3>Komentar</h3>
                 <p class="subtitle">Kami senang mendengar dari Anda</p>
+                <div class="comment-form">
+                    <form id="commentForm"></form>
+                    <div class="recaptcha-notice">
+                        This site is protected by reCAPTCHA and the Google 
+                        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
+                        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+                    </div>
+                </div>
                 
                 <div class="comments-list" id="commentsList">
                     <!-- Komentar akan dimuat di sini -->
@@ -1887,24 +1904,7 @@
                         <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
                     </div>
                 </div>
-                
-                <div class="comment-form">
-                    <h4>POST A COMMENT</h4>
-                    <form id="commentForm">
-                        <div class="form-group">
-                            <input type="text" id="commentName" class="form-control" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="commentText" class="form-control" placeholder="Your Comment" required></textarea>
-                        </div>
-                        <button type="submit" class="comment-submit">PUBLISH</button>
-                    </form>
-                    <div class="recaptcha-notice">
-                        This site is protected by reCAPTCHA and the Google 
-                        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
-                        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -2231,112 +2231,74 @@
 
         // Fungsi untuk menampilkan komentar
         async function displayComments() {
-            try {
-                commentsList.innerHTML = '';
+    try {
+        commentsList.innerHTML = '';
 
-                // Tambahkan komentar admin default
-                commentsList.innerHTML += `
-                    <div class="comment">
-                        <div class="comment-header">
-                            <div class="comment-avatar">A</div>
-                            <div class="comment-author">Admin Bejir</div>
-                            <div class="comment-date">9/4/2023, 6:40:20 AM</div>
-                        </div>
-                        <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+        // Tambahkan komentar admin default
+        commentsList.innerHTML += `
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar">A</div>
+                    <div class="comment-author">Admin Bejir</div>
+                    <div class="comment-date">9/4/2023, 6:40:20 AM</div>
+                </div>
+                <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
+            </div>
+        `;
+
+        const comments = await getCommentsFromFirebase();
+
+        if (comments) {
+            const commentsArray = Object.entries(comments).map(([key, value]) => ({
+                id: key,
+                ...value
+            })).sort((a, b) => b.timestamp - a.timestamp);
+
+            // Hanya tampilkan komentar utama (tanpa parentId)
+            const mainComments = commentsArray.filter(comment => !comment.parentId);
+
+            mainComments.forEach(comment => {
+                const date = new Date(comment.timestamp).toLocaleString();
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.id = `comment-${comment.id}`;
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-author">${comment.name}</div>
+                        <div class="comment-date">${date}</div>
                     </div>
+                    <div class="comment-content">${comment.comment}</div>
                 `;
-
-                // Panggil fungsi Firebase untuk mengambil komentar
-                const comments = await getCommentsFromFirebase();
-
-                if (comments) {
-                    const commentsArray = Object.entries(comments).map(([key, value]) => ({
-                        id: key,
-                        ...value
-                    })).sort((a, b) => b.timestamp - a.timestamp);
-
-                    // Pisahkan komentar utama dan balasan
-                    const mainComments = commentsArray.filter(comment => !comment.parentId);
-                    const replies = commentsArray.filter(comment => comment.parentId);
-
-                    // Tampilkan komentar utama
-                    mainComments.forEach(comment => {
-                        const date = new Date(comment.timestamp).toLocaleString();
-                        const commentDiv = document.createElement('div');
-                        commentDiv.className = 'comment';
-                        commentDiv.id = `comment-${comment.id}`;
-                        commentDiv.innerHTML = `
-                            <div class="comment-header">
-                                <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                                <div class="comment-author">${comment.name}</div>
-                                <div class="comment-date">${date}</div>
-                            </div>
-                            <div class="comment-content">${comment.comment}</div>
-                            <div class="comment-actions">
-                                <button class="comment-action-btn reply-btn" data-id="${comment.id}">Balas</button>
-                            </div>
-                            <div class="replies-container" id="replies-${comment.id}"></div>
-                            <div class="reply-form" id="reply-form-${comment.id}" style="display: none;">
-                                <textarea placeholder="Tulis balasan Anda..." class="form-control reply-textarea"></textarea>
-                                <button class="btn submit-reply" data-id="${comment.id}">Kirim Balasan</button>
-                            </div>
-                        `;
-                        
-                        const adminComment = commentsList.querySelector('.comment');
-                        commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-
-                        // Tampilkan balasan untuk komentar ini
-                        const commentReplies = replies.filter(reply => reply.parentId === comment.id);
-                        if (commentReplies.length > 0) {
-                            const repliesContainer = document.getElementById(`replies-${comment.id}`);
-                            commentReplies.forEach(reply => {
-                                const replyDate = new Date(reply.timestamp).toLocaleString();
-                                const replyDiv = document.createElement('div');
-                                replyDiv.className = 'reply';
-                                replyDiv.id = `comment-${reply.id}`;
-                                replyDiv.innerHTML = `
-                                    <div class="comment-header">
-                                        <div class="comment-avatar">${reply.name.charAt(0).toUpperCase()}</div>
-                                        <div class="comment-author">${reply.name}</div>
-                                        <div class="comment-date">${replyDate}</div>
-                                    </div>
-                                    <div class="comment-content">${reply.comment}</div>
-                                    <div class="comment-actions">
-                                        <button class="comment-action-btn delete delete-btn" data-id="${reply.id}">Hapus</button>
-                                    </div>
-                                `;
-                                repliesContainer.appendChild(replyDiv);
-                            });
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error('Error in displayComments:', error);
-                showNotification('Gagal memuat komentar dari Firebase', false);
-
-                // Fallback ke localStorage
-                const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-                if (localComments.length > 0) {
-                    localComments.reverse().forEach(comment => {
-                        const date = new Date(comment.date).toLocaleString();
-                        const commentDiv = document.createElement('div');
-                        commentDiv.className = 'comment';
-                        commentDiv.innerHTML = `
-                            <div class="comment-header">
-                                <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                                <div class="comment-author">${comment.name}</div>
-                                <div class="comment-date">${date}</div>
-                            </div>
-                            <div class="comment-content">${comment.comment}</div>
-                            <div class="comment-actions">
-                                <button class="comment-action-btn delete delete-btn" data-id="local-${Date.now()}">Hapus</button>
-                            </div>
-                        `;
-                        commentsList.appendChild(commentDiv);
-                    });
-                }
-            }
+                
+                const adminComment = commentsList.querySelector('.comment');
+                commentsList.insertBefore(commentDiv, adminComment.nextSibling);
+            });
         }
+    } catch (error) {
+        console.error('Error in displayComments:', error);
+        showNotification('Gagal memuat komentar dari Firebase', false);
+
+        // Fallback ke localStorage
+        const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
+        if (localComments.length > 0) {
+            localComments.reverse().forEach(comment => {
+                const date = new Date(comment.date).toLocaleString();
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
+                        <div class="comment-author">${comment.name}</div>
+                        <div class="comment-date">${date}</div>
+                    </div>
+                    <div class="comment-content">${comment.comment}</div>
+                `;
+                commentsList.appendChild(commentDiv);
+            });
+        }
+    }
+}
 
         // Event listeners untuk fitur baru
         document.addEventListener('click', function(e) {
@@ -2354,22 +2316,7 @@
                 enableCommentEdit(commentId);
             }
             
-            // Fitur Balas Komentar - Tampilkan form
-            if (e.target.classList.contains('reply-btn')) {
-                const commentId = e.target.dataset.id;
-                document.getElementById(`reply-form-${commentId}`).style.display = 'block';
-            }
             
-            // Fitur Balas Komentar - Submit
-            if (e.target.classList.contains('submit-reply')) {
-                const parentId = e.target.dataset.id;
-                const replyText = document.querySelector(`#reply-form-${parentId} .reply-textarea`).value.trim();
-                if (replyText) {
-                    postReply(parentId, replyText);
-                } else {
-                    showNotification('Harap isi balasan Anda!', false);
-                }
-            }
             
             // Fitur Simpan Edit Komentar
             if (e.target.classList.contains('save-edit-btn')) {
@@ -2427,35 +2374,6 @@
             }
         }
 
-        // Fungsi untuk posting balasan
-        async function postReply(parentId, replyText) {
-            try {
-                const name = document.getElementById('commentName').value.trim() || 'Anonymous';
-                const db = firebase.database();
-                const repliesRef = db.ref('comments');
-                
-                const newReplyRef = repliesRef.push();
-                await newReplyRef.set({
-                    name: name,
-                    comment: replyText,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    parentId: parentId
-                });
-                
-                // Sembunyikan form balasan
-                document.getElementById(`reply-form-${parentId}`).style.display = 'none';
-                // Kosongkan textarea
-                document.querySelector(`#reply-form-${parentId} .reply-textarea`).value = '';
-                
-                // Refresh komentar untuk menampilkan balasan baru
-                await displayComments();
-                
-                showNotification('Balasan berhasil diposting!');
-            } catch (error) {
-                console.error('Error posting reply:', error);
-                showNotification('Gagal memposting balasan', false);
-            }
-        }
 
         // Fungsi handle submit komentar
         async function handleCommentSubmit(e) {
