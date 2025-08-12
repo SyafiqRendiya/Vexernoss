@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vexernoss | Jasa Desain Profesional</title>
+    <title>Pemburikan Gambar</title>
     <link rel="icon" href="https://qu.ax/mQXXo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <style>
         /* Global Styles */
         :root {
@@ -34,7 +32,6 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
         
         .container {
@@ -44,25 +41,7 @@
         }
         
         section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
+            padding: 60px 0;
         }
         
         .btn {
@@ -86,31 +65,15 @@
             background: var(--secondary);
         }
         
-        .btn-accent {
-            background: var(--accent);
-            box-shadow: 0 4px 15px rgba(253, 121, 168, 0.3);
-        }
-        
-        .btn-accent:hover {
-            box-shadow: 0 6px 20px rgba(253, 121, 168, 0.4);
-            background: #ff8fab;
-        }
-        
-        /* Header & Navigation */
+        /* Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            transition: all 0.3s ease;
-            padding: 20px 0;
-            background-color: var(--header-bg);
-        }
-        
-        header.scrolled {
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
+            background-color: var(--header-bg);
         }
         
         .navbar {
@@ -129,1928 +92,379 @@
         }
         
         .logo img {
-            height: 60px;
+            height: 50px;
             margin-right: 10px;
         }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            margin-left: auto;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
-        }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-            margin-left: 30px;
-        }
-        
-        .auth-buttons .btn {
-            padding: 8px 20px;
-            font-size: 0.9rem;
-        }
-        
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.2;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3) 0%, rgba(253, 121, 168, 0.3) 100%);
-            z-index: -1;
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 50px;
-        }
-        
-        .hero-image {
-            flex: 1;
-            position: relative;
-            height: 500px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--primary);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--text-color);
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            opacity: 0.1;
-            filter: blur(20px);
-            z-index: -1;
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -100px;
-        }
-        
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            perspective: 1000px;
-        }
-        
-        .main-image {
-            position: absolute;
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            left: 10%;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
-            border-radius: 20px;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-        
-        .floating-image {
-            position: absolute;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.5s ease;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .image-1 {
-            width: 120px;
-            height: 120px;
-            top: 0;
-            left: 0;
-            background: url('https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
-            z-index: 2;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .image-2 {
-            width: 150px;
-            height: 150px;
-            bottom: 0;
-            right: 0;
-            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80') center/cover;
-            z-index: 2;
-            animation: float 7s ease-in-out infinite 1s;
-        }
-        
-        .image-3 {
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            left: -30px;
-            background: url('https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80') center/cover;
-            z-index: 3;
-            animation: float 5s ease-in-out infinite 0.5s;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-        
-        /* Keunggulan Section */
-        .features {
+
+        /* Pemburikan Section Styles */
+        .pemburikan-section {
             background-color: var(--card-bg);
-            position: relative;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            text-align: center;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(253, 121, 168, 0.1) 100%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: var(--text-color);
-            opacity: 0.8;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        /* Portfolio Section */
-        .portfolio {
-            background-color: #252525;
-            position: relative;
-        }
-        
-        .portfolio-filter {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .filter-btn {
-            padding: 8px 20px;
-            background: var(--card-bg);
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-        }
-        
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .portfolio-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            height: 250px;
-        }
-        
-        .portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(108, 92, 231, 0.8), rgba(253, 121, 168, 0.8));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-        
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-        
-        .portfolio-overlay h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-        
-        .portfolio-overlay p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease 0.1s;
-        }
-        
-        .portfolio-overlay a {
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transform: translateY(20px);
-            transition: all 0.3s ease 0.2s;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay h3,
-        .portfolio-item:hover .portfolio-overlay p,
-        .portfolio-item:hover .portfolio-overlay a {
-            transform: translateY(0);
-        }
-        
-        .portfolio-overlay a:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .testimonials::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHBhdGggZD0iTTAgMCBMIDEwMCAxMDAgTSAxMDAgMCBMIDAgMTAwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-            opacity: 0.2;
-        }
-        
-        .testimonials .section-title::after {
-            background: white;
-        }
-        
-        .testimonial-slider {
-            margin-top: 50px;
-            position: relative;
-        }
-        
-        .testimonial-slide {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 0 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-        
-        .testimonial-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .testimonial-content::before,
-        .testimonial-content::after {
-            content: '"';
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.3);
-            position: absolute;
-        }
-        
-        .testimonial-content::before {
-            top: -20px;
-            left: -10px;
-        }
-        
-        .testimonial-content::after {
-            bottom: -40px;
-            right: -10px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .author-img:hover {
-            transform: scale(1.05);
-        }
-        
-        .author-info h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-        
-        .slick-dots {
-            bottom: -50px;
-        }
-        
-        .slick-dots li button:before {
-            color: white;
-            opacity: 0.5;
-            font-size: 10px;
-        }
-        
-        .slick-dots li.slick-active button:before {
-            opacity: 1;
-            color: white;
-        }
-        
-        /* Image Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            overflow: auto;
-        }
-        
-        .modal-content {
-            display: block;
-            margin: auto;
-            max-width: 90%;
-            max-height: 90%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .close-modal:hover {
-            color: var(--accent);
-        }
-        
-        /* Layanan Section */
-        .services {
-            background-color: var(--card-bg);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-        
-        .service-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0;
-        }
-        
-        /* Tools Section */
-        .tools {
-            background-color: #252525;
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .tool-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .tool-logo {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-            object-fit: contain;
-        }
-        
-        .tool-card h3 {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-        
-        /* Portfolio Page Button */
-        .portfolio-btn-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .portfolio-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
-        }
-        
-        .portfolio-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
-            background: var(--secondary);
-        }
-        
-        /* Cara Order Section */
-        .order-steps {
-            background-color: #252525;
-        }
-        
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .step-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-        }
-        
-        .step-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .step-card p {
-            color: var(--text-color);
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-        
-        /* Contact Section */
-        .contact {
-            background-color: #252525;
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-top: 50px;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        
-        .contact-text h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        
-        .contact-text p, .contact-text a {
-            color: var(--text-color);
-            opacity: 0.8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-text a:hover {
-            color: var(--primary);
-            opacity: 1;
-        }
-        
-        .contact-form {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            padding: 100px 0 80px;
+        }
+
+        .pemburikan-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .pemburikan-box {
             background-color: #333;
-            color: var(--text-color);
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Comment Section Styles */
-        .comment-section {
-            margin-top: 50px;
-            background: var(--card-bg);
-            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .comment-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .comment-section p.subtitle {
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        .comments-list {
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             margin-bottom: 40px;
         }
-        
-        .comment {
-            background: rgba(108, 92, 231, 0.05);
-            border-left: 3px solid var(--primary);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            position: relative;
+
+        .pemburikan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
-        
-        .comment-header {
+
+        .pemburikan-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(108, 92, 231, 0.5);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .pemburikan-options {
+            margin-bottom: 30px;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-group h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .option-row {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
-        
-        .comment-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
+
+        .option-label {
+            width: 150px;
+            font-weight: 500;
+        }
+
+        .option-input {
+            flex: 1;
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin-right: 15px;
-            font-weight: bold;
+            gap: 15px;
         }
-        
-        .comment-author {
-            font-weight: bold;
-            color: var(--text-color);
-        }
-        
-        .comment-date {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-left: 10px;
-        }
-        
-        .comment-content {
-             white-space: pre-wrap; /* Ini yang akan mempertahankan paragraf */
-            color: var(--text-color);
-            line-height: 1.6;
-            padding-left: 55px;
-        }
-        
-        /* New Comment Action Styles */
-        .comment-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .comment-action-btn {
-            background: none;
-            border: none;
-            color: var(--secondary);
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: color 0.3s ease;
-            padding: 5px 10px;
+
+        .option-input input[type="range"] {
+            flex: 1;
+            height: 8px;
+            background: #444;
             border-radius: 4px;
-            background: rgba(108, 92, 231, 0.1);
+            outline: none;
+            -webkit-appearance: none;
         }
-        
-        .comment-action-btn:hover {
-            background: rgba(108, 92, 231, 0.2);
+
+        .option-input input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
         }
-        
-        .comment-action-btn.delete {
-            color: var(--accent);
-            background: rgba(253, 121, 168, 0.1);
-        }
-        
-        .comment-action-btn.delete:hover {
-            background: rgba(253, 121, 168, 0.2);
-        }
-        
-        .edit-comment-textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
+
+        .option-input input[type="number"] {
+            width: 80px;
+            padding: 8px 12px;
+            background: #444;
             border: 1px solid rgba(108, 92, 231, 0.3);
             border-radius: 8px;
-            background: #333;
-            color: var(--text-color);
-            resize: vertical;
-            min-height: 80px;
+            color: white;
+            text-align: center;
         }
-        
-        
-        .comment-actions {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+
+        .option-input select {
+            width: 100%;
+            padding: 8px 12px;
+            background: #444;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .option-input input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary);
+        }
+
+        .image-preview-container {
             display: flex;
-            gap: 10px;
+            gap: 20px;
+            margin-top: 30px;
         }
-        
-        .comment-edit, .comment-delete {
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: color 0.3s ease;
+
+        .preview-column {
+            flex: 1;
+            min-width: 0;
         }
-        
-        .comment-edit:hover {
+
+        .preview-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-align: center;
             color: var(--primary);
         }
-        
-        .comment-delete:hover {
-            color: var(--accent);
-        }
-        
-        .comment-form {
-            background: rgba(108, 92, 231, 0.05);
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-        }
 
-        .comment-form .form-group {
-            margin-bottom: 15px;
-        }
-
-        .comment-form .form-control {
+        .preview-image {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid rgba(108, 92, 231, 0.2);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background-color: #333;
-            color: var(--text-color);
+            height: 300px;
+            object-fit: contain;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .comment-form .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-        }
-        
-        .comment-form h4 {
-            margin-bottom: 20px;
-            color: var(--text-color);
-            font-size: 1.3rem;
-        }
-        
-        .comment-as {
+        .preview-info {
+            margin-top: 10px;
+            text-align: center;
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 15px;
         }
-        
-        .comment-as strong {
-            color: var(--primary);
-        }
-        
-        
-        .comment-submit {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .comment-submit:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-        
-        .recaptcha-notice {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 15px;
-        }
-        
-        .recaptcha-notice a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+        .action-buttons {
             display: flex;
-            align-items: center;
+            justify-content: center;
             gap: 15px;
-            z-index: 10000;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            border-left: 4px solid;
+            margin-top: 30px;
         }
-        
-        .notification.success {
-            border-left-color: var(--success);
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(108, 92, 231, 0.2);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
         }
-        
-        .notification.error {
-            border-left-color: var(--accent);
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .notification i {
-            font-size: 1.5rem;
+
+        .loading-text {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            display: none;
         }
-        
-        .notification.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
+
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 80px 0 30px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 2px;
-            background: var(--primary);
-        }
-        
-        .footer-col p {
-            color: #bbb;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #bbb;
             font-size: 0.9rem;
         }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background: var(--accent);
-            transform: translateY(-5px);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100vh;
-            background: var(--card-bg);
-            z-index: 1000;
-            transition: right 0.3s ease;
-            padding: 80px 20px 20px;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-        
-        .mobile-menu.active {
-            right: 0;
-        }
-        
-        .mobile-menu .nav-links {
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .mobile-menu .nav-links li {
-            margin: 0;
-        }
-        
-        .mobile-menu .nav-links a {
-            font-size: 1.1rem;
-        }
-        
-        .mobile-menu .auth-buttons {
-            margin: 30px 0 0;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            cursor: pointer;
-        }
-        
+
         /* Responsive Styles */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-            }
-            
-            .hero-btns {
-                justify-content: center;
-            }
-            
-            .hero-image {
-                width: 80%;
-                height: 400px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .auth-buttons {
-                display: none;
-            }
-            
-            .hamburger {
-                display: block;
-            }
-            
-            .floating-image {
-                display: none;
-            }
-            
-            .services-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .testimonial-slide {
-                padding: 20px;
-            }
-            
-            .comment-section {
-                padding: 20px;
-            }
-            
-            .comment-content {
-                padding-left: 0;
-            }
-            
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            .pemburikan-header {
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 20px;
             }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .hero-btns {
+
+            .option-row {
                 flex-direction: column;
-                gap: 15px;
+                align-items: flex-start;
+                gap: 8px;
             }
-            
-            .btn {
+
+            .option-label {
                 width: 100%;
             }
-            
-            .mobile-menu {
-                width: 80%;
-                right: -80%;
+
+            .option-input {
+                width: 100%;
             }
-            
-            .mobile-menu.active {
-                right: 0;
+
+            .image-preview-container {
+                flex-direction: column;
             }
-            
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
+
+            .preview-image {
+                height: 200px;
             }
-        }
-        
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
-        }
-        
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .delay-1 {
-            transition-delay: 0.1s;
-        }
-        
-        .delay-2 {
-            transition-delay: 0.2s;
-        }
-        
-        .delay-3 {
-            transition-delay: 0.3s;
-        }
-        
-        .delay-4 {
-            transition-delay: 0.4s;
-        }
-        
-        .delay-5 {
-            transition-delay: 0.5s;
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
+    <!-- Header -->
     <header id="header">
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo"><img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo"> </a>
-                <ul class="nav-links">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#features">Keunggulan</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#testimonials">Testimoni</a></li>
-                    <li><a href="#services">Layanan</a></li>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#order">Cara Order</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                    <div class="auth-buttons">
-                    </div>
-                </ul>
-                <div class="hamburger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+                <a href="#" class="logo"><img src="https://qu.ax/UxjKg.png" alt="Logo"> </a>
             </nav>
         </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
-        <ul class="nav-links">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#features">Keunggulan</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#services">Layanan</a></li>
-            <li><a href="#tools">Tools</a></li>
-            <li><a href="#testimonials">Testimoni</a></li>
-            <li><a href="#order">Cara Order</a></li>
-            <li><a href="#contact">Kontak</a></li>
-            <div class="auth-buttons">
-                <a href="#" class="btn" id="mobileLoginBtn">Masuk</a>
-                <a href="#" class="btn btn-accent">Daftar</a>
-            </div>
-        </ul>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <video class="hero-video" autoplay muted loop>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-grid-538-large.mp4" type="video/mp4">
-        </video>
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
+    <!-- Pemburikan Section -->
+    <section class="pemburikan-section">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <h1>Tingkatkan Brand Anda Dengan <span>Desain Menakjubkan</span></h1>
-                    <p>Kami menciptakan desain visual yang memukau untuk meningkatkan brand Anda dan menarik perhatian audiens. Tim kami memberikan hasil terbaik yang disesuaikan dengan kebutuhan unik Anda.</p>
-                    <div class="hero-btns">
-                        <a href="#contact" class="btn">Mulai Sekarang</a>
-                        <a href="#portfolio" class="btn btn-accent">Lihat Karya</a>
-                    </div>
+            <div class="pemburikan-box">
+                <div class="pemburikan-header">
+                    <h2>Pemburikan Gambar</h2>
                 </div>
-                <div class="hero-image fade-in delay-1">
-                    <div class="image-container">
-                        <div class="main-image" id="mainImage"></div>
-                        <div class="floating-image image-1"></div>
-                        <div class="floating-image image-2"></div>
-                        <div class="floating-image image-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Keunggulan Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title fade-in">Keunggulan <span>Kami</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Mengapa memilih jasa desain kami untuk kebutuhan branding dan promosi Anda.</p>
-            
-            <div class="features-grid">
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
                     </div>
-                    <h3>Profesional</h3>
-                    <p>Tim desainer berpengalaman dengan portofolio yang luas di berbagai industri dan jenis desain.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-wallet"></i>
+                    <div class="upload-text">
+                        Seret & Lepaskan Gambar di Sini atau Klik untuk Memilih
                     </div>
-                    <h3>Hemat Biaya</h3>
-                    <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-smile"></i>
+                    <div class="upload-hint">
+                        Format yang didukung: JPG, PNG, GIF (Maks. 10MB)
                     </div>
-                    <h3>Garansi Puas</h3>
-                    <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil desain yang kami buat.</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
                 </div>
-                
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Proses Cepat</h3>
-                    <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Dukungan 24/7</h3>
-                    <p>Tim support siap membantu Anda kapan saja melalui WhatsApp dan email.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>Source File</h3>
-                    <p>Anda mendapatkan semua file sumber (PSD, AI, dll) setelah proyek selesai.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="section-title fade-in">Portfolio <span>Kami</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px;">Koleksi proyek terbaru kami yang telah membantu berbagai bisnis mencapai tujuan desain mereka.</p>
-            
-            <div class="portfolio-filter fade-in delay-2">
-                <button class="filter-btn active" data-filter="all">Semua</button>
-                <button class="filter-btn" data-filter="video">Editing Video</button>
-                <button class="filter-btn" data-filter="graphic">Desain Grafis</button>
-                <button class="filter-btn" data-filter="motion">Motion Graphic</button>
-                <button class="filter-btn" data-filter="ui">UI/UX</button>
-            </div>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-item fade-in delay-3" data-category="video">
-                    <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Video Editing Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Seri Travel Vlog</h3>
-                        <p>Editing video untuk travel influencer</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
+                <div class="pemburikan-options">
+                    <div class="option-group">
+                        <h3>Pengaturan Pemburikan</h3>
+                        <div class="option-row">
+                            <div class="option-label">Kualitas</div>
+                            <div class="option-input">
+                                <input type="range" id="qualityRange" min="0" max="100" value="50">
+                                <input type="number" id="qualityValue" min="0" max="100" value="50">
+                            </div>
+                        </div>
+                        <div class="option-row">
+                            <div class="option-label">Ukuran</div>
+                            <div class="option-input">
+                                <select id="sizeSelect">
+                                    <option value="original">Original</option>
+                                    <option value="1024">1024px</option>
+                                    <option value="800">800px</option>
+                                    <option value="640">640px</option>
+                                    <option value="480">480px</option>
+                                    <option value="320">320px</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="option-row">
+                            <div class="option-label">Format</div>
+                            <div class="option-input">
+                                <select id="formatSelect">
+                                    <option value="jpeg">JPEG</option>
+                                    <option value="png">PNG</option>
+                                    <option value="webp">WebP</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-4" data-category="graphic">
-                    <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1168&q=80" alt="Graphic Design Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Branding Kafe</h3>
-                        <p>Paket branding lengkap</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-5" data-category="motion">
-                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80" alt="Motion Graphics Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Animasi Promo App</h3>
-                        <p>Video penjelas animasi</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-3" data-category="ui">
-                    <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="UI/UX Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>UI Aplikasi Fitness</h3>
-                        <p>Antarmuka aplikasi mobile</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-4" data-category="video">
-                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Video Editing Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Video Demo Produk</h3>
-                        <p>Showcase produk e-commerce</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-5" data-category="graphic">
-                    <img src="https://images.unsplash.com/photo-1583947581924-a6d5c0c140c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Graphic Design Project" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Seri Poster Event</h3>
-                        <p>Materi promosi untuk festival</p>
-                        <a href="#"><i class="fas fa-expand"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="portfolio-btn-container fade-in delay-5">
-                <a href="https://example.com/portfolio" class="portfolio-btn" target="_blank">Lihat Lebih Banyak Portofolio</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title fade-in">Testimoni <span>Klien</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px; color: rgba(255, 255, 255, 0.8);">Apa kata klien yang telah menggunakan jasa desain kami.</p>
-            
-            <div class="testimonial-slider fade-in delay-2">
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Sangat puas dengan hasil editing video dari Vexernoss. Mereka memahami kebutuhan saya sebagai content creator dan memberikan hasil yang melebihi ekspektasi. Proses revisinya juga cepat dan responsif."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://qu.ax/Doyji.jpg" alt="Testimoni Klien 1" class="author-img" data-fullsize="https://qu.ax/Doyji.jpg">
-                        <div class="author-info">
-                            <h4>Sarah Wijaya</h4>
-                            <p>Content Creator</p>
+                    <div class="option-group">
+                        <h3>Efek Tambahan</h3>
+                        <div class="option-row">
+                            <div class="option-label">Sharpen</div>
+                            <div class="option-input">
+                                <input type="range" id="sharpenRange" min="0" max="100" value="0">
+                                <input type="number" id="sharpenValue" min="0" max="100" value="0">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Desain logo dan branding untuk kafe saya sangat memukau. Vexernoss mampu menangkap konsep yang saya inginkan dan menerjemahkannya menjadi desain yang profesional dan menarik. Kafe saya sekarang memiliki identitas visual yang kuat."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.imgur.com/example2.jpg" alt="Testimoni Klien 2" class="author-img" data-fullsize="https://i.imgur.com/example2-full.jpg">
-                        <div class="author-info">
-                            <h4>Michael Santoso</h4>
-                            <p>Pemilik Kafe</p>
+                        <div class="option-row">
+                            <div class="option-label">Brightness</div>
+                            <div class="option-input">
+                                <input type="range" id="brightnessRange" min="0" max="100" value="50">
+                                <input type="number" id="brightnessValue" min="0" max="100" value="50">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Sebagai startup dengan budget terbatas, saya ragu untuk menggunakan jasa desain profesional. Tapi Vexernoss memberikan nilai yang luar biasa. Desain aplikasi kami membantu menarik investor pertama dan pengguna awal."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.imgur.com/example3.jpg" alt="Testimoni Klien 3" class="author-img" data-fullsize="https://i.imgur.com/example3-full.jpg">
-                        <div class="author-info">
-                            <h4>Emily Putri</h4>
-                            <p>Founder Startup</p>
+                        <div class="option-row">
+                            <div class="option-label">Contrast</div>
+                            <div class="option-input">
+                                <input type="range" id="contrastRange" min="0" max="100" value="50">
+                                <input type="number" id="contrastValue" min="0" max="100" value="50">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Saya sudah menggunakan jasa Vexernoss beberapa kali untuk kebutuhan desain sosial media bisnis saya. Hasilnya selalu memuaskan dan sesuai dengan brief yang saya berikan. Sangat recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.imgur.com/example4.jpg" alt="Testimoni Klien 4" class="author-img" data-fullsize="https://i.imgur.com/example4-full.jpg">
-                        <div class="author-info">
-                            <h4>Budi Hartono</h4>
-                            <p>Pemilik Bisnis</p>
+                        <div class="option-row">
+                            <div class="option-label">Grayscale</div>
+                            <div class="option-input">
+                                <input type="checkbox" id="grayscaleCheck">
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="modalImage">
-    </div>
-
-    <!-- Layanan Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Jenis <span>Layanan</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Berbagai layanan kreatif yang kami tawarkan untuk memenuhi kebutuhan desain Anda.</p>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <h3>Desain Poster</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3>Edit Video</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-4">
-                    <div class="service-icon">
-                        <i class="fas fa-photo-video"></i>
-                    </div>
-                    <h3>Desain Thumbnail</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>Logo Design</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Konten Visual Lain</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-4">
-                    <div class="service-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <h3>Motion Graphic</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fas fa-pencil-ruler"></i>
-                    </div>
-                    <h3>Ilustrasi Digital</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <h3>Desain Feed Instagram</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-4">
-                    <div class="service-icon">
-                        <i class="fas fa-text-height"></i>
-                    </div>
-                    <h3>Animasi Teks</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fab fa-youtube"></i>
-                    </div>
-                    <h3>Reels & Shorts Editing</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <h3>Desain Banner/Web</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-4">
-                    <div class="service-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <h3>Short Video</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tools Section -->
-<section class="tools" id="tools">
-    <div class="container">
-        <h2 class="section-title fade-in">Aplikasi <span>Yang Kami Gunakan</span></h2>
-        <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Kami menggunakan berbagai aplikasi profesional untuk menghasilkan karya terbaik.</p>
-        
-        <div class="tools-grid">
-            <div class="tool-card fade-in delay-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro" class="tool-logo">
-                <h3>Premiere Pro</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop" class="tool-logo">
-                <h3>Photoshop</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator" class="tool-logo">
-                <h3>Illustrator</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-5">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="After Effects" class="tool-logo">
-                <h3>After Effects</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/CapCut_logo.svg" alt="CapCut" class="tool-logo">
-                <h3>CapCut</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-3">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Canva_logo.svg" alt="Canva" class="tool-logo">
-                <h3>Canva</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Alight_Motion_logo.svg" alt="Alight Motion" class="tool-logo">
-                <h3>Alight Motion</h3>
-            </div>
-            
-            <div class="tool-card fade-in delay-5">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Ibis_Paint_logo.svg" alt="Ibis Paint" class="tool-logo">
-                <h3>Ibis Paint</h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Cara Order Section -->
-    <section class="order-steps" id="order">
-        <div class="container">
-            <h2 class="section-title fade-in">Cara <span>Order</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Proses mudah untuk memesan jasa desain dari kami.</p>
-            
-            <div class="steps-container">
-                <div class="step-card fade-in delay-2">
-                    <div class="step-number">1</div>
-                    <h3>Pilih Layanan</h3>
-                    <p>Pilih jenis layanan yang sesuai dengan kebutuhan Anda. Konsultasi gratis tanpa biaya.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-3">
-                    <div class="step-number">2</div>
-                    <h3>Isi Formulir</h3>
-                    <p>Isi formulir pemesanan dengan detail kebutuhan Anda. Kami akan menghubungi via WhatsApp.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-4">
-                    <div class="step-number">3</div>
-                    <h3>Lihat Hasil Edit</h3>
-                    <p>Anda bisa meminta revisi sampai puas dengan hasil desain yang kami buat.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-5">
-                    <div class="step-number">4</div>
-                    <h3>Terima Hasil Jadi</h3>
-                    <p>Setelah final, file akan dikirim melalui WhatsApp atau email sesuai preferensi Anda.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">Hubungi <span>Kami</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Siap memulai proyek Anda atau ada pertanyaan tentang layanan kami? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
-            
-            <div class="contact-container">
-                <div class="contact-info fade-in delay-2">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Lokasi Kami</h3>
-                            <p>Jl. Pam 2 RT 10 RW 08 no.08 Kelurahan Cempaka Baru Kecamatan Kemayoran</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Email Kami</h3>
-                            <a href="mailto:syafiq100308@gmail.com">syafiq100308@gmail.com</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Telepon Kami</h3>
-                            <a href="tel:+6285692602660">+62 856-9260-2660</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h3>Jam Kerja</h3>
-                            <p>Senin - Minggu: 15:00 - 23:00 WIB</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form fade-in delay-3">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Nama Anda" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email Anda" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Subjek">
-                        </div>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Pesan Anda" required></textarea>
-                        </div>
-                        <button type="submit" class="btn" style="width: 100%;">Kirim Pesan</button>
-                    </form>
-                </div>
-            </div>
-            
-            <!-- Comment Section -->
-            <div class="comment-section fade-in delay-4">
-                <h3>Komentar</h3>
-                <p class="subtitle">Kami senang mendengar dari Anda</p>
-                <div class="comment-form">
-                    <form id="commentForm"></form>
-                    <div class="recaptcha-notice">
-                        This site is protected by reCAPTCHA and the Google 
-                        <a href="https://policies.google.com/privacy" target="_blank">privacy policy</a> and 
-                        <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
-                    </div>
-                </div>
-                
-                <div class="comments-list" id="commentsList">
-                    <!-- Komentar akan dimuat di sini -->
-                    <div class="comment">
-                        <div class="comment-header">
-                            <div class="comment-avatar">A</div>
-                            <div class="comment-author">Admin Bejir</div>
-                            <div class="comment-date">9/4/2023, 6:40:20 AM</div>
-                        </div>
-                        <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
                     </div>
                 </div>
 
+                <div class="image-preview-container" id="previewContainer" style="display: none;">
+                    <div class="preview-column">
+                        <div class="preview-title">Original</div>
+                        <img src="" alt="Original" class="preview-image" id="originalPreview">
+                        <div class="preview-info" id="originalSize">0 KB</div>
+                    </div>
+                    <div class="preview-column">
+                        <div class="preview-title">Hasil Pemburikan</div>
+                        <img src="" alt="Hasil" class="preview-image" id="resultPreview">
+                        <div class="preview-info" id="resultSize">0 KB</div>
+                    </div>
+                </div>
+
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <div class="loading-text" id="loadingText">Memproses gambar...</div>
+
+                <div class="action-buttons">
+                    <button class="btn" id="processBtn" disabled>Proses Gambar</button>
+                    <button class="btn" id="downloadBtn" style="display: none;">Unduh Hasil</button>
+                </div>
             </div>
         </div>
     </section>
@@ -2058,554 +472,400 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <p><b>Kami menciptakan desain menakjubkan yang membantu bisnis menonjol dan terhubung dengan audiens mereka.</b></p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Layanan</h3>
-                    <ul class="footer-links">
-                        <li><a href="#services">Editing Video</a></li>
-                        <li><a href="#services">Desain Grafis</a></li>
-                        <li><a href="#services">Motion Graphic</a></li>
-                        <li><a href="#services">Desain Cetak</a></li>
-                        <li><a href="#services">UI/UX Design</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Tautan Cepat</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#features">Keunggulan</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#testimonials">Testimoni</a></li>
-                        <li><a href="#services">Layanan</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#order">Cara Order</a></li>
-                        <li><a href="#contact">Kontak</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Newsletter</h3>
-                    <p>Berlangganan newsletter kami untuk tips desain dan penawaran spesial.</p>
-                    <form class="newsletter-form">
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email Anda" required>
-                        </div>
-                        <button type="submit" class="btn" style="width: 100%;">Berlangganan</button>
-                    </form>
-                </div>
-            </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2025 Vexernoss Studio. Semua Hak Dilindungi. | <a href="#" style="color: var(--secondary);">Kebijakan Privasi</a> | <a href="#" style="color: var(--secondary);">Syarat Layanan</a></p>
+                <p>&copy; 2023 Pemburikan Gambar. Semua Hak Dilindungi.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
-
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
     <script>
-        // Konfigurasi Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDPDMPIFqFj1IOWhebeboO7jRNBF5fQ3xE",
-            authDomain: "vexernoss.firebaseapp.com",
-            databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "vexernoss",
-            storageBucket: "vexernoss.appspot.com",
-            messagingSenderId: "653268071478",
-            appId: "1:653268071478:web:d8bd8bc924c18aad5029497"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Mobile Navigation
-        const hamburger = document.querySelector('.hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMenu = document.getElementById('closeMenu');
-        
-        hamburger.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        // Sticky Header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-        
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('active');
-            } else {
-                backToTopBtn.classList.remove('active');
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Portfolio Filter
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const filter = btn.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Testimonial Slider
-        $(document).ready(function(){
-            $('.testimonial-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                arrows: false
-            });
-        });
-        
-        // Image Parallax Effect
-        const mainImage = document.getElementById('mainImage');
-        
-        if (mainImage) {
-            window.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-                mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-        }
-        
-        // Scroll Animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const appearOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('active');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-        
-        fadeElements.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-        
-        // Form Submission
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = this.querySelector('input[type="text"]').value;
-                const email = this.querySelector('input[type="email"]').value;
-                const subject = this.querySelector('input[placeholder="Subjek"]').value;
-                const message = this.querySelector('textarea').value;
-                
-                // Here you would typically send the data to a server
-                // For demo purposes, we'll just show an alert
-                showNotification(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email}.`);
-                
-                // Reset form
-                this.reset();
-            });
-        }
-        
-        // Image Modal Functionality
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImage");
-        const closeModal = document.getElementsByClassName("close-modal")[0];
-        
-        // Get all testimonial images
-        const testimonialImages = document.querySelectorAll('.author-img');
-        
-        testimonialImages.forEach(img => {
-            img.addEventListener('click', function() {
-                modal.style.display = "block";
-                modalImg.src = this.getAttribute('data-fullsize') || this.src;
-            });
-        });
-        
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        
-        // Function to show notification
-        function showNotification(message, isSuccess = true) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
-            notification.innerHTML = `
-                <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('active');
-            }, 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('active');
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-        }
-
-        // Fungsi untuk memposting komentar ke Firebase
-        async function postCommentToFirebase(name, comment, parentId = null) {
-            try {
-                const db = firebase.database();
-                const commentsRef = db.ref('comments');
-
-                const newCommentRef = commentsRef.push();
-                await newCommentRef.set({
-                    name: name,
-                    comment: comment,
-                    timestamp: firebase.database.ServerValue.TIMESTAMP,
-                    parentId: parentId
-                });
-
-                return newCommentRef.key;
-            } catch (error) {
-                console.error("Error posting comment to Firebase:", error);
-                throw error;
-            }
-        }
-
-        // Fungsi untuk mengambil komentar dari Firebase
-        async function getCommentsFromFirebase() {
-            try {
-                const db = firebase.database();
-                const commentsRef = db.ref('comments');
-
-                // Mengambil snapshot data sekali dan mengurutkannya berdasarkan timestamp
-                const snapshot = await commentsRef.orderByChild('timestamp').once('value');
-                return snapshot.val();
-            } catch (error) {
-                console.error("Error getting comments from Firebase:", error);
-                throw error;
-            }
-        }
-
-        // Fungsi untuk menampilkan komentar
-        async function displayComments() {
-    try {
-        commentsList.innerHTML = '';
-
-        // Tambahkan komentar admin default
-        commentsList.innerHTML += `
-            <div class="comment">
-                <div class="comment-header">
-                    <div class="comment-avatar">A</div>
-                    <div class="comment-author">Admin Bejir</div>
-                    <div class="comment-date">9/4/2023, 6:40:20 AM</div>
-                </div>
-                <div class="comment-content">Halo semuanya, terima kasih telah menggunakan jasa kami, kami sangat berterima kasih dengan kalian, jika ada yang ingin di tanyakan jangan ragu bertanya ya.</div>
-            </div>
-        `;
-
-        const comments = await getCommentsFromFirebase();
-
-        if (comments) {
-            const commentsArray = Object.entries(comments).map(([key, value]) => ({
-                id: key,
-                ...value
-            })).sort((a, b) => b.timestamp - a.timestamp);
-
-            // Hanya tampilkan komentar utama (tanpa parentId)
-            const mainComments = commentsArray.filter(comment => !comment.parentId);
-
-            mainComments.forEach(comment => {
-                const date = new Date(comment.timestamp).toLocaleString();
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.id = `comment-${comment.id}`;
-                commentDiv.innerHTML = `
-                    <div class="comment-header">
-                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                        <div class="comment-author">${comment.name}</div>
-                        <div class="comment-date">${date}</div>
-                    </div>
-                    <div class="comment-content">${comment.comment}</div>
-                `;
-                
-                const adminComment = commentsList.querySelector('.comment');
-                commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-            });
-        }
-    } catch (error) {
-        console.error('Error in displayComments:', error);
-        showNotification('Gagal memuat komentar dari Firebase', false);
-
-        // Fallback ke localStorage
-        const localComments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-        if (localComments.length > 0) {
-            localComments.reverse().forEach(comment => {
-                const date = new Date(comment.date).toLocaleString();
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'comment';
-                commentDiv.innerHTML = `
-                    <div class="comment-header">
-                        <div class="comment-avatar">${comment.name.charAt(0).toUpperCase()}</div>
-                        <div class="comment-author">${comment.name}</div>
-                        <div class="comment-date">${date}</div>
-                    </div>
-                    <div class="comment-content">${comment.comment}</div>
-                `;
-                commentsList.appendChild(commentDiv);
-            });
-        }
-    }
-}
-
-        // Event listeners untuk fitur baru
-        document.addEventListener('click', function(e) {
-            // Fitur Hapus Komentar
-            if (e.target.classList.contains('delete-btn')) {
-                const commentId = e.target.dataset.id;
-                if (confirm('Apakah Anda yakin ingin menghapus komentar ini?')) {
-                    deleteComment(commentId);
-                }
-            }
-            
-            // Fitur Edit Komentar
-            if (e.target.classList.contains('edit-btn')) {
-                const commentId = e.target.dataset.id;
-                enableCommentEdit(commentId);
-            }
-            
-            
-            
-            // Fitur Simpan Edit Komentar
-            if (e.target.classList.contains('save-edit-btn')) {
-                const commentId = e.target.dataset.id;
-                const newText = document.querySelector(`#edit-textarea-${commentId}`).value.trim();
-                if (newText) {
-                    updateComment(commentId, newText);
-                } else {
-                    showNotification('Komentar tidak boleh kosong!', false);
-                }
-            }
-        });
-
-        // Fungsi untuk menghapus komentar
-        async function deleteComment(commentId) {
-            try {
-                const commentRef = firebase.database().ref('comments/' + commentId);
-                await commentRef.remove();
-                document.getElementById(`comment-${commentId}`).remove();
-                showNotification('Komentar berhasil dihapus!');
-            } catch (error) {
-                console.error('Error deleting comment:', error);
-                showNotification('Gagal menghapus komentar', false);
-            }
-        }
-
-        // Fungsi untuk mengaktifkan mode edit komentar
-        function enableCommentEdit(commentId) {
-            const commentDiv = document.getElementById(`comment-${commentId}`);
-            const contentDiv = commentDiv.querySelector('.comment-content');
-            const currentText = contentDiv.textContent;
-            
-            // Ganti konten dengan textarea
-            contentDiv.innerHTML = `
-                <textarea id="edit-textarea-${commentId}" class="edit-comment-textarea">${currentText}</textarea>
-                <button class="btn save-edit-btn" data-id="${commentId}" style="margin-top: 10px;">Simpan Perubahan</button>
-            `;
-        }
-
-        // Fungsi untuk update komentar
-        async function updateComment(commentId, newText) {
-            try {
-                const commentRef = firebase.database().ref('comments/' + commentId);
-                await commentRef.update({ comment: newText });
-                
-                // Update tampilan
-                const commentDiv = document.getElementById(`comment-${commentId}`);
-                const contentDiv = commentDiv.querySelector('.comment-content');
-                contentDiv.innerHTML = newText;
-                
-                showNotification('Komentar berhasil diperbarui!');
-            } catch (error) {
-                console.error('Error updating comment:', error);
-                showNotification('Gagal memperbarui komentar', false);
-            }
-        }
-
-
-        // Fungsi handle submit komentar
-        async function handleCommentSubmit(e) {
-            e.preventDefault();
-
-            const commentName = document.getElementById('commentName').value.trim();
-            const commentText = document.getElementById('commentText').value.trim();
-
-            if (!commentName || !commentText) {
-                showNotification('Harap isi nama dan komentar!', false);
-                return;
-            }
-
-            try {
-                showNotification('Memposting komentar...', true);
-
-                // Post ke Firebase
-                await postCommentToFirebase(commentName, commentText);
-
-                // Reset form
-                document.getElementById('commentForm').reset();
-                showNotification('Komentar berhasil diposting!');
-                await displayComments();
-
-            } catch (error) {
-                console.error('Error in handleCommentSubmit:', error);
-                
-                // Fallback ke localStorage
-                try {
-                    const comments = JSON.parse(localStorage.getItem('vexernoss-comments')) || [];
-                    comments.push({
-                        id: 'local-' + Date.now(),
-                        name: commentName,
-                        comment: commentText,
-                        date: new Date().toISOString()
-                    });
-                    localStorage.setItem('vexernoss-comments', JSON.stringify(comments));
-
-                    showNotification('Komentar disimpan secara lokal', true);
-                    
-                    // Tampilkan komentar lokal
-                    const date = new Date().toLocaleString();
-                    const commentDiv = document.createElement('div');
-                    commentDiv.className = 'comment';
-                    commentDiv.innerHTML = `
-                        <div class="comment-header">
-                            <div class="comment-avatar">${commentName.charAt(0).toUpperCase()}</div>
-                            <div class="comment-author">${commentName}</div>
-                            <div class="comment-date">${date}</div>
-                        </div>
-                        <div class="comment-content">${commentText}</div>
-                        <div class="comment-actions">
-                            <button class="comment-action-btn delete delete-btn" data-id="local-${Date.now()}">Hapus</button>
-                        </div>
-                    `;
-
-                    const adminComment = commentsList.querySelector('.comment');
-                    commentsList.insertBefore(commentDiv, adminComment.nextSibling);
-
-                } catch (localError) {
-                    console.error('Gagal menyimpan ke localStorage:', localError);
-                    showNotification('Gagal memposting komentar', false);
-                }
-            }
-        }
-
-        // Event listener for comment form
-        if (commentForm) {
-            commentForm.addEventListener('submit', handleCommentSubmit);
-        }
-
-        // Load comments when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            displayComments();
+            // Elements
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const processBtn = document.getElementById('processBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const previewContainer = document.getElementById('previewContainer');
+            const originalPreview = document.getElementById('originalPreview');
+            const resultPreview = document.getElementById('resultPreview');
+            const originalSize = document.getElementById('originalSize');
+            const resultSize = document.getElementById('resultSize');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const loadingText = document.getElementById('loadingText');
             
-            // Periksa URL untuk parameter komentar baru
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('commentPosted')) {
-                showNotification('Komentar Anda berhasil diposting!');
-                // Hapus parameter dari URL tanpa reload
-                window.history.replaceState({}, document.title, window.location.pathname);
+            // Range inputs
+            const qualityRange = document.getElementById('qualityRange');
+            const qualityValue = document.getElementById('qualityValue');
+            const sharpenRange = document.getElementById('sharpenRange');
+            const sharpenValue = document.getElementById('sharpenValue');
+            const brightnessRange = document.getElementById('brightnessRange');
+            const brightnessValue = document.getElementById('brightnessValue');
+            const contrastRange = document.getElementById('contrastRange');
+            const contrastValue = document.getElementById('contrastValue');
+            
+            let currentFile = null;
+            let processedBlob = null;
+            
+            // Event listeners
+            uploadArea.addEventListener('click', () => fileInput.click());
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#a29bfe';
+                uploadArea.style.background = 'rgba(108, 92, 231, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = 'rgba(108, 92, 231, 0.5)';
+                uploadArea.style.background = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'rgba(108, 92, 231, 0.5)';
+                uploadArea.style.background = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            fileInput.addEventListener('change', () => {
+                if (fileInput.files.length) {
+                    handleFile(fileInput.files[0]);
+                }
+            });
+            
+            // Sync range and number inputs
+            function syncInputs(range, value) {
+                range.addEventListener('input', () => {
+                    value.value = range.value;
+                    if (currentFile) processImage();
+                });
+                
+                value.addEventListener('input', () => {
+                    const min = parseInt(range.min);
+                    const max = parseInt(range.max);
+                    let val = parseInt(value.value);
+                    
+                    if (isNaN(val)) val = min;
+                    if (val < min) val = min;
+                    if (val > max) val = max;
+                    
+                    value.value = val;
+                    range.value = val;
+                    if (currentFile) processImage();
+                });
+            }
+            
+            syncInputs(qualityRange, qualityValue);
+            syncInputs(sharpenRange, sharpenValue);
+            syncInputs(brightnessRange, brightnessValue);
+            syncInputs(contrastRange, contrastValue);
+            
+            // Other inputs that trigger reprocessing
+            document.getElementById('sizeSelect').addEventListener('change', () => {
+                if (currentFile) processImage();
+            });
+            
+            document.getElementById('formatSelect').addEventListener('change', () => {
+                if (currentFile) processImage();
+            });
+            
+            document.getElementById('grayscaleCheck').addEventListener('change', () => {
+                if (currentFile) processImage();
+            });
+            
+            // Handle file selection
+            function handleFile(file) {
+                if (!file.type.match('image.*')) {
+                    alert('Hanya file gambar yang diperbolehkan!');
+                    return;
+                }
+                
+                // Check file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('Ukuran file maksimal 10MB');
+                    return;
+                }
+                
+                currentFile = file;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    originalPreview.src = e.target.result;
+                    resultPreview.src = e.target.result;
+                    originalSize.textContent = formatFileSize(file.size);
+                    resultSize.textContent = '0 KB';
+                    
+                    previewContainer.style.display = 'flex';
+                    processBtn.disabled = false;
+                    downloadBtn.style.display = 'none';
+                    
+                    // Process immediately after upload
+                    processImage();
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Process image with current settings
+            function processImage() {
+                if (!currentFile) return;
+                
+                loadingSpinner.style.display = 'block';
+                loadingText.style.display = 'block';
+                
+                // Get current settings
+                const quality = parseInt(qualityValue.value);
+                const size = document.getElementById('sizeSelect').value;
+                const format = document.getElementById('formatSelect').value;
+                const sharpen = parseInt(sharpenValue.value);
+                const brightness = parseInt(brightnessValue.value);
+                const contrast = parseInt(contrastValue.value);
+                const grayscale = document.getElementById('grayscaleCheck').checked;
+                
+                // Process in small chunks to keep UI responsive
+                setTimeout(() => {
+                    applyImageEffects(currentFile, {
+                        quality,
+                        size,
+                        format,
+                        sharpen,
+                        brightness,
+                        contrast,
+                        grayscale
+                    }).then(blob => {
+                        processedBlob = blob;
+                        
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            resultPreview.src = e.target.result;
+                            resultSize.textContent = formatFileSize(blob.size);
+                            downloadBtn.style.display = 'inline-block';
+                            
+                            loadingSpinner.style.display = 'none';
+                            loadingText.style.display = 'none';
+                        };
+                        reader.readAsDataURL(blob);
+                    });
+                }, 100);
+            }
+            
+            // Apply image effects using canvas
+            function applyImageEffects(file, options) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Calculate new dimensions
+                            let newWidth, newHeight;
+                            if (options.size === 'original') {
+                                newWidth = img.width;
+                                newHeight = img.height;
+                            } else {
+                                const maxSize = parseInt(options.size);
+                                if (img.width > img.height) {
+                                    newWidth = Math.min(img.width, maxSize);
+                                    newHeight = (img.height * newWidth) / img.width;
+                                } else {
+                                    newHeight = Math.min(img.height, maxSize);
+                                    newWidth = (img.width * newHeight) / img.height;
+                                }
+                            }
+                            
+                            canvas.width = newWidth;
+                            canvas.height = newHeight;
+                            
+                            // Draw original image
+                            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                            
+                            // Apply quality degradation (pemburikan)
+                            if (options.quality < 100) {
+                                // For lower quality, we'll reduce image data
+                                const qualityFactor = options.quality / 100;
+                                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const data = imageData.data;
+                                
+                                // Simple pixelation effect for lower quality
+                                if (qualityFactor < 0.5) {
+                                    const blockSize = Math.max(1, Math.floor(2 * (1 - qualityFactor)));
+                                    
+                                    for (let y = 0; y < canvas.height; y += blockSize) {
+                                        for (let x = 0; x < canvas.width; x += blockSize) {
+                                            // Get the color of the first pixel in the block
+                                            const pixelPos = (y * canvas.width + x) * 4;
+                                            const r = data[pixelPos];
+                                            const g = data[pixelPos + 1];
+                                            const b = data[pixelPos + 2];
+                                            
+                                            // Apply the same color to all pixels in the block
+                                            for (let blockY = 0; blockY < blockSize && y + blockY < canvas.height; blockY++) {
+                                                for (let blockX = 0; blockX < blockSize && x + blockX < canvas.width; blockX++) {
+                                                    const currentPos = ((y + blockY) * canvas.width + (x + blockX)) * 4;
+                                                    data[currentPos] = r;
+                                                    data[currentPos + 1] = g;
+                                                    data[currentPos + 2] = b;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                // Reduce color depth for lower quality
+                                if (qualityFactor < 0.7) {
+                                    const depth = Math.max(2, Math.floor(256 * qualityFactor));
+                                    
+                                    for (let i = 0; i < data.length; i += 4) {
+                                        data[i] = Math.floor(data[i] / (256 / depth)) * (256 / depth);
+                                        data[i + 1] = Math.floor(data[i + 1] / (256 / depth)) * (256 / depth);
+                                        data[i + 2] = Math.floor(data[i + 2] / (256 / depth)) * (256 / depth);
+                                    }
+                                }
+                                
+                                // Add noise for lower quality
+                                if (qualityFactor < 0.8) {
+                                    const noiseAmount = Math.floor(30 * (1 - qualityFactor));
+                                    
+                                    for (let i = 0; i < data.length; i += 4) {
+                                        const noise = Math.floor(Math.random() * noiseAmount * 2) - noiseAmount;
+                                        data[i] = Math.min(255, Math.max(0, data[i] + noise));
+                                        data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + noise));
+                                        data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + noise));
+                                    }
+                                }
+                                
+                                ctx.putImageData(imageData, 0, 0);
+                            }
+                            
+                            // Apply sharpen effect
+                            if (options.sharpen > 0) {
+                                // Simple sharpen effect using convolution
+                                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const data = imageData.data;
+                                const tempData = new Uint8ClampedArray(data);
+                                
+                                const sharpenAmount = options.sharpen / 50; // Adjust strength
+                                
+                                for (let y = 1; y < canvas.height - 1; y++) {
+                                    for (let x = 1; x < canvas.width - 1; x++) {
+                                        for (let c = 0; c < 3; c++) {
+                                            const pos = (y * canvas.width + x) * 4 + c;
+                                            const original = data[pos];
+                                            
+                                            // Apply simple sharpen kernel
+                                            let newVal = original * (1 + sharpenAmount);
+                                            newVal -= tempData[((y-1) * canvas.width + x) * 4 + c] * (sharpenAmount/4);
+                                            newVal -= tempData[(y * canvas.width + (x-1)) * 4 + c] * (sharpenAmount/4);
+                                            newVal -= tempData[(y * canvas.width + (x+1)) * 4 + c] * (sharpenAmount/4);
+                                            newVal -= tempData[((y+1) * canvas.width + x) * 4 + c] * (sharpenAmount/4);
+                                            
+                                            data[pos] = Math.min(255, Math.max(0, Math.round(newVal)));
+                                        }
+                                    }
+                                }
+                                
+                                ctx.putImageData(imageData, 0, 0);
+                            }
+                            
+                            // Apply brightness and contrast
+                            if (options.brightness !== 50 || options.contrast !== 50) {
+                                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const data = imageData.data;
+                                
+                                // Brightness adjustment (-100 to 100 mapped to 0-100 in UI)
+                                const brightness = (options.brightness - 50) * 2; // Convert to -100 to 100 range
+                                
+                                // Contrast adjustment (0-100 mapped to 0-200% in UI)
+                                const contrast = options.contrast / 50; // 1 is normal, <1 less contrast, >1 more contrast
+                                const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+                                
+                                for (let i = 0; i < data.length; i += 4) {
+                                    // Apply brightness
+                                    data[i] = Math.min(255, Math.max(0, data[i] + brightness));
+                                    data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + brightness));
+                                    data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + brightness));
+                                    
+                                    // Apply contrast
+                                    data[i] = Math.min(255, Math.max(0, contrastFactor * (data[i] - 128) + 128));
+                                    data[i + 1] = Math.min(255, Math.max(0, contrastFactor * (data[i + 1] - 128) + 128));
+                                    data[i + 2] = Math.min(255, Math.max(0, contrastFactor * (data[i + 2] - 128) + 128));
+                                }
+                                
+                                ctx.putImageData(imageData, 0, 0);
+                            }
+                            
+                            // Apply grayscale
+                            if (options.grayscale) {
+                                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                                const data = imageData.data;
+                                
+                                for (let i = 0; i < data.length; i += 4) {
+                                    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                                    data[i] = data[i + 1] = data[i + 2] = avg;
+                                }
+                                
+                                ctx.putImageData(imageData, 0, 0);
+                            }
+                            
+                            // Convert to selected format with quality
+                            let mimeType = 'image/jpeg';
+                            if (options.format === 'png') mimeType = 'image/png';
+                            if (options.format === 'webp') mimeType = 'image/webp';
+                            
+                            // For JPEG, we can use quality parameter (0-1)
+                            const quality = options.format === 'png' ? 1 : options.quality / 100;
+                            
+                            canvas.toBlob((blob) => {
+                                resolve(blob);
+                            }, mimeType, quality);
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+            
+            // Download processed image
+            downloadBtn.addEventListener('click', () => {
+                if (!processedBlob) return;
+                
+                const url = URL.createObjectURL(processedBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                
+                // Generate filename
+                const originalName = currentFile.name;
+                const dotIndex = originalName.lastIndexOf('.');
+                let fileName = originalName.substring(0, dotIndex);
+                const ext = originalName.substring(dotIndex + 1);
+                
+                // Use selected format if different from original
+                const format = document.getElementById('formatSelect').value;
+                const newExt = format === 'jpeg' ? 'jpg' : format;
+                
+                a.download = `${fileName}_processed.${newExt}`;
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                    URL.revokeObjectURL(url);
+                }, 100);
+            });
+            
+            // Helper function to format file size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
             }
         });
     </script>
 </body>
 </html>
-
-
