@@ -389,16 +389,10 @@
                             </div>
                         </div>
                         <div class="option-row">
-                            <div class="option-label">Ukuran</div>
+                            <div class="option-label">Ukuran Pixel</div>
                             <div class="option-input">
-                                <select id="sizeSelect">
-                                    <option value="original">Original</option>
-                                    <option value="1024">1024px</option>
-                                    <option value="800">800px</option>
-                                    <option value="640">640px</option>
-                                    <option value="480">480px</option>
-                                    <option value="320">320px</option>
-                                </select>
+                                <input type="range" id="sizeRange" min="5" max="100" value="100">
+                                <input type="number" id="sizeValue" min="5" max="100" value="100">
                             </div>
                         </div>
                         <div class="option-row">
@@ -497,6 +491,8 @@
             // Range inputs
             const qualityRange = document.getElementById('qualityRange');
             const qualityValue = document.getElementById('qualityValue');
+            const sizeRange = document.getElementById('sizeRange');
+            const sizeValue = document.getElementById('sizeValue');
             const sharpenRange = document.getElementById('sharpenRange');
             const sharpenValue = document.getElementById('sharpenValue');
             const brightnessRange = document.getElementById('brightnessRange');
@@ -506,6 +502,8 @@
             
             let currentFile = null;
             let processedBlob = null;
+            let originalWidth = 0;
+            let originalHeight = 0;
             
             // Event listeners
             uploadArea.addEventListener('click', () => fileInput.click());
@@ -560,15 +558,12 @@
             }
             
             syncInputs(qualityRange, qualityValue);
+            syncInputs(sizeRange, sizeValue);
             syncInputs(sharpenRange, sharpenValue);
             syncInputs(brightnessRange, brightnessValue);
             syncInputs(contrastRange, contrastValue);
             
             // Other inputs that trigger reprocessing
-            document.getElementById('sizeSelect').addEventListener('change', () => {
-                if (currentFile) processImage();
-            });
-            
             document.getElementById('formatSelect').addEventListener('change', () => {
                 if (currentFile) processImage();
             });
@@ -594,17 +589,24 @@
                 
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    originalPreview.src = e.target.result;
-                    resultPreview.src = e.target.result;
-                    originalSize.textContent = formatFileSize(file.size);
-                    resultSize.textContent = '0 KB';
-                    
-                    previewContainer.style.display = 'flex';
-                    processBtn.disabled = false;
-                    downloadBtn.style.display = 'none';
-                    
-                    // Process immediately after upload
-                    processImage();
+                    const img = new Image();
+                    img.onload = function() {
+                        originalWidth = img.width;
+                        originalHeight = img.height;
+                        
+                        originalPreview.src = e.target.result;
+                        resultPreview.src = e.target.result;
+                        originalSize.textContent = formatFileSize(file.size);
+                        resultSize.textContent = '0 KB';
+                        
+                        previewContainer.style.display = 'flex';
+                        processBtn.disabled = false;
+                        downloadBtn.style.display = 'none';
+                        
+                        // Process immediately after upload
+                        processImage();
+                    };
+                    img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -618,18 +620,23 @@
                 
                 // Get current settings
                 const quality = parseInt(qualityValue.value);
-                const size = document.getElementById('sizeSelect').value;
+                const sizePercentage = parseInt(sizeValue.value);
                 const format = document.getElementById('formatSelect').value;
                 const sharpen = parseInt(sharpenValue.value);
                 const brightness = parseInt(brightnessValue.value);
                 const contrast = parseInt(contrastValue.value);
                 const grayscale = document.getElementById('grayscaleCheck').checked;
                 
+                // Calculate target size based on percentage (5-100% of original)
+                const targetWidth = Math.max(5, Math.round(originalWidth * sizePercentage / 100));
+                const targetHeight = Math.max(5, Math.round(originalHeight * sizePercentage / 100));
+                
                 // Process in small chunks to keep UI responsive
                 setTimeout(() => {
                     applyImageEffects(currentFile, {
                         quality,
-                        size,
+                        targetWidth,
+                        targetHeight,
                         format,
                         sharpen,
                         brightness,
@@ -662,27 +669,13 @@
                             const canvas = document.createElement('canvas');
                             const ctx = canvas.getContext('2d');
                             
-                            // Calculate new dimensions
-                            let newWidth, newHeight;
-                            if (options.size === 'original') {
-                                newWidth = img.width;
-                                newHeight = img.height;
-                            } else {
-                                const maxSize = parseInt(options.size);
-                                if (img.width > img.height) {
-                                    newWidth = Math.min(img.width, maxSize);
-                                    newHeight = (img.height * newWidth) / img.width;
-                                } else {
-                                    newHeight = Math.min(img.height, maxSize);
-                                    newWidth = (img.width * newHeight) / img.height;
-                                }
-                            }
+                            // Set canvas dimensions to target size
+                            canvas.width = options.targetWidth;
+                            canvas.height = options.targetHeight;
                             
-                            canvas.width = newWidth;
-                            canvas.height = newHeight;
-                            
-                            // Draw original image
-                            ctx.drawImage(img, 0, 0, newWidth, newHeight);
+                            // Draw original image with new dimensions (this creates pixelation effect)
+                            ctx.imageSmoothingEnabled = false;
+                            ctx.drawImage(img, 0, 0, options.targetWidth, options.targetHeight);
                             
                             // Apply quality degradation (pemburikan)
                             if (options.quality < 100) {
