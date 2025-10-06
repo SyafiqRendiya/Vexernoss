@@ -7,18 +7,22 @@
     <link rel="icon" href="https://qu.ax/mQXXo.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        /* Global Styles */
+        /* Global Styles - Tema Api */
         :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --dark: #2d3436;
+            --primary: #ff9900;
+            --secondary: #ff5500;
+            --dark: #111111;
             --light: #1a1a1a;
-            --accent: #fd79a8;
-            --success: #00b894;
-            --bg-color: #1a1a1a;
+            --accent: #ff3300;
+            --success: #ff9900;
+            --bg-color: #000000;
             --text-color: #f5f6fa;
-            --card-bg: #2d2d2d;
-            --header-bg: rgba(26, 26, 26, 0.95);
+            --card-bg: #1a1a1a;
+            --header-bg: rgba(0, 0, 0, 0.95);
+            --yellow: #ffcc00;
+            --orange: #ff7700;
+            --dark-orange: #ff5500;
+            --red: #ff3300;
         }
         
         * {
@@ -47,22 +51,41 @@
         .btn {
             display: inline-block;
             padding: 12px 30px;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
-            background: var(--secondary);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
         }
         
         /* Header */
@@ -74,6 +97,7 @@
             z-index: 1000;
             padding: 15px 0;
             background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
         }
         
         .navbar {
@@ -100,6 +124,19 @@
         .pemburikan-section {
             background-color: var(--card-bg);
             padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pemburikan-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(255, 51, 0, 0.1) 100%);
+            z-index: -1;
         }
 
         .pemburikan-container {
@@ -109,11 +146,32 @@
         }
 
         .pemburikan-box {
-            background-color: #333;
+            background-color: var(--card-bg);
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             margin-bottom: 40px;
+            border: 1px solid rgba(255, 153, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .pemburikan-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 153, 0, 0.05) 0%, rgba(255, 51, 0, 0.05) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pemburikan-box:hover::before {
+            opacity: 1;
         }
 
         .pemburikan-header {
@@ -126,21 +184,37 @@
         .pemburikan-header h2 {
             font-size: 2rem;
             color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .pemburikan-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
         }
 
         .upload-area {
-            border: 2px dashed rgba(108, 92, 231, 0.5);
+            border: 2px dashed rgba(255, 153, 0, 0.5);
             border-radius: 15px;
             padding: 40px;
             text-align: center;
             margin-bottom: 30px;
             cursor: pointer;
             transition: all 0.3s ease;
+            background: rgba(255, 153, 0, 0.05);
         }
 
         .upload-area:hover {
             border-color: var(--primary);
-            background: rgba(108, 92, 231, 0.05);
+            background: rgba(255, 153, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 153, 0, 0.2);
         }
 
         .upload-icon {
@@ -171,6 +245,18 @@
             font-size: 1.2rem;
             margin-bottom: 15px;
             color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .option-group h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30%;
+            height: 2px;
+            background: var(--primary);
         }
 
         .option-row {
@@ -207,13 +293,14 @@
             background: var(--primary);
             border-radius: 50%;
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .option-input input[type="number"] {
             width: 80px;
             padding: 8px 12px;
-            background: #444;
-            border: 1px solid rgba(108, 92, 231, 0.3);
+            background: #333;
+            border: 1px solid rgba(255, 153, 0, 0.3);
             border-radius: 8px;
             color: white;
             text-align: center;
@@ -222,8 +309,8 @@
         .option-input select {
             width: 100%;
             padding: 8px 12px;
-            background: #444;
-            border: 1px solid rgba(108, 92, 231, 0.3);
+            background: #333;
+            border: 1px solid rgba(255, 153, 0, 0.3);
             border-radius: 8px;
             color: white;
         }
@@ -250,6 +337,7 @@
             margin-bottom: 10px;
             text-align: center;
             color: var(--primary);
+            font-weight: 600;
         }
 
         .preview-image {
@@ -259,6 +347,7 @@
             background-color: #222;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 153, 0, 0.2);
         }
 
         .preview-info {
@@ -280,7 +369,7 @@
             display: inline-block;
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(108, 92, 231, 0.2);
+            border: 4px solid rgba(255, 153, 0, 0.2);
             border-radius: 50%;
             border-top: 4px solid var(--primary);
             animation: spin 1s linear infinite;
@@ -456,7 +545,6 @@
                 <div class="loading-text" id="loadingText">Memproses gambar...</div>
 
                 <div class="action-buttons">
-                    
                     <button class="btn" id="downloadBtn" style="display: none;">Unduh Hasil</button>
                 </div>
             </div>
@@ -510,19 +598,19 @@
             
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                uploadArea.style.borderColor = '#a29bfe';
-                uploadArea.style.background = 'rgba(108, 92, 231, 0.1)';
+                uploadArea.style.borderColor = '#ff9900';
+                uploadArea.style.background = 'rgba(255, 153, 0, 0.15)';
             });
             
             uploadArea.addEventListener('dragleave', () => {
-                uploadArea.style.borderColor = 'rgba(108, 92, 231, 0.5)';
-                uploadArea.style.background = 'transparent';
+                uploadArea.style.borderColor = 'rgba(255, 153, 0, 0.5)';
+                uploadArea.style.background = 'rgba(255, 153, 0, 0.05)';
             });
             
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
-                uploadArea.style.borderColor = 'rgba(108, 92, 231, 0.5)';
-                uploadArea.style.background = 'transparent';
+                uploadArea.style.borderColor = 'rgba(255, 153, 0, 0.5)';
+                uploadArea.style.background = 'rgba(255, 153, 0, 0.05)';
                 
                 if (e.dataTransfer.files.length) {
                     handleFile(e.dataTransfer.files[0]);
@@ -600,7 +688,6 @@
                         resultSize.textContent = '0 KB';
                         
                         previewContainer.style.display = 'flex';
-                        processBtn.disabled = false;
                         downloadBtn.style.display = 'none';
                         
                         // Process immediately after upload
