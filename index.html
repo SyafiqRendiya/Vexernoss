@@ -1,2398 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vexernoss | Jasa Video Editing Profesional</title>
-    <link rel="icon" href="https://qu.ax/mQXXo.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-    <style>
-        /* Global Styles */
-        :root {
-            --primary: #ff9900;
-            --secondary: #ff5500;
-            --dark: #111111;
-            --light: #1a1a1a;
-            --accent: #ff3300;
-            --success: #ff9900;
-            --bg-color: #000000;
-            --text-color: #f5f6fa;
-            --card-bg: #1a1a1a;
-            --header-bg: rgba(0, 0, 0, 0.95);
-            --yellow: #ffcc00;
-            --orange: #ff7700;
-            --dark-orange: #ff5500;
-            --red: #ff3300;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-        
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-logo {
-            width: 150px;
-            height: 150px;
-            background: url('https://qu.ax/eNYLi.png') center/contain no-repeat;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.7; }
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-        
-        /* New Button Styles */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
-        }
-        
-        .btn:hover::before {
-            opacity: 1;
-        }
-        
-        .btn-accent {
-            background: linear-gradient(135deg, var(--accent), var(--red));
-            box-shadow: 0 4px 15px rgba(255, 51, 0, 0.3);
-        }
-        
-        .btn-accent::before {
-            background: linear-gradient(135deg, var(--red), var(--accent));
-        }
-        
-        .btn-accent:hover {
-            box-shadow: 0 6px 20px rgba(255, 51, 0, 0.4);
-        }
-        
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            padding: 20px 0;
-            background-color: var(--header-bg);
-            backdrop-filter: blur(10px);
-        }
-        
-        header.scrolled {
-            box-shadow: 0 5px 20px rgba(255, 153, 0, 0.1);
-            padding: 15px 0;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 60px;
-            margin-right: 10px;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            margin-left: auto;
-        }
-        
-        .nav-links li {
-            margin-left: 30px;
-            position: relative;
-        }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-            margin-left: 30px;
-        }
-        
-        .auth-buttons .btn {
-            padding: 8px 20px;
-            font-size: 0.9rem;
-        }
-        
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .hamburger div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text-color);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(26,0,0,0.8) 100%);
-        }
-        
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 0.2;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(255, 51, 0, 0.1) 100%);
-            z-index: -1;
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-right: 50px;
-        }
-        
-        .hero-image {
-            flex: 1;
-            position: relative;
-            height: 500px;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--primary);
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--text-color);
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            opacity: 0.1;
-            filter: blur(20px);
-            z-index: -1;
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: -100px;
-            right: -100px;
-        }
-        
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            bottom: -50px;
-            left: -50px;
-        }
-        
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            perspective: 1000px;
-        }
-        
-        .main-image {
-            position: absolute;
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            left: 10%;
-            background: url('https://qu.ax/qGKwx.png') center/contain no-repeat;
-            border-radius: 20px;
-            box-shadow: 0 30px 50px rgba(255, 153, 0, 0.2);
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-        }
-        
-        .floating-image {
-            position: absolute;
-            border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            transition: all 0.5s ease;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .image-1 {
-            width: 120px;
-            height: 120px;
-            top: 0;
-            left: 0;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            z-index: 2;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .image-2 {
-            width: 150px;
-            height: 150px;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(135deg, var(--secondary), var(--red));
-            z-index: 2;
-            animation: float 7s ease-in-out infinite 1s;
-        }
-        
-        .image-3 {
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            left: -30px;
-            background: linear-gradient(135deg, var(--yellow), var(--orange));
-            z-index: 3;
-            animation: float 5s ease-in-out infinite 0.5s;
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-        
-        /* Keunggulan Section */
-        .features {
-            background-color: var(--card-bg);
-            position: relative;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            text-align: center;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 153, 0, 0.1) 0%, rgba(255, 51, 0, 0.1) 100%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 153, 0, 0.2);
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card p {
-            color: var(--text-color);
-            opacity: 0.8;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        /* Portfolio Section */
-        .portfolio {
-            background-color: #111;
-            position: relative;
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .portfolio-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            height: 250px;
-        }
-        
-        .portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 153, 0, 0.8), rgba(255, 51, 0, 0.8));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-        
-        .portfolio-item:hover .portfolio-img {
-            transform: scale(1.1);
-        }
-        
-        .portfolio-overlay h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-        
-        .portfolio-overlay p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-            transform: translateY(20px);
-            transition: transform 0.3s ease 0.1s;
-        }
-        
-        .portfolio-overlay a {
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            transform: translateY(20px);
-            transition: all 0.3s ease 0.2s;
-        }
-        
-        .portfolio-item:hover .portfolio-overlay h3,
-        .portfolio-item:hover .portfolio-overlay p,
-        .portfolio-item:hover .portfolio-overlay a {
-            transform: translateY(0);
-        }
-        
-        .portfolio-overlay a:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .testimonials::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDQ1KSI+PHBhdGggZD0iTTAgMCBMIDEwMCAxMDAgTSAxMDAgMCBMIDAgMTAwIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiIHN0cm9rZS13aWR0aD0iMiIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-            opacity: 0.2;
-        }
-        
-        .testimonials .section-title::after {
-            background: white;
-        }
-        
-        .testimonial-slider {
-            margin-top: 50px;
-            position: relative;
-        }
-        
-        .testimonial-slide {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 0 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-        
-        .testimonial-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .testimonial-content::before,
-        .testimonial-content::after {
-            content: '"';
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.3);
-            position: absolute;
-        }
-        
-        .testimonial-content::before {
-            top: -20px;
-            left: -10px;
-        }
-        
-        .testimonial-content::after {
-            bottom: -40px;
-            right: -10px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .author-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .author-img:hover {
-            transform: scale(1.05);
-        }
-        
-        .author-info h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-        
-        .slick-dots {
-            bottom: -50px;
-        }
-        
-        .slick-dots li button:before {
-            color: white;
-            opacity: 0.5;
-            font-size: 10px;
-        }
-        
-        .slick-dots li.slick-active button:before {
-            opacity: 1;
-            color: white;
-        }
-        
-        /* Image Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            overflow: auto;
-        }
-        
-        .modal-content {
-            display: block;
-            margin: auto;
-            max-width: 90%;
-            max-height: 90%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 35px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .close-modal:hover {
-            color: var(--accent);
-        }
-        
-        /* Layanan Section */
-        .services {
-            background-color: var(--card-bg);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-        
-        .service-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 153, 0, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0;
-        }
-        
-        /* Tools Section */
-        .tools {
-            background-color: #111;
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .tool-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 153, 0, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .tool-logo {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 15px;
-            object-fit: contain;
-        }
-        
-        .tool-card h3 {
-            font-size: 1rem;
-            margin-bottom: 0;
-        }
-        
-        /* Portfolio Page Button */
-        .portfolio-btn-container {
-            text-align: center;
-            margin-top: 50px;
-        }
-        
-        .portfolio-btn {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .portfolio-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--accent));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .portfolio-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
-        }
-        
-        .portfolio-btn:hover::before {
-            opacity: 1;
-        }
-        
-        /* Cara Order Section */
-        .order-steps {
-            background-color: #111;
-        }
-        
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .step-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-        }
-        
-        .step-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        .step-card p {
-            color: var(--text-color);
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-        
-        /* Pricing Section */
-        .pricing {
-            background-color: var(--card-bg);
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .pricing-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-        }
-        
-        .pricing-card.featured {
-            border-color: var(--primary);
-            transform: scale(1.05);
-        }
-        
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(255, 153, 0, 0.2);
-        }
-        
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-        
-        .pricing-header {
-            margin-bottom: 30px;
-        }
-        
-        .pricing-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .pricing-period {
-            color: var(--text-color);
-            opacity: 0.7;
-        }
-        
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-        
-        .pricing-features li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 153, 0, 0.1);
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .pricing-features li:last-child {
-            border-bottom: none;
-        }
-        
-        .pricing-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-        }
-        
-        /* Price Table */
-        .price-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .price-table th, .price-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 153, 0, 0.1);
-        }
-        
-        .price-table th {
-            background: rgba(255, 153, 0, 0.1);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .price-table tr:hover {
-            background: rgba(255, 153, 0, 0.05);
-        }
-        
-        /* Contact Section */
-        .contact {
-            background-color: #111;
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            margin-top: 50px;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        
-        .contact-text h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        
-        .contact-text p, .contact-text a {
-            color: var(--text-color);
-            opacity: 0.8;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-text a:hover {
-            color: var(--primary);
-            opacity: 1;
-        }
-        
-        .contact-form {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background-color: #333;
-            color: var(--text-color);
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Comment Section Styles */
-        .comment-section {
-            margin-top: 50px;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .comment-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-        
-        .comment-section p.subtitle {
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        
-        .comments-list {
-            margin-bottom: 40px;
-        }
-        
-        .comment {
-            background: rgba(255, 153, 0, 0.05);
-            border-left: 3px solid var(--primary);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            position: relative;
-        }
-        
-        .comment-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .comment-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 15px;
-            font-weight: bold;
-        }
-        
-        .comment-author {
-            font-weight: bold;
-            color: var(--text-color);
-        }
-        
-        .comment-date {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-left: 10px;
-        }
-        
-        .comment-content {
-            white-space: pre-wrap;
-            color: var(--text-color);
-            line-height: 1.6;
-            padding-left: 55px;
-        }
-        
-        .comment-form {
-            background: rgba(255, 153, 0, 0.05);
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-        }
-
-        .comment-form .form-group {
-            margin-bottom: 15px;
-        }
-
-        .comment-form .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid rgba(255, 153, 0, 0.2);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background-color: #333;
-            color: var(--text-color);
-        }
-
-        .comment-form .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
-        }
-        
-        .comment-form h4 {
-            margin-bottom: 20px;
-            color: var(--text-color);
-            font-size: 1.3rem;
-        }
-        
-        .comment-as {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 15px;
-        }
-        
-        .comment-as strong {
-            color: var(--primary);
-        }
-        
-        .comment-submit {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .comment-submit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--secondary);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .comment-submit:hover {
-            transform: translateY(-2px);
-        }
-        
-        .comment-submit:hover::before {
-            opacity: 1;
-        }
-        
-        .recaptcha-notice {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 15px;
-        }
-        
-        .recaptcha-notice a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        /* Notification Styles */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--card-bg);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 10000;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            border-left: 4px solid;
-        }
-        
-        .notification.success {
-            border-left-color: var(--success);
-        }
-        
-        .notification.error {
-            border-left-color: var(--accent);
-        }
-        
-        .notification i {
-            font-size: 1.5rem;
-        }
-        
-        .notification.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 80px 0 30px;
-        }
-        
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-        
-        .footer-col h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50%;
-            height: 2px;
-            background: var(--primary);
-        }
-        
-        .footer-col p {
-            color: #bbb;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #bbb;
-            font-size: 0.9rem;
-        }
-        
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .back-to-top:hover {
-            background: var(--accent);
-            transform: translateY(-5px);
-        }
-        
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100vh;
-            background: var(--card-bg);
-            z-index: 1000;
-            transition: right 0.3s ease;
-            padding: 80px 20px 20px;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            overflow-y: auto;
-        }
-        
-        .mobile-menu.active {
-            right: 0;
-        }
-        
-        .mobile-menu .nav-links {
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .mobile-menu .nav-links li {
-            margin: 0;
-        }
-        
-        .mobile-menu .nav-links a {
-            font-size: 1.1rem;
-        }
-        
-        .mobile-menu .auth-buttons {
-            margin: 30px 0 0;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            cursor: pointer;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 50px;
-            }
-            
-            .hero-btns {
-                justify-content: center;
-            }
-            
-            .hero-image {
-                width: 80%;
-                height: 400px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .auth-buttons {
-                display: none;
-            }
-            
-            .hamburger {
-                display: block;
-            }
-            
-            .floating-image {
-                display: none;
-            }
-            
-            .services-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-            
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-10px);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .testimonial-slide {
-                padding: 20px;
-            }
-            
-            .comment-section {
-                padding: 20px;
-            }
-            
-            .comment-content {
-                padding-left: 0;
-            }
-            
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 20px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .btn {
-                width: 100%;
-            }
-            
-            .mobile-menu {
-                width: 80%;
-                right: -80%;
-            }
-            
-            .mobile-menu.active {
-                right: 0;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
-        }
-        
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .delay-1 {
-            transition-delay: 0.1s;
-        }
-        
-        .delay-2 {
-            transition-delay: 0.2s;
-        }
-        
-        .delay-3 {
-            transition-delay: 0.3s;
-        }
-        
-        .delay-4 {
-            transition-delay: 0.4s;
-        }
-        
-        .delay-5 {
-            transition-delay: 0.5s;
-        }
-    </style>
-    <style>
-    .bonus-btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(255, 153, 0, 0.4);
-    }
-    
-    .bonus-btn:hover div {
-        opacity: 1;
-    }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Vexernoss - Jasa Video Editing Profesional untuk Kreator Konten">
+  <title>Vexernoss | Jasa Video Editing Profesional</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- Three.js CDN -->
+  <script src="https://unpkg.com/three@0.152.0/build/three.min.js" defer></script>
+  <script src="https://unpkg.com/three@0.152.0/examples/jsm/loaders/GLTFLoader.js" defer></script>
+  <script src="https://unpkg.com/three@0.152.0/examples/jsm/loaders/DRACOLoader.js" defer></script>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-logo"></div>
-    </div>
+  <!-- Developer Notes -->
+  <!-- 
+    Untuk menjalankan website ini dengan benar:
+    1. Pastikan model 3D tersedia di folder assets/robot.glb
+    2. Jalankan server lokal (python -m http.server 8000) untuk menghindari masalah CORS
+    3. Jika model tidak tersedia, fallback image akan ditampilkan
+  -->
+  
+  <header class="site-header">
+    <nav class="container">
+      <a href="#" class="logo" aria-label="Vexernoss Video Editing">
+        <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
+        VEXERNOSS
+      </a>
+      <ul class="nav-menu" role="navigation">
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#features">Keunggulan</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#pricing">Harga</a></li>
+        <li><a href="#testimonials">Testimoni</a></li>
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#order">Cara Order</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Header & Navigation -->
-    <header id="header">
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo"><img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo"> </a>
-                <ul class="nav-links">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#features">Keunggulan</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#pricing">Harga</a></li>
-                    <li><a href="#testimonials">Testimoni</a></li>
-                    <li><a href="#services">Layanan</a></li>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#order">Cara Order</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                    <div class="auth-buttons">
-                    </div>
-                </ul>
-                <div class="hamburger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </nav>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="particles-background" id="particles"></div>
+      <div class="hero-inner container">
+        <div class="hero-left">
+          <div class="prebadge" aria-label="Professional Video Editing">PROFESSIONAL • EDITING</div>
+          <h1 class="hero-title">Tingkatkan Konten Anda Dengan Video Editing Profesional</h1>
+          <p class="hero-sub">Kami menciptakan video yang memukau untuk meningkatkan engagement konten Anda dan menarik perhatian audiens. Tim kami memberikan hasil terbaik yang disesuaikan dengan kebutuhan unik Anda.</p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#contact" role="button">Mulai Sekarang</a>
+            <a class="btn btn-outline" href="#portfolio" role="button">Lihat Karya</a>
+          </div>
+
+          <div class="app-icons" aria-hidden="true">
+            <div class="app-icon">
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <div class="app-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="app-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="app-icon">
+              <i class="fas fa-film"></i>
+            </div>
+            <div class="app-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <div class="app-icon">
+              <i class="fas fa-video"></i>
+            </div>
+          </div>
         </div>
-    </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <span class="close-menu" id="closeMenu"><i class="fas fa-times"></i></span>
-        <ul class="nav-links">
+        <div class="hero-right">
+          <div class="robot-container">
+            <canvas id="robotCanvas" aria-label="3D video editing visualization"></canvas>
+            <img class="robot-fallback" src="https://qu.ax/qGKwx.png" alt="Video Editing Showcase" hidden>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+      <div class="container">
+        <h2 class="section-title">Keunggulan <span>Kami</span></h2>
+        <p class="section-subtitle">Mengapa memilih jasa video editing kami untuk kebutuhan konten Anda.</p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>Profesional</h3>
+            <p>Tim editor berpengalaman dengan portofolio yang luas di berbagai jenis konten video.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <h3>Hemat Biaya</h3>
+            <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-smile"></i>
+            </div>
+            <h3>Garansi Puas</h3>
+            <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil editing yang kami buat.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Proses Cepat</h3>
+            <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h3>Source File</h3>
+            <p>Anda mendapatkan semua file sumber (Premiere Pro, CapCut, dll) setelah proyek selesai.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Preview Section -->
+    <section class="portfolio-preview" id="portfolio">
+      <div class="container">
+        <h2 class="section-title">Portfolio <span>Kami</span></h2>
+        <p class="section-subtitle">Koleksi proyek terbaru kami yang telah membantu berbagai content creator mencapai tujuan mereka.</p>
+        
+        <div class="portfolio-grid">
+          <div class="portfolio-item">
+            <div class="portfolio-img">
+              <img src="https://img.youtube.com/vi/BhcOJeVIeNs/maxresdefault.jpg" alt="Video Montage Gaming">
+            </div>
+            <div class="portfolio-content">
+              <h3>Video Montage Gaming</h3>
+              <p>Editing montage gameplay dengan efek visual</p>
+              <a href="https://youtu.be/BhcOJeVIeNs?si=YYBfxK022idcPMHv" target="_blank" class="portfolio-link">
+                <i class="fab fa-youtube"></i> Tonton Video
+              </a>
+            </div>
+          </div>
+          
+          <div class="portfolio-item">
+            <div class="portfolio-img">
+              <img src="https://img.youtube.com/vi/QgVuHrRb0Gk/maxresdefault.jpg" alt="Video Short Travel">
+            </div>
+            <div class="portfolio-content">
+              <h3>Video Short Travel</h3>
+              <p>Editing video short untuk travel influencer</p>
+              <a href="https://youtube.com/shorts/QgVuHrRb0Gk?si=8QxY9bZa8E6FTc0k" target="_blank" class="portfolio-link">
+                <i class="fab fa-youtube"></i> Tonton Video
+              </a>
+            </div>
+          </div>
+          
+          <div class="portfolio-item">
+            <div class="portfolio-img">
+              <img src="https://img.youtube.com/vi/2nbE2NuDXHw/maxresdefault.jpg" alt="Video YouTube">
+            </div>
+            <div class="portfolio-content">
+              <h3>Video YouTube</h3>
+              <p>Editing video panjang untuk konten YouTube</p>
+              <a href="https://youtu.be/2nbE2NuDXHw?si=XH1yAPB7xXDHvD1a" target="_blank" class="portfolio-link">
+                <i class="fab fa-youtube"></i> Tonton Video
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-btn-container">
+          <a href="https://ytjobs.co/talent/vitrine/406465" class="btn btn-primary" target="_blank">Lihat Lebih Banyak Portofolio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-preview" id="services">
+      <div class="container">
+        <h2 class="section-title">Jenis <span>Layanan</span></h2>
+        <p class="section-subtitle">Berbagai layanan kreatif yang kami tawarkan untuk memenuhi kebutuhan video editing Anda.</p>
+        
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <h3>Reels/Shorts</h3>
+            <p>Editing video pendek untuk platform TikTok, Instagram Reels, dan YouTube Shorts</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <h3>Gaming Montage</h3>
+            <p>Editing montage gameplay dengan efek visual dan audio yang menarik</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Vlog Editing</h3>
+            <p>Editing video vlog dengan transisi yang smooth dan color grading profesional</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-film"></i>
+            </div>
+            <h3>Cinematic Video</h3>
+            <p>Editing video dengan gaya sinematik untuk tampilan yang lebih dramatis</p>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Konten Sosmed</h3>
+            <p>Editing konten untuk berbagai platform media sosial dengan format yang sesuai</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Preview Section -->
+    <section class="contact-preview" id="contact">
+      <div class="container">
+        <h2 class="section-title">Hubungi <span>Kami</span></h2>
+        <p class="section-subtitle">Siap memulai proyek Anda atau ada pertanyaan tentang layanan kami? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
+        
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fab fa-discord"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Discord</h3>
+                <a href="#">ClayonSR'</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fab fa-instagram"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Instagram</h3>
+                <a href="#">@ClayonSR'</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Email Kami</h3>
+                <a href="mailto:syafiq100308@gmail.com">syafiq100308@gmail.com</a>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-text">
+                <h3>Jam Kerja</h3>
+                <p>Senin - Minggu: 17:00 - 22:00 WIB</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="discord-cta">
+            <div class="discord-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <h3>Bergabung dengan Komunitas Kami</h3>
+            <p>Dapatkan konsultasi gratis, lihat portfolio terbaru, dan diskusikan proyek Anda langsung dengan tim kami di server Discord 8.4k Reborn.</p>
+            <a href="https://discord.gg/TDr5HcQTng" target="_blank" class="btn btn-primary">
+              <i class="fab fa-discord"></i> Join Discord 8.4k Reborn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
+            <span>VEXERNOSS</span>
+          </div>
+          <p>Kami menciptakan video menakjubkan yang membantu konten creator menonjol dan terhubung dengan audiens mereka.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Layanan</h3>
+          <ul class="footer-links">
+            <li><a href="#services">Video Short</a></li>
+            <li><a href="#services">Video Panjang</a></li>
+            <li><a href="#services">Gaming Montage</a></li>
+            <li><a href="#services">Vlog Editing</a></li>
+            <li><a href="#services">Cinematic Video</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Tautan Cepat</h3>
+          <ul class="footer-links">
             <li><a href="#home">Beranda</a></li>
             <li><a href="#features">Keunggulan</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
             <li><a href="#pricing">Harga</a></li>
+            <li><a href="#testimonials">Testimoni</a></li>
             <li><a href="#services">Layanan</a></li>
             <li><a href="#tools">Tools</a></li>
-            <li><a href="#testimonials">Testimoni</a></li>
             <li><a href="#order">Cara Order</a></li>
             <li><a href="#contact">Kontak</a></li>
-            <div class="auth-buttons">
-                <a href="#" class="btn" id="mobileLoginBtn">Masuk</a>
-                <a href="#" class="btn btn-accent">Daftar</a>
-            </div>
-        </ul>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Kontak</h3>
+          <p>Hubungi kami untuk konsultasi gratis dan informasi lebih lanjut tentang layanan kami.</p>
+          <div class="contact-info-footer">
+            <p><i class="fab fa-discord"></i> ClayonSR'</p>
+            <p><i class="fab fa-instagram"></i> @ClayonSR'</p>
+            <p><i class="fas fa-envelope"></i> syafiq100308@gmail.com</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Vexernoss Studio. Semua Hak Dilindungi. | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat Layanan</a></p>
+      </div>
     </div>
+  </footer>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <video class="hero-video" autoplay muted loop>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-digital-grid-538-large.mp4" type="video/mp4">
-        </video>
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <h1>Tingkatkan Konten Anda Dengan <span>Video Editing Profesional</span></h1>
-                    <p>Kami menciptakan video yang memukau untuk meningkatkan engagement konten Anda dan menarik perhatian audiens. Tim kami memberikan hasil terbaik yang disesuaikan dengan kebutuhan unik Anda.</p>
-                    <div class="hero-btns">
-                        <a href="#contact" class="btn">Mulai Sekarang</a>
-                        <a href="#portfolio" class="btn btn-accent">Lihat Karya</a>
-                    </div>
-                </div>
-                <div class="hero-image fade-in delay-1">
-                    <div class="image-container">
-                        <div class="main-image" id="mainImage"></div>
-                        <div class="floating-image image-1"></div>
-                        <div class="floating-image image-2"></div>
-                        <div class="floating-image image-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Keunggulan Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title fade-in">Keunggulan <span>Kami</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Mengapa memilih jasa video editing kami untuk kebutuhan konten Anda.</p>
-            
-            <div class="features-grid">
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Profesional</h3>
-                    <p>Tim editor berpengalaman dengan portofolio yang luas di berbagai jenis konten video.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-wallet"></i>
-                    </div>
-                    <h3>Hemat Biaya</h3>
-                    <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-4">
-                    <div class="feature-icon">
-                        <i class="fas fa-smile"></i>
-                    </div>
-                    <h3>Garansi Puas</h3>
-                    <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil editing yang kami buat.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Proses Cepat</h3>
-                    <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
-                </div>
-                
-                <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3>Source File</h3>
-                    <p>Anda mendapatkan semua file sumber (Premiere Pro, CapCut, dll) setelah proyek selesai.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <h2 class="section-title fade-in">Portfolio <span>Kami</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px;">Koleksi proyek terbaru kami yang telah membantu berbagai content creator mencapai tujuan mereka.</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-item fade-in delay-2">
-                    <img src="https://img.youtube.com/vi/BhcOJeVIeNs/maxresdefault.jpg" alt="Portfolio 1" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Video Montage Gaming</h3>
-                        <p>Editing montage gameplay dengan efek visual</p>
-                        <a href="https://youtu.be/BhcOJeVIeNs?si=YYBfxK022idcPMHv" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-3">
-                    <img src="https://img.youtube.com/vi/QgVuHrRb0Gk/maxresdefault.jpg" alt="Portfolio 2" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Video Short Travel</h3>
-                        <p>Editing video short untuk travel influencer</p>
-                        <a href="https://youtube.com/shorts/QgVuHrRb0Gk?si=8QxY9bZa8E6FTc0k" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in delay-4">
-                    <img src="https://img.youtube.com/vi/2nbE2NuDXHw/maxresdefault.jpg" alt="Portfolio 3" class="portfolio-img">
-                    <div class="portfolio-overlay">
-                        <h3>Video YouTube</h3>
-                        <p>Editing video panjang untuk konten YouTube</p>
-                        <a href="https://youtu.be/2nbE2NuDXHw?si=XH1yAPB7xXDHvD1a" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="portfolio-btn-container fade-in delay-5">
-                <a href="https://ytjobs.co/talent/vitrine/406465" class="portfolio-btn" target="_blank">Lihat Lebih Banyak Portofolio</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <h2 class="section-title fade-in">Harga <span>Layanan</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Pilih paket yang sesuai dengan kebutuhan konten Anda. Harga dapat berubah tergantung kompleksitas editing.</p>
-            
-            <div class="pricing-grid">
-                <div class="pricing-card fade-in delay-2">
-                    <div class="pricing-header">
-                        <h3 class="pricing-title">Video Short</h3>
-                        <div class="pricing-price">Mulai Rp40k</div>
-                        <div class="pricing-period">per menit</div>
-                    </div>
-                    <table class="price-table">
-                        <tr>
-                            <th>Durasi</th>
-                            <th>Harga</th>
-                        </tr>
-                        <tr>
-                            <td>1 menit</td>
-                            <td>Rp40k</td>
-                        </tr>
-                        <tr>
-                            <td>2 menit</td>
-                            <td>Rp65k</td>
-                        </tr>
-                        <tr>
-                            <td>3 menit</td>
-                            <td>Rp90k</td>
-                        </tr>
-                    </table>
-                    <a href="#contact" class="btn" style="width: 100%; margin-top: 20px;">Pesan Sekarang</a>
-                </div>
-                
-                <div class="pricing-card featured fade-in delay-3">
-                    <div class="pricing-header">
-                        <h3 class="pricing-title">Video Panjang</h3>
-                        <div class="pricing-price">Mulai Rp120k</div>
-                        <div class="pricing-period">per video</div>
-                    </div>
-                    <table class="price-table">
-                        <tr>
-                            <th>Durasi</th>
-                            <th>Harga</th>
-                        </tr>
-                        <tr>
-                            <td>4-6 menit</td>
-                            <td>Rp120k</td>
-                        </tr>
-                        <tr>
-                            <td>7-10 menit</td>
-                            <td>Rp200k</td>
-                        </tr>
-                        <tr>
-                            <td>11-15 menit</td>
-                            <td>Rp350k</td>
-                        </tr>
-                        <tr>
-                            <td>16-30 menit</td>
-                            <td>Rp500k+</td>
-                        </tr>
-                    </table>
-                    <a href="#contact" class="btn btn-accent" style="width: 100%; margin-top: 20px;">Pesan Sekarang</a>
-                </div>
-                
-                <div class="pricing-card fade-in delay-4">
-                    <div class="pricing-header">
-                        <h3 class="pricing-title">Paket Khusus</h3>
-                        <div class="pricing-price">Custom</div>
-                        <div class="pricing-period">sesuai kebutuhan</div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li>Editing untuk proyek khusus</li>
-                        <li>Durasi sesuai permintaan</li>
-                        <li>Color grading premium</li>
-                        <li>Sound design lengkap</li>
-                        <li>Revisi tidak terbatas</li>
-                        <li>Deadline fleksibel</li>
-                    </ul>
-                    <a href="#contact" class="btn" style="width: 100%;">Konsultasi Gratis</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title fade-in">Testimoni <span>Klien</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 30px; color: rgba(255, 255, 255, 0.8);">Apa kata klien yang telah menggunakan jasa video editing kami.</p>
-            
-            <div class="testimonial-slider fade-in delay-2">
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Sangat puas dengan hasil editing video dari Vexernoss. Mereka memahami kebutuhan saya sebagai content creator dan memberikan hasil yang melebihi ekspektasi. Proses revisinya juga cepat dan responsif."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://qu.ax/Doyji.jpg" alt="Testimoni Klien 1" class="author-img" data-fullsize="https://qu.ax/Doyji.jpg">
-                        <div class="author-info">
-                            <h4>Sarah Wijaya</h4>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Editing untuk video YouTube channel saya sangat memukau. Vexernoss mampu menangkap konsep yang saya inginkan dan menerjemahkannya menjadi video yang profesional dan menarik. Channel saya sekarang memiliki engagement yang lebih tinggi."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.imgur.com/example2.jpg" alt="Testimoni Klien 2" class="author-img" data-fullsize="https://i.imgur.com/example2-full.jpg">
-                        <div class="author-info">
-                            <h4>Michael Santoso</h4>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-slide">
-                    <div class="testimonial-content">
-                        "Sebagai gaming content creator dengan budget terbatas, saya ragu untuk menggunakan jasa editing profesional. Tapi Vexernoss memberikan nilai yang luar biasa. Editing montage gameplay saya membantu menarik lebih banyak viewer dan subscriber."
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="https://i.imgur.com/example3.jpg" alt="Testimoni Klien 3" class="author-img" data-fullsize="https://i.imgur.com/example3-full.jpg">
-                        <div class="author-info">
-                            <h4>Emily Putri</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Image Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
-        <img class="modal-content" id="modalImage">
+  <noscript>
+    <div class="noscript-fallback">
+      <h2>Welcome to Vexernoss</h2>
+      <p>JavaScript is required to experience the full interactive features of our platform.</p>
     </div>
+  </noscript>
 
-    <!-- Layanan Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Jenis <span>Layanan</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Berbagai layanan kreatif yang kami tawarkan untuk memenuhi kebutuhan video editing Anda.</p>
-            
-            <div class="services-grid">
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <h3>Reels/Shorts</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Gaming Montage</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-4">
-                    <div class="service-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h3>Vlog Editing</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-2">
-                    <div class="service-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <h3>Cinematic Video</h3>
-                </div>
-                
-                <div class="service-card fade-in delay-3">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Konten Sosmed</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tools Section -->
-    <section class="tools" id="tools">
-        <div class="container">
-            <h2 class="section-title fade-in">Aplikasi <span>Yang Kami Gunakan</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Kami menggunakan berbagai aplikasi profesional untuk menghasilkan karya terbaik.</p>
-            
-            <div class="tools-grid">
-                <div class="tool-card fade-in delay-2">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Premiere Pro" class="tool-logo">
-                    <h3>Premiere Pro</h3>
-                </div>
-                
-                <div class="tool-card fade-in delay-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/CapCut_logo.svg" alt="CapCut" class="tool-logo">
-                    <h3>CapCut</h3>
-                </div>
-                
-                <div class="tool-card fade-in delay-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Canva_logo.svg" alt="Canva" class="tool-logo">
-                    <h3>Canva</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cara Order Section -->
-    <section class="order-steps" id="order">
-        <div class="container">
-            <h2 class="section-title fade-in">Cara <span>Order</span></h2>
-            <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Proses mudah untuk memesan jasa video editing dari kami.</p>
-            
-            <div class="steps-container">
-                <div class="step-card fade-in delay-2">
-                    <div class="step-number">1</div>
-                    <h3>Pilih Layanan</h3>
-                    <p>Pilih jenis layanan yang sesuai dengan kebutuhan Anda (video short atau panjang). Konsultasi gratis tanpa biaya.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-3">
-                    <div class="step-number">2</div>
-                    <h3>Lihat Video Testimoni</h3>
-                    <p>Kami akan memberikan video testimoni hasil editing kami untuk memastikan Anda tertarik dengan kualitas kami.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-4">
-                    <div class="step-number">3</div>
-                    <h3>Terima Hasil Jadi</h3>
-                    <p>Jika deal, video boleh diupload dan langsung ke proses pembayaran. Anda bisa meminta revisi sampai puas.</p>
-                </div>
-                
-                <div class="step-card fade-in delay-5">
-                    <div class="step-number">4</div>
-                    <h3>Selesai & Upload</h3>
-                    <p>Setelah final, file akan dikirim melalui WhatsApp atau email sesuai preferensi Anda.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-   <!-- Contact Section -->
-<section class="contact" id="contact">
-    <div class="container">
-        <h2 class="section-title fade-in">Hubungi <span>Kami</span></h2>
-        <p class="fade-in delay-1" style="max-width: 700px; margin-bottom: 50px;">Siap memulai proyek Anda atau ada pertanyaan tentang layanan kami? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
-        
-        <div class="contact-container">
-            <div class="contact-info fade-in delay-2">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>Discord</h3>
-                        <a href="#">ClayonSR'</a>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>Instagram</h3>
-                        <a href="#">@ClayonSR'</a>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>Email Kami</h3>
-                        <a href="mailto:syafiq100308@gmail.com">syafiq100308@gmail.com</a>
-                    </div>
-                </div>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>Jam Kerja</h3>
-                        <p>Senin - Minggu: 17:00 - 22:00 WIB</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="discord-cta fade-in delay-3" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--card-bg); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                <div class="discord-icon" style="font-size: 4rem; color: #7289da; margin-bottom: 20px;">
-                    <i class="fab fa-discord"></i>
-                </div>
-                <h3 style="font-size: 1.8rem; margin-bottom: 15px; color: var(--primary);">Bergabung dengan Komunitas Kami</h3>
-                <p style="margin-bottom: 25px; line-height: 1.6;">Dapatkan konsultasi gratis, lihat portfolio terbaru, dan diskusikan proyek Anda langsung dengan tim kami di server Discord 8.4k Reborn.</p>
-                <a href="https://discord.gg/TDr5HcQTng" target="_blank" class="btn" style="padding: 15px 40px; font-size: 1.1rem;">
-                    <i class="fab fa-discord" style="margin-right: 10px;"></i> Join Discord 8.4k Reborn
-                </a>
-            </div>
-        </div>
-        
-<!-- Bonus Section: Tombol Pemburikan Gambar -->
-<section class="bonus-section" id="bonus" style="background: #111; padding: 60px 0; text-align: center;">
-    <div class="container">
-        <a href="pemburikan.html" class="bonus-btn" style="display: inline-block; padding: 20px 50px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; text-decoration: none; border-radius: 10px; font-size: 1.5rem; font-weight: 700; box-shadow: 0 10px 30px rgba(255, 153, 0, 0.3); transition: all 0.3s ease; position: relative; overflow: hidden; z-index: 1;">
-            <span style="position: relative; z-index: 2;">
-                <i class="fas fa-camera" style="margin-right: 10px;"></i>
-                Pemburikan Gambar
-            </span>
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), var(--red)); z-index: -1; opacity: 0; transition: opacity 0.3s ease;"></div>
-        </a>
-    </div>
-</section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-col">
-                    <p><b>Kami menciptakan video menakjubkan yang membantu konten creator menonjol dan terhubung dengan audiens mereka.</b></p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-discord"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Layanan</h3>
-                    <ul class="footer-links">
-                        <li><a href="#services">Video Short</a></li>
-                        <li><a href="#services">Video Panjang</a></li>
-                        <li><a href="#services">Gaming Montage</a></li>
-                        <li><a href="#services">Vlog Editing</a></li>
-                        <li><a href="#services">Cinematic Video</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Tautan Cepat</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#features">Keunggulan</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#pricing">Harga</a></li>
-                        <li><a href="#testimonials">Testimoni</a></li>
-                        <li><a href="#services">Layanan</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#order">Cara Order</a></li>
-                        <li><a href="#contact">Kontak</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h3>Kontak</h3>
-                    <p>Hubungi kami untuk konsultasi gratis dan informasi lebih lanjut tentang layanan kami.</p>
-                    <div class="contact-info-footer">
-                        <p><i class="fab fa-discord"></i> ClayonSR'</p>
-                        <p><i class="fab fa-instagram"></i> @ClayonSR'</p>
-                        <p><i class="fas fa-envelope"></i> syafiq100308@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Vexernoss Studio. Semua Hak Dilindungi. | <a href="#" style="color: var(--secondary);">Kebijakan Privasi</a> | <a href="#" style="color: var(--secondary);">Syarat Layanan</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
-
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
-    <script>
-        // Loading Screen
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loadingScreen').style.opacity = '0';
-                setTimeout(function() {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                }, 500);
-            }, 1500); // Adjust time based on connection speed
-        });
-
-        // Konfigurasi Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDPDMPIFqFj1IOWhebeboO7jRNBF5fQ3xE",
-            authDomain: "vexernoss.firebaseapp.com",
-            databaseURL: "https://vexernoss-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "vexernoss",
-            storageBucket: "vexernoss.appspot.com",
-            messagingSenderId: "653268071478",
-            appId: "1:653268071478:web:d8bd8bc924c18aad5029497"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Mobile Navigation
-        const hamburger = document.querySelector('.hamburger');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMenu = document.getElementById('closeMenu');
-        
-        hamburger.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        // Sticky Header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
-        
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Back to Top Button
-        const backToTopBtn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopBtn.classList.add('active');
-            } else {
-                backToTopBtn.classList.remove('active');
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Testimonial Slider
-        $(document).ready(function(){
-            $('.testimonial-slider').slick({
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                arrows: false
-            });
-        });
-        
-        // Image Parallax Effect
-        const mainImage = document.getElementById('mainImage');
-        
-        if (mainImage) {
-            window.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-                mainImage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            });
-        }
-        
-        // Scroll Animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const appearOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-        
-        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    return;
-                } else {
-                    entry.target.classList.add('active');
-                    appearOnScroll.unobserve(entry.target);
-                }
-            });
-        }, appearOptions);
-        
-        fadeElements.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
-        
-        // Form Submission
-        const contactForm = document.getElementById('contactForm');
-        
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form values
-                const name = this.querySelector('input[type="text"]').value;
-                const email = this.querySelector('input[type="email"]').value;
-                const service = this.querySelector('select').value;
-                const message = this.querySelector('textarea').value;
-                
-                // Here you would typically send the data to a server
-                // For demo purposes, we'll just show an alert
-                showNotification(`Terima kasih, ${name}! Pesan Anda telah terkirim. Kami akan menghubungi Anda segera di ${email} untuk konsultasi mengenai layanan ${service}.`);
-                
-                // Reset form
-                this.reset();
-            });
-        }
-        
-        // Image Modal Functionality
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImage");
-        const closeModal = document.getElementsByClassName("close-modal")[0];
-        
-        // Get all testimonial images
-        const testimonialImages = document.querySelectorAll('.author-img');
-        
-        testimonialImages.forEach(img => {
-            img.addEventListener('click', function() {
-                modal.style.display = "block";
-                modalImg.src = this.getAttribute('data-fullsize') || this.src;
-            });
-        });
-        
-        closeModal.onclick = function() {
-            modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        
-        // Function to show notification
-        function showNotification(message, isSuccess = true) {
-            const notification = document.createElement('div');
-            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
-            notification.innerHTML = `
-                <i class="fas fa-${isSuccess ? 'check-circle' : 'exclamation-circle'}"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('active');
-            }, 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('active');
-                setTimeout(() => notification.remove(), 500);
-            }, 3000);
-        }
-    </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
-
-
-
