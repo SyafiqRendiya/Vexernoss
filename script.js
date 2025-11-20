@@ -319,3 +319,161 @@
   window.addEventListener('beforeunload', cleanup);
   
 })();
+
+/**
+ * PORTFOLIO MANAGER WITH FIREBASE
+ * Functions to handle portfolio CRUD operations
+ */
+
+// Portfolio Management Functions
+function showAddForm() {
+    document.getElementById('addProjectModal').style.display = 'flex';
+}
+
+function hideAddForm() {
+    document.getElementById('addProjectModal').style.display = 'none';
+    // Reset form
+    document.getElementById('projectTitle').value = '';
+    document.getElementById('projectDescription').value = '';
+    document.getElementById('projectUrl').value = '';
+    document.getElementById('projectImage').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('imagePreview').innerHTML = '';
+}
+
+// Preview image before upload
+document.getElementById('projectImage').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const preview = document.getElementById('imagePreview');
+    
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.style.display = 'none';
+        preview.innerHTML = '';
+    }
+});
+
+// Save project to Firebase
+async function saveProject() {
+    const title = document.getElementById('projectTitle').value;
+    const description = document.getElementById('projectDescription').value;
+    const url = document.getElementById('projectUrl').value;
+    const imageFile = document.getElementById('projectImage').files[0];
+    
+    if (!title || !description || !url || !imageFile) {
+        alert('Harap isi semua field dan upload gambar!');
+        return;
+    }
+    
+    const saveBtn = document.getElementById('saveBtn');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+    saveBtn.classList.add('loading');
+    
+    try {
+        // 1. Upload image to Firebase Storage
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child(`portfolio/${Date.now()}-${imageFile.name}`);
+        const uploadResult = await imageRef.put(imageFile);
+        const imageUrl = await uploadResult.ref.getDownloadURL();
+        
+        // 2. Save project data to Firestore
+        await firebase.firestore().collection('portfolio').add({
+            title: title,
+            description: description,
+            url: url,
+            imageUrl: imageUrl,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        // 3. Success
+        hideAddForm();
+        alert('Project berhasil ditambahkan! 🎉');
+        loadPortfolioProjects();
+        
+    } catch (error) {
+        console.error('Error saving project:', error);
+        alert('Gagal menambah project. Coba lagi.');
+    } finally {
+        saveBtn.innerHTML = originalText;
+        saveBtn.classList.remove('loading');
+    }
+}
+
+// Load portfolio projects from Firebase
+async function loadPortfolioProjects() {
+    try {
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        if (!portfolioGrid) return;
+        
+        // Show loading state
+        portfolioGrid.classList.add('loading');
+        
+        const snapshot = await firebase.firestore()
+            .collection('portfolio')
+            .orderBy('createdAt', 'desc')
+            .get();
+        
+        // Clear existing items (keep the add button)
+        const addButton = portfolioGrid.querySelector('.add-portfolio-item');
+        portfolioGrid.innerHTML = '';
+        portfolioGrid.appendChild(addButton);
+        
+        // Add projects to grid
+        snapshot.forEach(doc => {
+            const project = doc.data();
+            const projectElement = createPortfolioItem(project);
+            portfolioGrid.insertAdjacentHTML('afterbegin', projectElement);
+        });
+        
+        portfolioGrid.classList.remove('loading');
+        
+    } catch (error) {
+        console.error('Error loading portfolio:', error);
+        portfolioGrid.classList.remove('loading');
+    }
+}
+
+// Create portfolio item HTML
+function createPortfolioItem(project) {
+    return `
+        <div class="portfolio-item">
+            <div class="portfolio-img">
+                <img src="${project.imageUrl}" alt="${project.title}" loading="lazy">
+            </div>
+            <div class="portfolio-content">
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <a href="${project.url}" target="_blank" class="portfolio-link">
+                    <i class="fab fa-youtube"></i> Tonton Video
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+// Close modal when clicking outside
+document.getElementById('addProjectModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        hideAddForm();
+    }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        hideAddForm();
+    }
+});
+
+// Load portfolio when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait a bit for Firebase to initialize
+    setTimeout(loadPortfolioProjects, 1000);
+});
