@@ -321,45 +321,11 @@
 })();
 
 /**
- * PORTFOLIO MANAGER WITH FIREBASE
- * Functions to handle portfolio CRUD operations
+ * PORTFOLIO MANAGER WITH SUPABASE
+ * Functions to handle portfolio CRUD operations - GRATIS!
  */
 
-// Portfolio Management Functions
-function showAddForm() {
-    document.getElementById('addProjectModal').style.display = 'flex';
-}
-
-function hideAddForm() {
-    document.getElementById('addProjectModal').style.display = 'none';
-    // Reset form
-    document.getElementById('projectTitle').value = '';
-    document.getElementById('projectDescription').value = '';
-    document.getElementById('projectUrl').value = '';
-    document.getElementById('projectImage').value = '';
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('imagePreview').innerHTML = '';
-}
-
-// Preview image before upload
-document.getElementById('projectImage').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const preview = document.getElementById('imagePreview');
-    
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
-            preview.style.display = 'block';
-        }
-        reader.readAsDataURL(file);
-    } else {
-        preview.style.display = 'none';
-        preview.innerHTML = '';
-    }
-});
-
-// Save project to Firebase
+// Save project to Supabase
 async function saveProject() {
     const title = document.getElementById('projectTitle').value;
     const description = document.getElementById('projectDescription').value;
@@ -377,22 +343,40 @@ async function saveProject() {
     saveBtn.classList.add('loading');
     
     try {
-        // 1. Upload image to Firebase Storage
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`portfolio/${Date.now()}-${imageFile.name}`);
-        const uploadResult = await imageRef.put(imageFile);
-        const imageUrl = await uploadResult.ref.getDownloadURL();
+        // 1. Upload image to Supabase Storage
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const filePath = `portfolio/${fileName}`;
         
-        // 2. Save project data to Firestore
-        await firebase.firestore().collection('portfolio').add({
-            title: title,
-            description: description,
-            url: url,
-            imageUrl: imageUrl,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+        const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('portfolio-images')
+            .upload(filePath, imageFile);
         
-        // 3. Success
+        if (uploadError) throw uploadError;
+        
+        // 2. Get public URL
+        const { data: urlData } = supabase.storage
+            .from('portfolio-images')
+            .getPublicUrl(filePath);
+        
+        const imageUrl = urlData.publicUrl;
+        
+        // 3. Save project data to Supabase
+        const { data, error } = await supabase
+            .from('portfolio')
+            .insert([
+                { 
+                    title: title,
+                    description: description, 
+                    url: url,
+                    image_url: imageUrl,
+                    created_at: new Date().toISOString()
+                }
+            ]);
+        
+        if (error) throw error;
+        
+        // 4. Success
         hideAddForm();
         alert('Project berhasil ditambahkan! 🎉');
         loadPortfolioProjects();
@@ -406,7 +390,7 @@ async function saveProject() {
     }
 }
 
-// Load portfolio projects from Firebase
+// Load portfolio projects from Supabase
 async function loadPortfolioProjects() {
     try {
         const portfolioGrid = document.getElementById('portfolioGrid');
@@ -415,10 +399,12 @@ async function loadPortfolioProjects() {
         // Show loading state
         portfolioGrid.classList.add('loading');
         
-        const snapshot = await firebase.firestore()
-            .collection('portfolio')
-            .orderBy('createdAt', 'desc')
-            .get();
+        const { data: projects, error } = await supabase
+            .from('portfolio')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) throw error;
         
         // Clear existing items (keep the add button)
         const addButton = portfolioGrid.querySelector('.add-portfolio-item');
@@ -426,11 +412,12 @@ async function loadPortfolioProjects() {
         portfolioGrid.appendChild(addButton);
         
         // Add projects to grid
-        snapshot.forEach(doc => {
-            const project = doc.data();
-            const projectElement = createPortfolioItem(project);
-            portfolioGrid.insertAdjacentHTML('afterbegin', projectElement);
-        });
+        if (projects) {
+            projects.forEach(project => {
+                const projectElement = createPortfolioItem(project);
+                portfolioGrid.insertAdjacentHTML('afterbegin', projectElement);
+            });
+        }
         
         portfolioGrid.classList.remove('loading');
         
@@ -440,12 +427,12 @@ async function loadPortfolioProjects() {
     }
 }
 
-// Create portfolio item HTML
+// Create portfolio item HTML (sama seperti sebelumnya)
 function createPortfolioItem(project) {
     return `
         <div class="portfolio-item">
             <div class="portfolio-img">
-                <img src="${project.imageUrl}" alt="${project.title}" loading="lazy">
+                <img src="${project.image_url}" alt="${project.title}" loading="lazy">
             </div>
             <div class="portfolio-content">
                 <h3>${project.title}</h3>
@@ -457,23 +444,3 @@ function createPortfolioItem(project) {
         </div>
     `;
 }
-
-// Close modal when clicking outside
-document.getElementById('addProjectModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        hideAddForm();
-    }
-});
-
-// Close modal with ESC key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        hideAddForm();
-    }
-});
-
-// Load portfolio when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    // Wait a bit for Firebase to initialize
-    setTimeout(loadPortfolioProjects, 1000);
-});
