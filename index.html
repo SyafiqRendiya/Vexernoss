@@ -148,57 +148,69 @@
     </section>
 
     <!-- Portfolio Preview Section -->
-    <section class="portfolio-preview" id="portfolio">
-      <div class="container">
-        <h2 class="section-title">Portfolio <span>Kami</span></h2>
-        <p class="section-subtitle">Koleksi proyek terbaru kami yang telah membantu berbagai content creator mencapai tujuan mereka.</p>
-        
-        <div class="portfolio-grid">
-          <div class="portfolio-item">
-            <div class="portfolio-img">
-              <img src="https://img.youtube.com/vi/BhcOJeVIeNs/maxresdefault.jpg" alt="Video Montage Gaming">
-            </div>
-            <div class="portfolio-content">
-              <h3>Video Montage Gaming</h3>
-              <p>Editing montage gameplay dengan efek visual</p>
-              <a href="https://youtu.be/BhcOJeVIeNs?si=YYBfxK022idcPMHv" target="_blank" class="portfolio-link">
-                <i class="fab fa-youtube"></i> Tonton Video
-              </a>
-            </div>
-          </div>
-          
-          <div class="portfolio-item">
-            <div class="portfolio-img">
-              <img src="https://img.youtube.com/vi/QgVuHrRb0Gk/maxresdefault.jpg" alt="Video Short Travel">
-            </div>
-            <div class="portfolio-content">
-              <h3>Video Short Travel</h3>
-              <p>Editing video short untuk travel influencer</p>
-              <a href="https://youtube.com/shorts/QgVuHrRb0Gk?si=8QxY9bZa8E6FTc0k" target="_blank" class="portfolio-link">
-                <i class="fab fa-youtube"></i> Tonton Video
-              </a>
-            </div>
-          </div>
-          
-          <div class="portfolio-item">
-            <div class="portfolio-img">
-              <img src="https://img.youtube.com/vi/2nbE2NuDXHw/maxresdefault.jpg" alt="Video YouTube">
-            </div>
-            <div class="portfolio-content">
-              <h3>Video YouTube</h3>
-              <p>Editing video panjang untuk konten YouTube</p>
-              <a href="https://youtu.be/2nbE2NuDXHw?si=XH1yAPB7xXDHvD1a" target="_blank" class="portfolio-link">
-                <i class="fab fa-youtube"></i> Tonton Video
-              </a>
-            </div>
-          </div>
+<section class="portfolio-preview" id="portfolio">
+  <div class="container">
+    <h2 class="section-title">Portfolio <span>Kami</span></h2>
+    <p class="section-subtitle">Koleksi proyek terbaru kami yang telah membantu berbagai content creator mencapai tujuan mereka.</p>
+    
+    <div class="portfolio-grid" id="portfolioGrid">
+      <!-- Portfolio items akan dimuat otomatis di sini -->
+      
+      <!-- Tombol Tambah Portfolio -->
+      <div class="portfolio-item add-portfolio-item" onclick="showAddForm()">
+        <div class="add-icon">
+          <i class="fas fa-plus"></i>
         </div>
-        
-        <div class="portfolio-btn-container">
-          <a href="https://ytjobs.co/talent/vitrine/406465" class="btn btn-primary" target="_blank">Lihat Lebih Banyak Portofolio</a>
-        </div>
+        <p>Tambah Project</p>
       </div>
-    </section>
+    </div>
+    
+    <div class="portfolio-btn-container">
+      <a href="https://ytjobs.co/talent/vitrine/406465" class="btn btn-primary" target="_blank">Lihat Lebih Banyak Portofolio</a>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Form Tambah Project -->
+<div id="addProjectModal" class="portfolio-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Tambah Project Baru</h3>
+      <button class="close-btn" onclick="hideAddForm()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="projectTitle">Judul Project</label>
+        <input type="text" id="projectTitle" placeholder="Contoh: Video Montage Gaming">
+      </div>
+      <div class="form-group">
+        <label for="projectDescription">Deskripsi</label>
+        <textarea id="projectDescription" placeholder="Deskripsi singkat tentang project"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="projectUrl">URL Project</label>
+        <input type="url" id="projectUrl" placeholder="https://youtube.com/...">
+      </div>
+      <div class="form-group">
+        <label for="projectImage">Gambar Thumbnail</label>
+        <input type="file" id="projectImage" accept="image/*">
+        <div class="image-preview" id="imagePreview"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="hideAddForm()">Batal</button>
+      <button class="btn btn-primary" onclick="saveProject()" id="saveBtn">
+        <i class="fas fa-save"></i> Simpan Project
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-storage-compat.js"></script>
+<script src="firebase-config.js"></script>
 
     <!-- Services Preview Section -->
     <section class="services-preview" id="services">
@@ -387,4 +399,5 @@
   <script src="script.js" defer></script>
 </body>
 </html>
+
 
