@@ -4,8 +4,8 @@
 
 // Ganti dengan config dari Supabase nanti
 const supabaseConfig = {
-    url: "GANTI-DENGAN-SUPABASE-URL-KAMU",
-    anonKey: "GANTI-DENGAN-SUPABASE-ANON-KEY-KAMU"
+    url: "https://eabhpznktrytcwvrjagu.supabase.co",
+    anonKey: "sb_publishable_8Ybi0EtrP9b2BE00xfVQbQ_EWpNhhM5"
 };
 
 // Initialize Supabase
