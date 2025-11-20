@@ -1,22 +1,14 @@
 // ==========================================
-// FIREBASE CONFIG - GANTI DENGAN CONFIG KAMU
+// SUPABASE CONFIG - GRATIS & NO BILLING!
 // ==========================================
 
-// Copy config dari Firebase Console (Step 4 nanti)
-const firebaseConfig = {
-    apiKey: "GANTI-DENGAN-API-KEY-KAMU",
-    authDomain: "GANTI-DENGAN-AUTH-DOMAIN-KAMU",
-    projectId: "GANTI-DENGAN-PROJECT-ID-KAMU",
-    storageBucket: "GANTI-DENGAN-STORAGE-BUCKET-KAMU",
-    messagingSenderId: "GANTI-DENGAN-SENDER-ID-KAMU",
-    appId: "GANTI-DENGAN-APP-ID-KAMU"
+// Ganti dengan config dari Supabase nanti
+const supabaseConfig = {
+    url: "GANTI-DENGAN-SUPABASE-URL-KAMU",
+    anonKey: "GANTI-DENGAN-SUPABASE-ANON-KEY-KAMU"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Supabase
+const supabase = supabaseClient.createClient(supabaseConfig.url, supabaseConfig.anonKey);
 
-// Initialize services
-const db = firebase.firestore();
-const storage = firebase.storage();
-
-console.log("Firebase initialized successfully!");
+console.log("Supabase initialized successfully!");
