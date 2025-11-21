@@ -150,19 +150,47 @@
             margin-bottom: var(--space-lg);
             opacity: 0.5;
         }
+
+        /* Improved Portfolio Navbar */
+.admin-header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.admin-header .logo {
+    display: flex;
+    align-items: center;
+}
+
+.admin-header .logo img {
+    height: 50px;
+    width: auto;
+}
+
+.admin-header .nav-menu {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+        
     </style>
 </head>
 <body>
     <!-- Admin Header -->
-    <header class="admin-header">
+<header class="admin-header">
     <nav class="container">
-        <div class="logo" style="flex-shrink: 0;">
-            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="30">
-            <span style="font-size: 1rem;">PORTFOLIO MANAGER</span>
+        <!-- Kiri: Logo doang -->
+        <div class="logo">
+            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="50">
         </div>
+        
+        <!-- Kanan: Back to Website -->
         <div class="nav-menu">
-            <a href="index.html" class="btn btn-outline btn-sm">
-                <i class="fas fa-arrow-left"></i> Website
+            <a href="index.html" class="btn btn-outline">
+                <i class="fas fa-arrow-left"></i> Back to Website
             </a>
         </div>
     </nav>
