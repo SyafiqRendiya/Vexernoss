@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FIXED: TikTok portrait embed + Instagram external
+ * FINAL: Fixed TikTok portrait + YouTube embed + Instagram external
  */
 
 // Global variables
@@ -56,7 +56,7 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - FIXED VERSION
+// Create project HTML element - FINAL VERSION
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
@@ -164,7 +164,7 @@ function extractTikTokId(url) {
     return match ? match[1] : null;
 }
 
-// Open Video Modal (YouTube & TikTok only) - FIXED TIKTOK
+// Open Video Modal (YouTube & TikTok only) - FIXED
 function openVideoModal(index) {
     const project = currentProjects[index];
     const modal = document.getElementById('videoModal');
@@ -183,6 +183,7 @@ function openVideoModal(index) {
             videoEmbed = `
                 <iframe 
                     src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                    class="youtube-iframe"
                     allow="autoplay; encrypted-media" 
                     allowfullscreen>
                 </iframe>
@@ -191,16 +192,13 @@ function openVideoModal(index) {
     } else if (project.platform === 'TikTok') {
         const videoId = extractTikTokId(project.url);
         if (videoId) {
-            // FIXED: TikTok embed dengan aspect ratio portrait
             videoEmbed = `
-                <div style="width: 100%; height: 70vh; max-height: 800px; display: flex; justify-content: center;">
-                    <iframe 
-                        src="https://www.tiktok.com/embed/v2/${videoId}" 
-                        style="width: 100%; max-width: 350px; height: 100%; border: none;"
-                        allow="autoplay" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
+                <iframe 
+                    src="https://www.tiktok.com/embed/v2/${videoId}" 
+                    class="tiktok-iframe"
+                    allow="autoplay" 
+                    allowfullscreen>
+                </iframe>
             `;
         }
     }
