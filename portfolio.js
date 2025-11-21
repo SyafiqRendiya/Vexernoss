@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FINAL: YouTube Shorts support + Better thumbnails
+ * FIXED: YouTube Shorts open in new tab
  */
 
 // Global variables
@@ -56,7 +56,7 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element
+// Create project HTML element - FIXED FOR YOUTUBE SHORTS
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
@@ -64,7 +64,6 @@ function createProjectElement(project, index) {
     // TENTUKAN BEHAVIOR BERDASARKAN PLATFORM & JENIS CONTENT
     let clickAction = '';
     let overlayIcon = 'fa-external-link-alt';
-    let linkText = 'View on ' + project.platform;
     
     if (project.platform === 'YouTube') {
         const isShort = project.url.includes('/shorts/');
@@ -72,44 +71,19 @@ function createProjectElement(project, index) {
             // YouTube Shorts: Buka di tab baru
             clickAction = `openExternalLink('${project.url}')`;
             overlayIcon = 'fa-external-link-alt';
-            linkText = 'Watch Short';
         } else {
             // YouTube biasa: Buka di modal
             clickAction = `openVideoModal(${index})`;
             overlayIcon = 'fa-play';
-            linkText = 'Watch Video';
         }
     } else if (project.platform === 'TikTok') {
         // TikTok: Buka di modal
         clickAction = `openVideoModal(${index})`;
         overlayIcon = 'fa-play';
-        linkText = 'Watch Video';
     } else {
         // Instagram & lainnya: Buka di tab baru
         clickAction = `openExternalLink('${project.url}')`;
         overlayIcon = 'fa-external-link-alt';
-        linkText = 'View on ' + project.platform;
-    }
-    
-    // THUMBNAIL SYSTEM - Fix untuk YouTube Shorts
-    let thumbnailUrl = project.image_url;
-    
-    // Jika thumbnail dari YouTube gagal, pake fallback berdasarkan platform
-    if (!thumbnailUrl || thumbnailUrl.includes('img.youtube.com')) {
-        if (project.platform === 'YouTube') {
-            const isShort = project.url.includes('/shorts/');
-            if (isShort) {
-                // Custom thumbnail untuk YouTube Shorts
-                thumbnailUrl = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=500&fit=crop';
-            } else {
-                // Custom thumbnail untuk YouTube biasa
-                thumbnailUrl = 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=500&fit=crop';
-            }
-        } else if (project.platform === 'TikTok') {
-            thumbnailUrl = 'https://images.unsplash.com/photo-1611605698335-8b1569810432?w=400&h=500&fit=crop';
-        } else if (project.platform === 'Instagram') {
-            thumbnailUrl = 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=500&fit=crop';
-        }
     }
     
     element.innerHTML = `
@@ -118,7 +92,7 @@ function createProjectElement(project, index) {
         </div>
         
         <div class="portfolio-img" onclick="${clickAction}">
-            <img src="${thumbnailUrl}" alt="${project.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop'">
+            <img src="${project.image_url}" alt="${project.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop'">
             <div class="play-overlay">
                 <div class="play-icon">
                     <i class="fas ${overlayIcon}"></i>
@@ -138,7 +112,8 @@ function createProjectElement(project, index) {
             </div>
             <div class="portfolio-footer">
                 <a href="${project.url}" target="_blank" class="portfolio-link" onclick="event.stopPropagation()">
-                    <i class="${project.platform_icon}"></i> ${linkText}
+                    <i class="${project.platform_icon}"></i> 
+                    ${project.platform === 'YouTube' && project.url.includes('/shorts/') ? 'Watch Short' : 'View on ' + project.platform}
                 </a>
                 <small>${formatDate(project.created_at)}</small>
             </div>
@@ -187,8 +162,7 @@ function extractYouTubeId(url) {
     const patterns = [
         /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?#]+)/,
         /youtube\.com\/embed\/([^&?#]+)/,
-        /youtube\.com\/v\/([^&?#]+)/,
-        /youtube\.com\/shorts\/([^&?#]+)/  // Support YouTube Shorts
+        /youtube\.com\/v\/([^&?#]+)/
     ];
     
     for (const pattern of patterns) {
