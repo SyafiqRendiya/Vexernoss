@@ -379,65 +379,22 @@ async function loadPortfolioProjects() {
     }
 }
 
-// Update statistics - SUPER FIXED VERSION
+// Update statistics - DIRECT VERSION
 function updateStats(projects) {
-    console.log('🔄 FORCE UPDATING STATS...');
+    console.log('🎯 DIRECT STATS UPDATE');
     
-    // PAKAI CARA MANUAL - lebih reliable
-    setTimeout(() => {
-        try {
-            const total = projects.length;
-            const youtube = projects.filter(p => p.platform && p.platform === 'YouTube').length;
-            const tiktok = projects.filter(p => p.platform && p.platform === 'TikTok').length;
-            const instagram = projects.filter(p => p.platform && p.platform === 'Instagram').length;
-            
-            console.log('📊 FINAL STATS:', { 
-                total, 
-                youtube, 
-                tiktok, 
-                instagram,
-                allPlatforms: projects.map(p => p.platform) // Debug platforms
-            });
-            
-            // FORCE UPDATE - tanpa safety check
-            const totalEl = document.getElementById('totalProjects');
-            const youtubeEl = document.getElementById('youtubeProjects');
-            const tiktokEl = document.getElementById('tiktokProjects');
-            const instagramEl = document.getElementById('instagramProjects');
-            
-            if (totalEl) {
-                totalEl.textContent = total;
-                console.log('✅ TOTAL UPDATED:', total);
-            }
-            
-            if (youtubeEl) {
-                youtubeEl.textContent = youtube;
-                console.log('✅ YOUTUBE UPDATED:', youtube);
-            }
-            
-            if (tiktokEl) {
-                tiktokEl.textContent = tiktok;
-                console.log('✅ TIKTOK UPDATED:', tiktok);
-            }
-            
-            if (instagramEl) {
-                instagramEl.textContent = instagram;
-                console.log('✅ INSTAGRAM UPDATED:', instagram);
-            }
-            
-            // EMERGENCY: Coba update lagi setelah 1 detik
-            setTimeout(() => {
-                document.getElementById('totalProjects').textContent = total;
-                document.getElementById('youtubeProjects').textContent = youtube;
-                document.getElementById('tiktokProjects').textContent = tiktok;
-                document.getElementById('instagramProjects').textContent = instagram;
-                console.log('🔄 EMERGENCY STATS UPDATE DONE');
-            }, 1000);
-            
-        } catch (error) {
-            console.error('❌ CRITICAL ERROR in updateStats:', error);
-        }
-    }, 300);
+    const total = projects.length;
+    const youtube = projects.filter(p => p.platform === 'YouTube').length;
+    const tiktok = projects.filter(p => p.platform === 'TikTok').length;
+    const instagram = projects.filter(p => p.platform === 'Instagram').length;
+    
+    // UPDATE LANGSUNG - no delay, no safety
+    document.getElementById('totalProjects').textContent = total;
+    document.getElementById('youtubeProjects').textContent = youtube;
+    document.getElementById('tiktokProjects').textContent = tiktok;
+    document.getElementById('instagramProjects').textContent = instagram;
+    
+    console.log('✅ STATS UPDATED:', { total, youtube, tiktok, instagram });
 }
 
 // Create project HTML element with action buttons
