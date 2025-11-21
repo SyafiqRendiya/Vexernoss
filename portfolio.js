@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FIXED: YouTube full size + TikTok portrait + Clean modal
+ * FIXED: YouTube Shorts support + Better URL detection
  */
 
 // Global variables
@@ -79,7 +79,7 @@ function createProjectElement(project, index) {
         </div>
         
         <div class="portfolio-img" onclick="${clickAction}">
-            <img src="${project.image_url}" alt="${project.title}" loading="lazy">
+            <img src="${project.image_url}" alt="${project.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop'">
             <div class="play-overlay">
                 <div class="play-icon">
                     <i class="fas ${overlayIcon}"></i>
@@ -143,12 +143,14 @@ function toggleReadMore(index) {
     }
 }
 
-// Extract YouTube ID from URL
+// Extract YouTube ID from URL - FIXED FOR SHORTS
 function extractYouTubeId(url) {
     const patterns = [
         /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?#]+)/,
         /youtube\.com\/embed\/([^&?#]+)/,
-        /youtube\.com\/v\/([^&?#]+)/
+        /youtube\.com\/v\/([^&?#]+)/,
+        /youtube\.com\/shorts\/([^&?#]+)/,  // TAMBAHIN INI UNTUK SHORTS
+        /youtu\.be\/([^&?#]+)/             // BUAT SHORT LINK
     ];
     
     for (const pattern of patterns) {
@@ -164,7 +166,16 @@ function extractTikTokId(url) {
     return match ? match[1] : null;
 }
 
-// Open Video Modal - CLEAN VERSION (VIDEO ONLY)
+// Get YouTube Thumbnail - FIXED FOR SHORTS
+function getYouTubeThumbnail(url) {
+    const videoId = extractYouTubeId(url);
+    if (!videoId) return null;
+    
+    // Coba maxres dulu, kalo ga ada coba hqdefault
+    return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+}
+
+// Open Video Modal - FIXED FOR YOUTUBE SHORTS
 function openVideoModal(index) {
     const project = currentProjects[index];
     const modal = document.getElementById('videoModal');
@@ -175,14 +186,30 @@ function openVideoModal(index) {
     if (project.platform === 'YouTube') {
         const videoId = extractYouTubeId(project.url);
         if (videoId) {
-            videoEmbed = `
-                <iframe 
-                    src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
-                    class="youtube-iframe"
-                    allow="autoplay; encrypted-media" 
-                    allowfullscreen>
-                </iframe>
-            `;
+            // CEK APAKAH INI SHORTS ATAU VIDEO BIASA
+            const isShort = project.url.includes('/shorts/');
+            
+            if (isShort) {
+                // YouTube Shorts - pake embed khusus
+                videoEmbed = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        class="youtube-iframe shorts-iframe"
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            } else {
+                // YouTube biasa
+                videoEmbed = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                        class="youtube-iframe"
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                `;
+            }
         }
     } else if (project.platform === 'TikTok') {
         const videoId = extractTikTokId(project.url);
