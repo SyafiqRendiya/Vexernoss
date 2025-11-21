@@ -379,60 +379,65 @@ async function loadPortfolioProjects() {
     }
 }
 
-// Update statistics - FIXED VERSION
+// Update statistics - SUPER FIXED VERSION
 function updateStats(projects) {
-    try {
-        console.log('🔄 Updating stats with projects:', projects);
-        
-        const total = projects.length;
-        const youtube = projects.filter(p => p.platform === 'YouTube').length;
-        const tiktok = projects.filter(p => p.platform === 'TikTok').length;
-        const instagram = projects.filter(p => p.platform === 'Instagram').length;
-        
-        console.log('📊 Calculated stats:', { total, youtube, tiktok, instagram });
-        
-        // Kasih delay dikit biar DOM fully ready
-        setTimeout(() => {
-            // Debug: Cek apakah element ada
+    console.log('🔄 FORCE UPDATING STATS...');
+    
+    // PAKAI CARA MANUAL - lebih reliable
+    setTimeout(() => {
+        try {
+            const total = projects.length;
+            const youtube = projects.filter(p => p.platform && p.platform === 'YouTube').length;
+            const tiktok = projects.filter(p => p.platform && p.platform === 'TikTok').length;
+            const instagram = projects.filter(p => p.platform && p.platform === 'Instagram').length;
+            
+            console.log('📊 FINAL STATS:', { 
+                total, 
+                youtube, 
+                tiktok, 
+                instagram,
+                allPlatforms: projects.map(p => p.platform) // Debug platforms
+            });
+            
+            // FORCE UPDATE - tanpa safety check
             const totalEl = document.getElementById('totalProjects');
             const youtubeEl = document.getElementById('youtubeProjects');
             const tiktokEl = document.getElementById('tiktokProjects');
             const instagramEl = document.getElementById('instagramProjects');
             
-            console.log('🔍 Elements found:', {
-                totalEl: !!totalEl,
-                youtubeEl: !!youtubeEl, 
-                tiktokEl: !!tiktokEl,
-                instagramEl: !!instagramEl
-            });
-            
-            // Update dengan safety check
             if (totalEl) {
                 totalEl.textContent = total;
-                console.log('✅ Total projects updated:', total);
-            } else {
-                console.log('❌ totalProjects element not found');
+                console.log('✅ TOTAL UPDATED:', total);
             }
             
             if (youtubeEl) {
                 youtubeEl.textContent = youtube;
-                console.log('✅ YouTube projects updated:', youtube);
+                console.log('✅ YOUTUBE UPDATED:', youtube);
             }
             
             if (tiktokEl) {
                 tiktokEl.textContent = tiktok;
-                console.log('✅ TikTok projects updated:', tiktok);
+                console.log('✅ TIKTOK UPDATED:', tiktok);
             }
             
             if (instagramEl) {
                 instagramEl.textContent = instagram;
-                console.log('✅ Instagram projects updated:', instagram);
+                console.log('✅ INSTAGRAM UPDATED:', instagram);
             }
-        }, 100);
-        
-    } catch (error) {
-        console.error('❌ Error in updateStats:', error);
-    }
+            
+            // EMERGENCY: Coba update lagi setelah 1 detik
+            setTimeout(() => {
+                document.getElementById('totalProjects').textContent = total;
+                document.getElementById('youtubeProjects').textContent = youtube;
+                document.getElementById('tiktokProjects').textContent = tiktok;
+                document.getElementById('instagramProjects').textContent = instagram;
+                console.log('🔄 EMERGENCY STATS UPDATE DONE');
+            }, 1000);
+            
+        } catch (error) {
+            console.error('❌ CRITICAL ERROR in updateStats:', error);
+        }
+    }, 300);
 }
 
 // Create project HTML element with action buttons
