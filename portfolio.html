@@ -233,7 +233,7 @@
             color: var(--accent-2);
         }
         
-        /* Video Modal */
+        /* Video Modal - SIMPLE VERSION */
         .video-modal {
             display: none;
             position: fixed;
@@ -256,55 +256,36 @@
         
         .video-modal-content {
             width: 90%;
-            max-width: 800px;
-            background: var(--bg);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
+            max-width: 900px;
             position: relative;
         }
         
         .video-container {
             width: 100%;
             position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
         
         .video-container iframe {
+            width: 100%;
             border: none;
+            border-radius: var(--radius-lg);
         }
         
         .youtube-iframe {
-            width: 100%;
-            height: 450px;
+            height: 500px;
         }
         
         .tiktok-iframe {
-            width: 100%;
-            max-width: 350px;
-            height: 70vh;
-            max-height: 700px;
-        }
-        
-        .video-info {
-            padding: var(--space-lg);
-        }
-        
-        .video-info h3 {
-            margin-bottom: var(--space-xs);
-            color: var(--text);
-        }
-        
-        .video-info p {
-            opacity: 0.8;
-            margin-bottom: var(--space-md);
+            height: 700px;
+            max-width: 380px;
+            margin: 0 auto;
+            display: block;
         }
         
         .close-video {
             position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
+            top: -50px;
+            right: 0;
             background: rgba(11, 11, 15, 0.8);
             border: none;
             color: white;
@@ -380,12 +361,12 @@
             }
             
             .youtube-iframe {
-                height: 300px;
+                height: 400px;
             }
             
             .tiktok-iframe {
-                max-width: 300px;
-                height: 60vh;
+                height: 600px;
+                max-width: 320px;
             }
         }
 
@@ -404,12 +385,17 @@
             }
             
             .youtube-iframe {
-                height: 250px;
+                height: 300px;
             }
             
             .tiktok-iframe {
+                height: 500px;
                 max-width: 280px;
-                height: 50vh;
+            }
+            
+            .close-video {
+                top: -60px;
+                right: 10px;
             }
         }
     </style>
@@ -469,7 +455,7 @@
         </div>
     </main>
 
-    <!-- Video Modal -->
+    <!-- Video Modal - SIMPLE VERSION -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <button class="close-video" onclick="closeVideo()">
@@ -477,10 +463,6 @@
             </button>
             <div class="video-container" id="videoContainer">
                 <!-- Video will be loaded here -->
-            </div>
-            <div class="video-info">
-                <h3 id="videoTitle"></h3>
-                <p id="videoDescription"></p>
             </div>
         </div>
     </div>
