@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * Untuk Vercel/Public Hosting
+ * Untuk Vercel/Public Hosting - PORTRAIT STYLE
  */
 
 // Load projects from database
@@ -52,7 +52,7 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - CLEAN VERSION
+// Create project HTML element - PORTRAIT VERSION
 function createProjectElement(project) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
