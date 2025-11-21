@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Portfolio - Vexernoss</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Additional styles for portfolio management */
+        .admin-header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: var(--space-md) 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .admin-main {
+    margin-top: 120px; /* GANTI dari 80px jadi 120px */
+    padding: var(--space-xl) 0;
+}
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .portfolio-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+            flex-wrap: wrap;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--space-xs);
+        }
+        
+        .btn-sm {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 0.9rem;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            transform: translateY(-2px);
+        }
+        
+        .portfolio-item-admin {
+            position: relative;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition);
+            backdrop-filter: blur(10px);
+        }
+        
+        .portfolio-item-admin:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-1);
+        }
+        
+        .item-actions {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: flex;
+    gap: var(--space-xs);
+    /* HAPUS: opacity: 0; */
+    /* HAPUS: transition: opacity var(--transition); */
+    opacity: 1 !important; /* TAMBAH INI */
+    z-index: 10; /* TAMBAH INI */
+}
+        
+        
+        .platform-badge {
+            position: absolute;
+            top: var(--space-md);
+            left: var(--space-md);
+            width: 40px;
+            height: 40px;
+            background: rgba(11, 11, 15, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xxl);
+            opacity: 0.7;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: var(--space-lg);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+    <nav class="container">
+        <div class="logo" style="flex-shrink: 0;">
+            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="30">
+            <span style="font-size: 1rem;">PORTFOLIO MANAGER</span>
+        </div>
+        <div class="nav-menu">
+            <a href="index.html" class="btn btn-outline btn-sm">
+                <i class="fas fa-arrow-left"></i> Website
+            </a>
+        </div>
+    </nav>
+</header>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="container">
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalProjects">0</div>
+                    <div>Total Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="youtubeProjects">0</div>
+                    <div>YouTube Videos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="tiktokProjects">0</div>
+                    <div>TikTok Videos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="instagramProjects">0</div>
+                    <div>Instagram Posts</div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="portfolio-actions">
+                <button class="btn btn-primary" onclick="showAddForm()">
+                    <i class="fas fa-plus"></i> Tambah Project Baru
+                </button>
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="loadPortfolioProjects()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Portfolio items will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Project Modal -->
+    <div id="addProjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Tambah Project Baru</h3>
+                <button class="close-btn" onclick="hideAddForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="projectTitle">Judul Project</label>
+                    <input type="text" id="projectTitle" placeholder="Contoh: Video Montage Gaming">
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Deskripsi</label>
+                    <textarea id="projectDescription" placeholder="Deskripsi singkat tentang project" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectUrl">URL Project</label>
+                    <input type="url" id="projectUrl" placeholder="https://... (YouTube, Instagram, TikTok, dll)">
+                    <small class="url-note">
+                        <i class="fas fa-info-circle"></i> Support: YouTube, Instagram, TikTok, Facebook, Twitter
+                    </small>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="hideAddForm()">Batal</button>
+                <button class="btn btn-primary" onclick="saveProject()" id="saveBtn">
+                    <i class="fas fa-save"></i> Simpan Project
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Project Modal -->
+    <div id="editProjectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Project</h3>
+                <button class="close-btn" onclick="hideEditForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editProjectId">
+                <div class="form-group">
+                    <label for="editProjectTitle">Judul Project</label>
+                    <input type="text" id="editProjectTitle" placeholder="Contoh: Video Montage Gaming">
+                </div>
+                <div class="form-group">
+                    <label for="editProjectDescription">Deskripsi</label>
+                    <textarea id="editProjectDescription" placeholder="Deskripsi singkat tentang project" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editProjectUrl">URL Project</label>
+                    <input type="url" id="editProjectUrl" placeholder="https://... (YouTube, Instagram, TikTok, dll)">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="hideEditForm()">Batal</button>
+                <button class="btn btn-warning" onclick="updateProject()" id="updateBtn">
+                    <i class="fas fa-edit"></i> Update Project
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Supabase Initialization
+        const supabaseUrl = 'https://eabhpznktrytcwvrjagu.supabase.co';
+        const supabaseKey = 'sb_publishable_8Ybi0EtrP9b2BE00xfVQbQ_EWpNhhM5';
+        window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+    <script src="portfolio.js"></script>
+</body>
+</html>
