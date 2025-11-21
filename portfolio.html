@@ -67,7 +67,7 @@
             justify-content: flex-end;
         }
         
-        .portfolio-item-admin {
+        .portfolio-item {
             position: relative;
             background: var(--glass);
             border: 1px solid var(--glass-border);
@@ -77,7 +77,7 @@
             backdrop-filter: blur(10px);
         }
         
-        .portfolio-item-admin:hover {
+        .portfolio-item:hover {
             transform: translateY(-5px);
             border-color: var(--accent-1);
         }
@@ -95,6 +95,7 @@
             justify-content: center;
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
+            z-index: 2;
         }
         
         .empty-state {
@@ -192,17 +193,19 @@
 
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-    // Tunggu Supabase load dulu
-    document.addEventListener('DOMContentLoaded', function() {
-        const supabaseUrl = 'https://eabhpznktrytcwvrjagu.supabase.co';
-        const supabaseKey = 'sb_publishable_8Ybi0EtrP9b2BE00xfVQbQ_EWpNhhM5';
-        window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
-        
-        // Baru load portfolio functions
-        loadPortfolioProjects();
-    });
-</script>
-<script src="portfolio.js"></script>
+    <script>
+        // Tunggu Supabase load dulu
+        document.addEventListener('DOMContentLoaded', function() {
+            const supabaseUrl = 'https://eabhpznktrytcwvrjagu.supabase.co';
+            const supabaseKey = 'sb_publishable_8Ybi0EtrP9b2BE00xfVQbQ_EWpNhhM5';
+            window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+            
+            // Baru load portfolio functions
+            setTimeout(() => {
+                loadPortfolioProjects();
+            }, 500);
+        });
+    </script>
+    <script src="portfolio.js"></script>
 </body>
 </html>
