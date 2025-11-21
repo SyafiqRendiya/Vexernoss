@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FINAL: Fixed TikTok portrait + YouTube embed + Instagram external
+ * FIXED: YouTube full size + TikTok portrait + Clean modal
  */
 
 // Global variables
@@ -56,7 +56,7 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - FINAL VERSION
+// Create project HTML element
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
@@ -164,16 +164,11 @@ function extractTikTokId(url) {
     return match ? match[1] : null;
 }
 
-// Open Video Modal (YouTube & TikTok only) - FIXED
+// Open Video Modal - CLEAN VERSION (VIDEO ONLY)
 function openVideoModal(index) {
     const project = currentProjects[index];
     const modal = document.getElementById('videoModal');
     const videoContainer = document.getElementById('videoContainer');
-    const videoTitle = document.getElementById('videoTitle');
-    const videoDescription = document.getElementById('videoDescription');
-    
-    videoTitle.textContent = project.title;
-    videoDescription.textContent = project.description;
     
     let videoEmbed = '';
     
