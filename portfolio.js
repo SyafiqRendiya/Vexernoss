@@ -1,10 +1,10 @@
 /**
- * Vexernoss - Static Portfolio Data
- * Untuk GitHub Pages Deployment
+ * Vexernoss - Website Utama
+ * Static Version for GitHub Pages
  */
 
 // ==========================================
-// STATIC PORTFOLIO DATA
+// STATIC PORTFOLIO DATA (SAMA DENGAN PORTFOLIO.JS)
 // ==========================================
 
 const staticPortfolioData = [
@@ -13,7 +13,7 @@ const staticPortfolioData = [
         title: "Gaming Montage Epic",
         description: "Montage gameplay dengan efek visual dan audio yang memukau",
         url: "https://youtube.com/watch?v=contoh1",
-        image_url: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=225&fit=crop",
+        image_url: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=500&fit=crop", // UBAH KE PORTRAIT
         platform: "YouTube",
         platform_icon: "fab fa-youtube",
         created_at: "2024-01-15"
@@ -37,36 +37,69 @@ const staticPortfolioData = [
         platform: "Instagram",
         platform_icon: "fab fa-instagram", 
         created_at: "2024-01-05"
-    },
-    {
-        id: 4,
-        title: "Vlog Travel Seru",
-        description: "Video vlog perjalanan dengan color grading profesional",
-        url: "https://youtube.com/watch?v=contoh2",
-        image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=225&fit=crop",
-        platform: "YouTube",
-        platform_icon: "fab fa-youtube",
-        created_at: "2024-01-01"
     }
 ];
 
 // ==========================================
-// PORTFOLIO DISPLAY FUNCTIONS  
+// ANIMATIONS & EFFECTS
 // ==========================================
 
-// Load static portfolio data
+function initAnimations() {
+    // App icons floating effect
+    const appIcons = document.querySelectorAll('.app-icon');
+    appIcons.forEach((icon, index) => {
+        const duration = 3 + Math.random() * 2;
+        const delay = Math.random() * 2;
+        icon.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+    });
+    
+    initParticles();
+}
+
+function initParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    
+    const particleCount = 25;
+    let particlesHTML = '';
+    
+    for (let i = 0; i < particleCount; i++) {
+        const size = Math.random() * 3 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const opacity = Math.random() * 0.2 + 0.1;
+        const delay = Math.random() * 15;
+        
+        particlesHTML += `
+            <div class="particle" style="
+                width: ${size}px;
+                height: ${size}px;
+                left: ${posX}%;
+                top: ${posY}%;
+                opacity: ${opacity};
+                animation-delay: ${delay}s;
+            "></div>
+        `;
+    }
+    
+    container.innerHTML = particlesHTML;
+}
+
+// ==========================================
+// PORTFOLIO DISPLAY (STATIC - PORTRAIT)
+// ==========================================
+
 function loadPortfolioProjects() {
     const portfolioGrid = document.getElementById('portfolioGrid');
     if (!portfolioGrid) return;
     
     portfolioGrid.innerHTML = '';
     
-    if (staticPortfolioData.length > 0) {
-        // Update stats
-        updateStats(staticPortfolioData);
-        
-        // Add projects to grid
-        staticPortfolioData.forEach(project => {
+    // Ambil 3 project pertama untuk homepage
+    const homeProjects = staticPortfolioData.slice(0, 3);
+    
+    if (homeProjects.length > 0) {
+        homeProjects.forEach(project => {
             const projectElement = createProjectElement(project);
             portfolioGrid.appendChild(projectElement);
         });
@@ -75,23 +108,9 @@ function loadPortfolioProjects() {
     }
 }
 
-// Update statistics
-function updateStats(projects) {
-    const total = projects.length;
-    const youtube = projects.filter(p => p.platform === 'YouTube').length;
-    const tiktok = projects.filter(p => p.platform === 'TikTok').length;
-    const instagram = projects.filter(p => p.platform === 'Instagram').length;
-    
-    document.getElementById('totalProjects').textContent = total;
-    document.getElementById('youtubeProjects').textContent = youtube;
-    document.getElementById('tiktokProjects').textContent = tiktok;
-    document.getElementById('instagramProjects').textContent = instagram;
-}
-
-// Create project HTML element (View Only - No actions)
 function createProjectElement(project) {
     const element = document.createElement('div');
-    element.className = 'portfolio-item-admin';
+    element.className = 'portfolio-item';
     element.innerHTML = `
         <div class="platform-badge">
             <i class="${project.platform_icon}"></i>
@@ -104,51 +123,58 @@ function createProjectElement(project) {
         <div class="portfolio-content">
             <h3>${project.title}</h3>
             <p>${project.description}</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-md);">
-                <a href="${project.url}" target="_blank" class="portfolio-link">
-                    <i class="${project.platform_icon}"></i> View on ${project.platform}
-                </a>
-                <small style="opacity: 0.7;">${formatDate(project.created_at)}</small>
-            </div>
+            <a href="${project.url}" target="_blank" class="portfolio-link">
+                <i class="${project.platform_icon}"></i> Tonton di ${project.platform}
+            </a>
         </div>
     `;
     return element;
 }
 
-// Show empty state
 function showEmptyState() {
     const portfolioGrid = document.getElementById('portfolioGrid');
     portfolioGrid.innerHTML = `
-        <div class="empty-state">
-            <i class="fas fa-film"></i>
-            <h3>Portfolio Coming Soon</h3>
-            <p>We're preparing amazing projects to showcase here.</p>
+        <div class="portfolio-item" style="text-align: center; padding: var(--space-xxl); opacity: 0.7;">
+            <i class="fas fa-film" style="font-size: 3rem; margin-bottom: var(--space-md); opacity: 0.5;"></i>
+            <h3>Portfolio Sedang Dipersiapkan</h3>
+            <p>Kami sedang menyiapkan karya terbaik untuk ditampilkan di sini.</p>
         </div>
     `;
-    
-    // Reset stats
-    document.getElementById('totalProjects').textContent = '0';
-    document.getElementById('youtubeProjects').textContent = '0';
-    document.getElementById('tiktokProjects').textContent = '0';
-    document.getElementById('instagramProjects').textContent = '0';
 }
 
-// Format date
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
+// ==========================================
+// SMOOTH SCROLLING
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 80;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-}
+});
 
 // ==========================================
 // INITIALIZATION
 // ==========================================
 
-// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    initAnimations();
     loadPortfolioProjects();
-    console.log('🚀 Static Portfolio loaded successfully!');
+    console.log('🚀 Vexernoss website loaded successfully!');
 });
