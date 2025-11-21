@@ -1,97 +1,111 @@
 /**
- * Vexernoss - Static Portfolio Data
- * Untuk Halaman Portfolio
+ * Vexernoss - Website Utama
+ * Clean Version - View Only Portfolio
  */
 
-const staticPortfolioData = [
-    {
-        id: 1,
-        title: "Gaming Montage Epic",
-        description: "Montage gameplay dengan efek visual dan audio yang memukau",
-        url: "https://youtube.com/watch?v=contoh1",
-        image_url: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&h=500&fit=crop",
-        platform: "YouTube",
-        platform_icon: "fab fa-youtube",
-        created_at: "2024-01-15"
-    },
-    {
-        id: 2,
-        title: "TikTok Viral Challenge", 
-        description: "Video pendek dengan trend terbaru yang viral di TikTok",
-        url: "https://tiktok.com/@user/video/12345",
-        image_url: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=400&h=500&fit=crop",
-        platform: "TikTok",
-        platform_icon: "fab fa-tiktok", 
-        created_at: "2024-01-10"
-    },
-    {
-        id: 3,
-        title: "Instagram Reels Tutorial",
-        description: "Tutorial editing video untuk Instagram Reels",
-        url: "https://instagram.com/p/CONTOH123",
-        image_url: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=500&fit=crop",
-        platform: "Instagram",
-        platform_icon: "fab fa-instagram",
-        created_at: "2024-01-05"
-    }
-];
+// ==========================================
+// ANIMATIONS & EFFECTS
+// ==========================================
 
-// Load static portfolio data
-function loadPortfolioProjects() {
-    const portfolioGrid = document.getElementById('portfolioGrid');
-    if (!portfolioGrid) return;
+// Initialize floating animations
+function initAnimations() {
+    // App icons floating effect
+    const appIcons = document.querySelectorAll('.app-icon');
+    appIcons.forEach((icon, index) => {
+        const duration = 3 + Math.random() * 2;
+        const delay = Math.random() * 2;
+        icon.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+    });
     
-    portfolioGrid.innerHTML = '';
+    // Initialize particles
+    initParticles();
+}
+
+// Create background particles
+function initParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
     
-    if (staticPortfolioData.length > 0) {
-        // Update stats
-        updateStats(staticPortfolioData);
+    const particleCount = 25;
+    let particlesHTML = '';
+    
+    for (let i = 0; i < particleCount; i++) {
+        const size = Math.random() * 3 + 1;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const opacity = Math.random() * 0.2 + 0.1;
+        const delay = Math.random() * 15;
         
-        // Add projects to grid
-        staticPortfolioData.forEach(project => {
-            const projectElement = createProjectElement(project);
-            portfolioGrid.appendChild(projectElement);
-        });
-    } else {
+        particlesHTML += `
+            <div class="particle" style="
+                width: ${size}px;
+                height: ${size}px;
+                left: ${posX}%;
+                top: ${posY}%;
+                opacity: ${opacity};
+                animation-delay: ${delay}s;
+            "></div>
+        `;
+    }
+    
+    container.innerHTML = particlesHTML;
+}
+
+// ==========================================
+// PORTFOLIO DISPLAY (VIEW ONLY)
+// ==========================================
+
+// Load projects from database (Limited to 6 for homepage)
+async function loadPortfolioProjects() {
+    try {
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        if (!portfolioGrid) return;
+        
+        const { data: projects, error } = await supabase
+            .from('Portfolio')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(6); // Limit to 6 projects for homepage
+        
+        if (error) throw error;
+        
+        portfolioGrid.innerHTML = '';
+        
+        if (projects && projects.length > 0) {
+            projects.forEach(project => {
+                const projectElement = createProjectElement(project);
+                portfolioGrid.appendChild(projectElement);
+            });
+        } else {
+            showEmptyState();
+        }
+        
+    } catch (error) {
+        console.error('Error loading portfolio:', error);
         showEmptyState();
     }
 }
 
-// Update statistics
-function updateStats(projects) {
-    const total = projects.length;
-    const youtube = projects.filter(p => p.platform === 'YouTube').length;
-    const tiktok = projects.filter(p => p.platform === 'TikTok').length;
-    const instagram = projects.filter(p => p.platform === 'Instagram').length;
-    
-    document.getElementById('totalProjects').textContent = total;
-    document.getElementById('youtubeProjects').textContent = youtube;
-    document.getElementById('tiktokProjects').textContent = tiktok;
-    document.getElementById('instagramProjects').textContent = instagram;
-}
-
-// Create project HTML element (View Only - No actions)
+// Create project HTML element (View Only)
 function createProjectElement(project) {
     const element = document.createElement('div');
-    element.className = 'portfolio-item-admin';
+    element.className = 'portfolio-item';
     element.innerHTML = `
         <div class="platform-badge">
             <i class="${project.platform_icon}"></i>
         </div>
         
         <div class="portfolio-img">
-            <img src="${project.image_url}" alt="${project.title}" loading="lazy">
+            <img src="${project.image_url}" alt="${project.title}" loading="lazy" 
+                 onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop'">
         </div>
         
         <div class="portfolio-content">
             <h3>${project.title}</h3>
             <p>${project.description}</p>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-md);">
-                <a href="${project.url}" target="_blank" class="portfolio-link">
-                    <i class="${project.platform_icon}"></i> View on ${project.platform}
-                </a>
-                <small style="opacity: 0.7;">${formatDate(project.created_at)}</small>
-            </div>
+            <a href="${project.url}" target="_blank" class="portfolio-link">
+                <i class="${project.platform_icon}"></i> Tonton di ${project.platform}
+            </a>
         </div>
     `;
     return element;
@@ -101,29 +115,41 @@ function createProjectElement(project) {
 function showEmptyState() {
     const portfolioGrid = document.getElementById('portfolioGrid');
     portfolioGrid.innerHTML = `
-        <div class="empty-state">
-            <i class="fas fa-film"></i>
-            <h3>Portfolio Coming Soon</h3>
-            <p>We're preparing amazing projects to showcase here.</p>
+        <div class="portfolio-item" style="text-align: center; padding: var(--space-xxl); opacity: 0.7;">
+            <i class="fas fa-film" style="font-size: 3rem; margin-bottom: var(--space-md); opacity: 0.5;"></i>
+            <h3>Portfolio Sedang Dipersiapkan</h3>
+            <p>Kami sedang menyiapkan karya terbaik untuk ditampilkan di sini.</p>
         </div>
     `;
-    
-    // Reset stats
-    document.getElementById('totalProjects').textContent = '0';
-    document.getElementById('youtubeProjects').textContent = '0';
-    document.getElementById('tiktokProjects').textContent = '0';
-    document.getElementById('instagramProjects').textContent = '0';
 }
 
-// Format date
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('id-ID', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
+// ==========================================
+// SMOOTH SCROLLING
+// ==========================================
+
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 80; // Adjust for header height
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
     });
-}
+});
 
 // ==========================================
 // INITIALIZATION
@@ -131,6 +157,16 @@ function formatDate(dateString) {
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
+    initAnimations();
     loadPortfolioProjects();
-    console.log('🚀 Static Portfolio loaded successfully!');
+    
+    console.log('🚀 Vexernoss website loaded successfully!');
+});
+
+// Handle page visibility changes
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        // Refresh portfolio when page becomes visible
+        loadPortfolioProjects();
+    }
 });
