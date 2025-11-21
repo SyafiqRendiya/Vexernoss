@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FINAL: Fixed Instagram + YouTube/TikTok embed + Read More
+ * FIXED: TikTok portrait embed + Instagram external
  */
 
 // Global variables
@@ -56,16 +56,22 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - FINAL VERSION
+// Create project HTML element - FIXED VERSION
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
     
-    // HANYA YouTube & TikTok yang bisa embed di modal
-    // Instagram & lainnya langsung buka link external
+    // YOUTUBE & TIKTOK: Bisa embed di modal
+    // INSTAGRAM & LAINNYA: Langsung buka link
     const canEmbed = (project.platform === 'YouTube' || project.platform === 'TikTok');
     const clickAction = canEmbed ? `openVideoModal(${index})` : `openExternalLink('${project.url}')`;
-    const overlayIcon = canEmbed ? 'fa-play' : 'fa-external-link-alt';
+    
+    // Icon berbeda untuk platform yang beda
+    let overlayIcon = 'fa-external-link-alt';
+    
+    if (canEmbed) {
+        overlayIcon = 'fa-play';
+    }
     
     element.innerHTML = `
         <div class="platform-badge">
@@ -100,9 +106,7 @@ function createProjectElement(project, index) {
         </div>
     `;
     
-    // Check if description needs "Read More"
     setTimeout(() => checkDescriptionHeight(index), 100);
-    
     return element;
 }
 
@@ -160,7 +164,7 @@ function extractTikTokId(url) {
     return match ? match[1] : null;
 }
 
-// Open Video Modal (YouTube & TikTok only)
+// Open Video Modal (YouTube & TikTok only) - FIXED TIKTOK
 function openVideoModal(index) {
     const project = currentProjects[index];
     const modal = document.getElementById('videoModal');
@@ -187,12 +191,16 @@ function openVideoModal(index) {
     } else if (project.platform === 'TikTok') {
         const videoId = extractTikTokId(project.url);
         if (videoId) {
+            // FIXED: TikTok embed dengan aspect ratio portrait
             videoEmbed = `
-                <iframe 
-                    src="https://www.tiktok.com/embed/v2/${videoId}" 
-                    allow="autoplay" 
-                    allowfullscreen>
-                </iframe>
+                <div style="width: 100%; height: 70vh; max-height: 800px; display: flex; justify-content: center;">
+                    <iframe 
+                        src="https://www.tiktok.com/embed/v2/${videoId}" 
+                        style="width: 100%; max-width: 350px; height: 100%; border: none;"
+                        allow="autoplay" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
             `;
         }
     }
