@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * FIXED: Instagram handle + Better platform detection
+ * FINAL: Fixed Instagram + YouTube/TikTok embed + Read More
  */
 
 // Global variables
@@ -56,14 +56,16 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - FIXED VERSION
+// Create project HTML element - FINAL VERSION
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
     
-    // Tentukan behavior berdasarkan platform
-    const canEmbed = project.platform === 'YouTube' || project.platform === 'TikTok';
+    // HANYA YouTube & TikTok yang bisa embed di modal
+    // Instagram & lainnya langsung buka link external
+    const canEmbed = (project.platform === 'YouTube' || project.platform === 'TikTok');
     const clickAction = canEmbed ? `openVideoModal(${index})` : `openExternalLink('${project.url}')`;
+    const overlayIcon = canEmbed ? 'fa-play' : 'fa-external-link-alt';
     
     element.innerHTML = `
         <div class="platform-badge">
@@ -74,7 +76,7 @@ function createProjectElement(project, index) {
             <img src="${project.image_url}" alt="${project.title}" loading="lazy">
             <div class="play-overlay">
                 <div class="play-icon">
-                    <i class="fas ${canEmbed ? 'fa-play' : 'fa-external-link-alt'}"></i>
+                    <i class="fas ${overlayIcon}"></i>
                 </div>
             </div>
         </div>
@@ -104,7 +106,7 @@ function createProjectElement(project, index) {
     return element;
 }
 
-// Open external link (for Instagram, etc)
+// Open external link (for Instagram, Facebook, etc)
 function openExternalLink(url) {
     window.open(url, '_blank');
 }
