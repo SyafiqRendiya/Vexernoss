@@ -191,88 +191,12 @@
                 </div>
             </div>
 
-            <!-- Action Bar -->
-            <div class="portfolio-actions">
-                <button class="btn btn-primary" onclick="showAddForm()">
-                    <i class="fas fa-plus"></i> Tambah Project Baru
-                </button>
-                <div class="action-buttons">
-                    <button class="btn btn-outline" onclick="loadPortfolioProjects()">
-                        <i class="fas fa-sync-alt"></i> Refresh
-                    </button>
-                </div>
-            </div>
-
             <!-- Portfolio Grid -->
             <div class="portfolio-grid" id="portfolioGrid">
                 <!-- Portfolio items will be loaded here -->
             </div>
         </div>
     </main>
-
-    <!-- Add Project Modal -->
-    <div id="addProjectModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Tambah Project Baru</h3>
-                <button class="close-btn" onclick="hideAddForm()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="projectTitle">Judul Project</label>
-                    <input type="text" id="projectTitle" placeholder="Contoh: Video Montage Gaming">
-                </div>
-                <div class="form-group">
-                    <label for="projectDescription">Deskripsi</label>
-                    <textarea id="projectDescription" placeholder="Deskripsi singkat tentang project" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="projectUrl">URL Project</label>
-                    <input type="url" id="projectUrl" placeholder="https://... (YouTube, Instagram, TikTok, dll)">
-                    <small class="url-note">
-                        <i class="fas fa-info-circle"></i> Support: YouTube, Instagram, TikTok, Facebook, Twitter
-                    </small>
-                </div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-outline" onclick="hideAddForm()">Batal</button>
-                <button class="btn btn-primary" onclick="saveProject()" id="saveBtn">
-                    <i class="fas fa-save"></i> Simpan Project
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Project Modal -->
-    <div id="editProjectModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Edit Project</h3>
-                <button class="close-btn" onclick="hideEditForm()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="editProjectId">
-                <div class="form-group">
-                    <label for="editProjectTitle">Judul Project</label>
-                    <input type="text" id="editProjectTitle" placeholder="Contoh: Video Montage Gaming">
-                </div>
-                <div class="form-group">
-                    <label for="editProjectDescription">Deskripsi</label>
-                    <textarea id="editProjectDescription" placeholder="Deskripsi singkat tentang project" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="editProjectUrl">URL Project</label>
-                    <input type="url" id="editProjectUrl" placeholder="https://... (YouTube, Instagram, TikTok, dll)">
-                </div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-outline" onclick="hideEditForm()">Batal</button>
-                <button class="btn btn-warning" onclick="updateProject()" id="updateBtn">
-                    <i class="fas fa-edit"></i> Update Project
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
