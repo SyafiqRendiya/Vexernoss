@@ -1,6 +1,6 @@
 /**
  * Vexernoss Portfolio - Public Version
- * UPGRADED: Video Modal + Read More + Smaller Images
+ * FIXED: Instagram handle + Better platform detection
  */
 
 // Global variables
@@ -56,20 +56,25 @@ function updateStats(projects) {
     document.getElementById('instagramProjects').textContent = instagram;
 }
 
-// Create project HTML element - UPGRADED VERSION
+// Create project HTML element - FIXED VERSION
 function createProjectElement(project, index) {
     const element = document.createElement('div');
     element.className = 'portfolio-item';
+    
+    // Tentukan behavior berdasarkan platform
+    const canEmbed = project.platform === 'YouTube' || project.platform === 'TikTok';
+    const clickAction = canEmbed ? `openVideoModal(${index})` : `openExternalLink('${project.url}')`;
+    
     element.innerHTML = `
         <div class="platform-badge">
             <i class="${project.platform_icon}"></i>
         </div>
         
-        <div class="portfolio-img" onclick="openVideoModal(${index})">
+        <div class="portfolio-img" onclick="${clickAction}">
             <img src="${project.image_url}" alt="${project.title}" loading="lazy">
             <div class="play-overlay">
                 <div class="play-icon">
-                    <i class="fas fa-play"></i>
+                    <i class="fas ${canEmbed ? 'fa-play' : 'fa-external-link-alt'}"></i>
                 </div>
             </div>
         </div>
@@ -99,12 +104,17 @@ function createProjectElement(project, index) {
     return element;
 }
 
+// Open external link (for Instagram, etc)
+function openExternalLink(url) {
+    window.open(url, '_blank');
+}
+
 // Check if description needs "Read More" button
 function checkDescriptionHeight(index) {
     const descElement = document.getElementById(`desc-${index}`);
     const readMoreBtn = document.getElementById(`readMore-${index}`);
     
-    if (descElement.scrollHeight > descElement.clientHeight) {
+    if (descElement && descElement.scrollHeight > descElement.clientHeight) {
         readMoreBtn.style.display = 'block';
     }
 }
@@ -113,6 +123,8 @@ function checkDescriptionHeight(index) {
 function toggleReadMore(index) {
     const descElement = document.getElementById(`desc-${index}`);
     const readMoreBtn = document.getElementById(`readMore-${index}`);
+    
+    if (!descElement) return;
     
     if (descElement.style.webkitLineClamp) {
         // Expand
@@ -146,7 +158,7 @@ function extractTikTokId(url) {
     return match ? match[1] : null;
 }
 
-// Open Video Modal
+// Open Video Modal (YouTube & TikTok only)
 function openVideoModal(index) {
     const project = currentProjects[index];
     const modal = document.getElementById('videoModal');
@@ -201,11 +213,6 @@ function closeVideo() {
     modal.classList.remove('active');
     videoContainer.innerHTML = '';
     document.body.style.overflow = 'auto';
-    
-    // Close modal with ESC key
-    setTimeout(() => {
-        modal.style.display = 'none';
-    }, 300);
 }
 
 // Close modal when clicking outside
