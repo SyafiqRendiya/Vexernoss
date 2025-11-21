@@ -97,7 +97,7 @@ function createProjectElement(project) {
         
         <div class="portfolio-img">
             <img src="${project.image_url}" alt="${project.title}" loading="lazy" 
-                 onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=225&fit=crop'">
+                 onerror="this.src='https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=500&fit=crop">
         </div>
         
         <div class="portfolio-content">
