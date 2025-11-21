@@ -3,10 +3,6 @@
  * Untuk Halaman Portfolio
  */
 
-// ==========================================
-// STATIC PORTFOLIO DATA
-// ==========================================
-
 const staticPortfolioData = [
     {
         id: 1,
@@ -20,35 +16,33 @@ const staticPortfolioData = [
     },
     {
         id: 2,
-        title: "TikTok Viral Challenge",
-        description: "Video pendek dengan trend terbaru yang viral di TikTok", 
+        title: "TikTok Viral Challenge", 
+        description: "Video pendek dengan trend terbaru yang viral di TikTok",
         url: "https://tiktok.com/@user/video/12345",
         image_url: "https://images.unsplash.com/photo-1611605698335-8b1569810432?w=400&h=500&fit=crop",
         platform: "TikTok",
-        platform_icon: "fab fa-tiktok",
+        platform_icon: "fab fa-tiktok", 
         created_at: "2024-01-10"
-    },
-    {
-        id: 3,
-        title: "Instagram Reels Tutorial",
-        description: "Tutorial editing video untuk Instagram Reels",
-        url: "https://instagram.com/p/CONTOH123",
-        image_url: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=500&fit=crop",
-        platform: "Instagram",
-        platform_icon: "fab fa-instagram",
-        created_at: "2024-01-05"
-    },
-    {
-        id: 4,
-        title: "Vlog Travel Seru", 
-        description: "Video vlog perjalanan dengan color grading profesional",
-        url: "https://youtube.com/watch?v=contoh2",
-        image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=500&fit=crop",
-        platform: "YouTube",
-        platform_icon: "fab fa-youtube",
-        created_at: "2024-01-01"
     }
 ];
+
+function loadPortfolioProjects() {
+    const portfolioGrid = document.getElementById('portfolioGrid');
+    if (!portfolioGrid) return;
+    
+    portfolioGrid.innerHTML = '';
+    
+    if (staticPortfolioData.length > 0) {
+        updateStats(staticPortfolioData);
+        
+        staticPortfolioData.forEach(project => {
+            const projectElement = createProjectElement(project);
+            portfolioGrid.appendChild(projectElement);
+        });
+    } else {
+        showEmptyState();
+    }
+}
 
 // ==========================================
 // PORTFOLIO DISPLAY FUNCTIONS  
