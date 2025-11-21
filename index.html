@@ -1,402 +1,242 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Vexernoss - Jasa Video Editing Profesional untuk Kreator Konten">
-  <title>Vexernoss | Jasa Video Editing Profesional</title>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  
-  <!-- Three.js CDN -->
-  <script src="https://unpkg.com/three@0.152.0/build/three.min.js" defer></script>
-  <script src="https://unpkg.com/three@0.152.0/examples/jsm/loaders/GLTFLoader.js" defer></script>
-  <script src="https://unpkg.com/three@0.152.0/examples/jsm/loaders/DRACOLoader.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexernoss | Jasa Video Editing Profesional</title>
+    <meta name="description" content="Vexernoss - Jasa Video Editing Profesional untuk Kreator Konten">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Developer Notes -->
-  <!-- 
-    Untuk menjalankan website ini dengan benar:
-    1. Pastikan model 3D tersedia di folder assets/robot.glb
-    2. Jalankan server lokal (python -m http.server 8000) untuk menghindari masalah CORS
-    3. Jika model tidak tersedia, fallback image akan ditampilkan
-  -->
-  
-  <header class="site-header">
+    <!-- Header -->
+<header class="site-header">
     <nav class="container">
-      <a href="#" class="logo" aria-label="Vexernoss Video Editing">
-        <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
-        VEXERNOSS
-      </a>
-      <ul class="nav-menu" role="navigation">
-        <li><a href="#home">Beranda</a></li>
-        <li><a href="#features">Keunggulan</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#pricing">Harga</a></li>
-        <li><a href="#testimonials">Testimoni</a></li>
-        <li><a href="#services">Layanan</a></li>
-        <li><a href="#tools">Tools</a></li>
-        <li><a href="#order">Cara Order</a></li>
-        <li><a href="#contact">Kontak</a></li>
-      </ul>
+        <a href="#" class="logo">
+            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
+        </a>
+        <ul class="nav-menu">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#features">Keunggulan</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Layanan</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
     </nav>
-  </header>
+</header>
 
-  <main>
     <!-- Hero Section -->
     <section class="hero" id="home">
-      <div class="particles-background" id="particles"></div>
-      <div class="hero-inner container">
-        <div class="hero-left">
-          <div class="prebadge" aria-label="Professional Video Editing">PROFESSIONAL • EDITING</div>
-          <h1 class="hero-title">Tingkatkan Konten Anda Dengan Video Editing Profesional</h1>
-          <p class="hero-sub">Kami menciptakan video yang memukau untuk meningkatkan engagement konten Anda dan menarik perhatian audiens. Tim kami memberikan hasil terbaik yang disesuaikan dengan kebutuhan unik Anda.</p>
-
-          <div class="cta-row">
-            <a class="btn btn-primary" href="#contact" role="button">Mulai Sekarang</a>
-            <a class="btn btn-outline" href="#portfolio" role="button">Lihat Karya</a>
-          </div>
-
-          <div class="app-icons" aria-hidden="true">
-            <div class="app-icon">
-              <i class="fab fa-tiktok"></i>
+        <div class="particles-background" id="particles"></div>
+        <div class="hero-inner container">
+            <div class="hero-left">
+                <div class="prebadge">PROFESSIONAL • EDITING</div>
+                <h1 class="hero-title">Tingkatkan Konten Anda Dengan Video Editing Profesional</h1>
+                <p class="hero-sub">Kami menciptakan video yang memukau untuk meningkatkan engagement konten Anda dan menarik perhatian audiens.</p>
+                
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="#contact">Mulai Sekarang</a>
+                    <a class="btn btn-outline" href="#portfolio">Lihat Karya</a>
+                </div>
+                
+                <div class="app-icons">
+                    <div class="app-icon"><i class="fab fa-tiktok"></i></div>
+                    <div class="app-icon"><i class="fab fa-youtube"></i></div>
+                    <div class="app-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="app-icon"><i class="fas fa-film"></i></div>
+                    <div class="app-icon"><i class="fas fa-gamepad"></i></div>
+                    <div class="app-icon"><i class="fas fa-video"></i></div>
+                </div>
             </div>
-            <div class="app-icon">
-              <i class="fab fa-youtube"></i>
+            
+            <div class="hero-right">
+                <div class="hero-image">
+                    <img src="https://qu.ax/eNYLi.png" alt="Video Editing Showcase">
+                </div>
             </div>
-            <div class="app-icon">
-              <i class="fab fa-instagram"></i>
-            </div>
-            <div class="app-icon">
-              <i class="fas fa-film"></i>
-            </div>
-            <div class="app-icon">
-              <i class="fas fa-gamepad"></i>
-            </div>
-            <div class="app-icon">
-              <i class="fas fa-video"></i>
-            </div>
-          </div>
         </div>
-
-        <div class="hero-right">
-          <div class="robot-container">
-            <canvas id="robotCanvas" aria-label="3D video editing visualization"></canvas>
-            <img class="robot-fallback" src="https://qu.ax/eNYLi.png" alt="Video Editing Showcase" hidden>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Features Section -->
     <section class="features-section" id="features">
-      <div class="container">
-        <h2 class="section-title">Keunggulan <span>Kami</span></h2>
-        <p class="section-subtitle">Mengapa memilih jasa video editing kami untuk kebutuhan konten Anda.</p>
-        
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-star"></i>
+        <div class="container">
+            <h2 class="section-title">Keunggulan <span>Kami</span></h2>
+            <p class="section-subtitle">Mengapa memilih jasa video editing kami untuk kebutuhan konten Anda.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <h3>Profesional</h3>
+                    <p>Tim editor berpengalaman dengan portofolio yang luas di berbagai jenis konten video.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wallet"></i></div>
+                    <h3>Hemat Biaya</h3>
+                    <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-smile"></i></div>
+                    <h3>Garansi Puas</h3>
+                    <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil editing yang kami buat.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Proses Cepat</h3>
+                    <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
+                </div>
             </div>
-            <h3>Profesional</h3>
-            <p>Tim editor berpengalaman dengan portofolio yang luas di berbagai jenis konten video.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-wallet"></i>
-            </div>
-            <h3>Hemat Biaya</h3>
-            <p>Harga kompetitif dengan kualitas premium, memberikan nilai terbaik untuk investasi Anda.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-smile"></i>
-            </div>
-            <h3>Garansi Puas</h3>
-            <p>Kami memberikan revisi gratis sampai Anda puas dengan hasil editing yang kami buat.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-            <h3>Proses Cepat</h3>
-            <p>Pengerjaan cepat tanpa mengorbankan kualitas, sesuai dengan deadline yang ditentukan.</p>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i class="fas fa-file-alt"></i>
-            </div>
-            <h3>Source File</h3>
-            <p>Anda mendapatkan semua file sumber (Premiere Pro, CapCut, dll) setelah proyek selesai.</p>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- Portfolio Preview Section -->
-<section class="portfolio-preview" id="portfolio">
-  <div class="container">
-    <h2 class="section-title">Portfolio <span>Kami</span></h2>
-    <p class="section-subtitle">Koleksi proyek terbaru kami yang telah membantu berbagai content creator mencapai tujuan mereka.</p>
-    
-    <div class="portfolio-grid" id="portfolioGrid">
-      <!-- Portfolio items akan dimuat otomatis di sini -->
-      
-      <!-- Tombol Tambah Portfolio -->
-      <div class="portfolio-item add-portfolio-item" onclick="showAddForm()">
-        <div class="add-icon">
-          <i class="fas fa-plus"></i>
+    <!-- Portfolio Section -->
+    <section class="portfolio-section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfolio <span>Kami</span></h2>
+            <p class="section-subtitle">Koleksi proyek terbaru kami yang telah membantu berbagai content creator.</p>
+            
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Portfolio items akan dimuat di sini -->
+            </div>
+            
+            <!-- View More Button -->
+            <div style="text-align: center; margin-top: var(--space-xl);">
+                <a href="portfolio.html" class="btn btn-outline">
+                    <i class="fas fa-external-link-alt"></i> Lihat Semua Project
+                </a>
+            </div>
         </div>
-        <p>Tambah Project</p>
-      </div>
-    </div>
-    
-    <div class="portfolio-btn-container">
-      <a href="https://ytjobs.co/talent/vitrine/406465" class="btn btn-primary" target="_blank">Lihat Lebih Banyak Portofolio</a>
-    </div>
-  </div>
-</section>
-
-<!-- Modal Form Tambah Project -->
-<div id="addProjectModal" class="portfolio-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>Tambah Project Baru</h3>
-      <button class="close-btn" onclick="hideAddForm()">&times;</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label for="projectTitle">Judul Project</label>
-        <input type="text" id="projectTitle" placeholder="Contoh: Video Montage Gaming">
-      </div>
-      <div class="form-group">
-        <label for="projectDescription">Deskripsi</label>
-        <textarea id="projectDescription" placeholder="Deskripsi singkat tentang project"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="projectUrl">URL Project</label>
-        <input type="url" id="projectUrl" placeholder="https://youtube.com/...">
-      </div>
-      <div class="form-group">
-        <label for="projectImage">Gambar Thumbnail</label>
-        <input type="file" id="projectImage" accept="image/*">
-        <div class="image-preview" id="imagePreview"></div>
-      </div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn-outline" onclick="hideAddForm()">Batal</button>
-      <button class="btn btn-primary" onclick="saveProject()" id="saveBtn">
-        <i class="fas fa-save"></i> Simpan Project
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- Supabase SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js"></script>
-
-    <!-- Services Preview Section -->
-    <section class="services-preview" id="services">
-      <div class="container">
-        <h2 class="section-title">Jenis <span>Layanan</span></h2>
-        <p class="section-subtitle">Berbagai layanan kreatif yang kami tawarkan untuk memenuhi kebutuhan video editing Anda.</p>
-        
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fab fa-tiktok"></i>
-            </div>
-            <h3>Reels/Shorts</h3>
-            <p>Editing video pendek untuk platform TikTok, Instagram Reels, dan YouTube Shorts</p>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-gamepad"></i>
-            </div>
-            <h3>Gaming Montage</h3>
-            <p>Editing montage gameplay dengan efek visual dan audio yang menarik</p>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-video"></i>
-            </div>
-            <h3>Vlog Editing</h3>
-            <p>Editing video vlog dengan transisi yang smooth dan color grading profesional</p>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-film"></i>
-            </div>
-            <h3>Cinematic Video</h3>
-            <p>Editing video dengan gaya sinematik untuk tampilan yang lebih dramatis</p>
-          </div>
-          
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3>Konten Sosmed</h3>
-            <p>Editing konten untuk berbagai platform media sosial dengan format yang sesuai</p>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <!-- Contact Preview Section -->
-    <section class="contact-preview" id="contact">
-      <div class="container">
-        <h2 class="section-title">Hubungi <span>Kami</span></h2>
-        <p class="section-subtitle">Siap memulai proyek Anda atau ada pertanyaan tentang layanan kami? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
-        
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fab fa-discord"></i>
-              </div>
-              <div class="contact-text">
-                <h3>Discord</h3>
-                <a href="#">ClayonSR'</a>
-              </div>
-            </div>
+    <!-- Services Section -->
+    <section class="services-section" id="services">
+        <div class="container">
+            <h2 class="section-title">Layanan <span>Kami</span></h2>
+            <p class="section-subtitle">Berbagai layanan kreatif yang kami tawarkan untuk memenuhi kebutuhan video editing Anda.</p>
             
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fab fa-instagram"></i>
-              </div>
-              <div class="contact-text">
-                <h3>Instagram</h3>
-                <a href="#">@ClayonSR'</a>
-              </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fab fa-tiktok"></i></div>
+                    <h3>Reels/Shorts</h3>
+                    <p>Editing video pendek untuk platform TikTok, Instagram Reels, dan YouTube Shorts</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3>Gaming Montage</h3>
+                    <p>Editing montage gameplay dengan efek visual dan audio yang menarik</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-video"></i></div>
+                    <h3>Vlog Editing</h3>
+                    <p>Editing video vlog dengan transisi yang smooth dan color grading profesional</p>
+                </div>
             </div>
-            
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="contact-text">
-                <h3>Email Kami</h3>
-                <a href="mailto:syafiq100308@gmail.com">syafiq100308@gmail.com</a>
-              </div>
-            </div>
-            
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <div class="contact-text">
-                <h3>Jam Kerja</h3>
-                <p>Senin - Minggu: 17:00 - 22:00 WIB</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="discord-cta">
-            <div class="discord-icon">
-              <i class="fab fa-discord"></i>
-            </div>
-            <h3>Bergabung dengan Komunitas Kami</h3>
-            <p>Dapatkan konsultasi gratis, lihat portfolio terbaru, dan diskusikan proyek Anda langsung dengan tim kami di server Discord 8.4k Reborn.</p>
-            <a href="https://discord.gg/TDr5HcQTng" target="_blank" class="btn btn-primary">
-              <i class="fab fa-discord"></i> Join Discord 8.4k Reborn
-            </a>
-          </div>
         </div>
-      </div>
     </section>
-  </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-col">
-          <div class="footer-logo">
-            <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
-            <span>VEXERNOSS</span>
-          </div>
-          <p>Kami menciptakan video menakjubkan yang membantu konten creator menonjol dan terhubung dengan audiens mereka.</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-discord"></i></a>
-          </div>
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Hubungi <span>Kami</span></h2>
+            <p class="section-subtitle">Siap memulai proyek Anda? Hubungi kami dan kami akan merespons dalam 24 jam.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-discord"></i></div>
+                        <div class="contact-text">
+                            <h3>Discord</h3>
+                            <p>ClayonSR'</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                        <div class="contact-text">
+                            <h3>Instagram</h3>
+                            <p>@ClayonSR'</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>syafiq100308@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="discord-cta">
+                    <div class="discord-icon"><i class="fab fa-discord"></i></div>
+                    <h3>Join Komunitas Kami</h3>
+                    <p>Diskusikan proyek Anda langsung dengan tim kami di server Discord.</p>
+                    <a href="https://discord.gg/TDr5HcQTng" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-discord"></i> Join Discord
+                    </a>
+                </div>
+            </div>
         </div>
-        
-        <div class="footer-col">
-          <h3>Layanan</h3>
-          <ul class="footer-links">
-            <li><a href="#services">Video Short</a></li>
-            <li><a href="#services">Video Panjang</a></li>
-            <li><a href="#services">Gaming Montage</a></li>
-            <li><a href="#services">Vlog Editing</a></li>
-            <li><a href="#services">Cinematic Video</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-col">
-          <h3>Tautan Cepat</h3>
-          <ul class="footer-links">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#features">Keunggulan</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#pricing">Harga</a></li>
-            <li><a href="#testimonials">Testimoni</a></li>
-            <li><a href="#services">Layanan</a></li>
-            <li><a href="#tools">Tools</a></li>
-            <li><a href="#order">Cara Order</a></li>
-            <li><a href="#contact">Kontak</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-col">
-          <h3>Kontak</h3>
-          <p>Hubungi kami untuk konsultasi gratis dan informasi lebih lanjut tentang layanan kami.</p>
-          <div class="contact-info-footer">
-            <p><i class="fab fa-discord"></i> ClayonSR'</p>
-            <p><i class="fab fa-instagram"></i> @ClayonSR'</p>
-            <p><i class="fas fa-envelope"></i> syafiq100308@gmail.com</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>&copy; 2025 Vexernoss Studio. Semua Hak Dilindungi. | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat Layanan</a></p>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <noscript>
-    <div class="noscript-fallback">
-      <h2>Welcome to Vexernoss</h2>
-      <p>JavaScript is required to experience the full interactive features of our platform.</p>
-    </div>
-  </noscript>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://qu.ax/UxjKg.png" alt="Vexernoss Logo" height="40">
+                        <span>VEXERNOSS</span>
+                    </div>
+                    <p>Kami menciptakan video menakjubkan yang membantu konten creator menonjol dan terhubung dengan audiens mereka.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Layanan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">Video Short</a></li>
+                        <li><a href="#services">Gaming Montage</a></li>
+                        <li><a href="#services">Vlog Editing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Kontak</h3>
+                    <div class="contact-info-footer">
+                        <p><i class="fab fa-discord"></i> ClayonSR'</p>
+                        <p><i class="fab fa-instagram"></i> @ClayonSR'</p>
+                        <p><i class="fas fa-envelope"></i> syafiq100308@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Vexernoss Studio. Semua Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
 
-  <script src="script.js" defer></script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // ✅ Inisialisasi Supabase
+        const supabaseUrl = 'https://eabhpznktrytcwvrjagu.supabase.co';
+        const supabaseKey = 'sb_publishable_8Ybi0EtrP9b2BE00xfVQbQ_EWpNhhM5';
+        window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
