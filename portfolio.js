@@ -23,30 +23,18 @@ const staticPortfolioData = [
         platform: "TikTok",
         platform_icon: "fab fa-tiktok", 
         created_at: "2024-01-10"
+    },
+    {
+        id: 3,
+        title: "Instagram Reels Tutorial",
+        description: "Tutorial editing video untuk Instagram Reels",
+        url: "https://instagram.com/p/CONTOH123",
+        image_url: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=500&fit=crop",
+        platform: "Instagram",
+        platform_icon: "fab fa-instagram",
+        created_at: "2024-01-05"
     }
 ];
-
-function loadPortfolioProjects() {
-    const portfolioGrid = document.getElementById('portfolioGrid');
-    if (!portfolioGrid) return;
-    
-    portfolioGrid.innerHTML = '';
-    
-    if (staticPortfolioData.length > 0) {
-        updateStats(staticPortfolioData);
-        
-        staticPortfolioData.forEach(project => {
-            const projectElement = createProjectElement(project);
-            portfolioGrid.appendChild(projectElement);
-        });
-    } else {
-        showEmptyState();
-    }
-}
-
-// ==========================================
-// PORTFOLIO DISPLAY FUNCTIONS  
-// ==========================================
 
 // Load static portfolio data
 function loadPortfolioProjects() {
