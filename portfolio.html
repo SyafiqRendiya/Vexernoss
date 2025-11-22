@@ -35,34 +35,34 @@
         }
         
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-card div {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-number {
+    font-size: 2.5rem; /* ✅ GEDEIN DARI 2rem JADI 2.5rem */
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card div {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
         
         .portfolio-actions {
             display: flex;
@@ -381,18 +381,21 @@
                 padding: 3rem 0;
             }
             
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 1.5rem;
-            }
-            
-            .stat-card {
-                padding: 2rem 1rem;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
+            @media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .stat-card {
+        padding: 2rem 1rem;
+    }
+    
+    .stat-number {
+        font-size: 3rem; /* ✅ LEBIH GEDE LAGI DI TABLET */
+    }
+}
+
             
             .portfolio-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -423,6 +426,10 @@
 
         /* DESKTOP STYLES */
         @media (min-width: 1024px) {
+
+            .stat-number {
+        font-size: 3.5rem; /* ✅ NAMBAH INI UNTUK DESKTOP */
+    }
             .portfolio-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 2rem;
